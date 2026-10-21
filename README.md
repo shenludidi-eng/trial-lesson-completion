@@ -2,13 +2,13 @@
 
 **每次部署必须先归档，禁止覆盖或删除历史快照。** 使用 [部署流程](DEPLOYMENT.md) 中的脚本。
 
-[历史版本目录](https://rosannabebe.github.io/trial-lesson-completion/archive/) 保存发布前和发布后的独立页面。
+[历史版本目录](https://shenludidi-eng.github.io/trial-lesson-completion/archive/) 保存发布前和发布后的独立页面。
 
 Dino English 体验课 L1–L4 完课率看板。可按 UTC 时间窗、人群国家、年龄、英文能力筛选，并对照上一相同周期。
 
 打开 GitHub Pages 即可查看，无需安装依赖。右上角可切换中文 / English，默认中文。
 
-https://rosannabebe.github.io/trial-lesson-completion/
+https://shenludidi-eng.github.io/trial-lesson-completion/
 
 页顶可切换「体验课完课率」「体验课课后练习完成情况」「正式课课后练习完成情况」。课后练习不并进完课率，单独一页统计。正式课页只看 L1–L4 正式课，不含 732 / 1615 / 734 / 733 / 1661 / 1616。一课通常有词句 / 口语 / 听力三练，分别看进入占比和完成率；完课且三练都完成同时看占开课、占完课。进入某练=开启该练任务 / 解锁该练任务（9/21 后完课每课各解锁 1 个）。进入任意一个是三类进入的并集，不低于任一单练进入。课后练习漏斗可切整体 / 三类；整体末步是完成任一课后练习，三类只看开始了→完成了。1.8.0 自 2026-09-21 起计入可练分母。
 
@@ -16,114 +16,114 @@ https://rosannabebe.github.io/trial-lesson-completion/
 
 上一版备份（数据同样至 2026-10-06 02:13:15 UTC，V1 导入前两步仍按进入 pre-video / 完成 pre-video）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-10-06-0213-v1-pre-same.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-10-06-0213-v1-pre-same.html
 
 更早一版（数据同样至 2026-10-06 02:13:15 UTC，导入三步仍共用同一个 lead-in 触达）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-10-06-0213-leadin-same.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-10-06-0213-leadin-same.html
 
 更早一版（数据同样至 2026-10-06 02:13:15 UTC，L1 漏斗仍默认并列 V1 / V2）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-10-06-0213-leadin3.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-10-06-0213-leadin3.html
 
 更早一版（数据同样至 2026-10-06 02:13:15 UTC，导入仍是单步，矩阵 ≥50% 标绿）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-10-06-0213-ge50.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-10-06-0213-ge50.html
 
 更早一版（数据同样至 2026-10-06 02:13:15 UTC，矩阵仍是大于 50% 才标绿）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-10-06-0213.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-10-06-0213.html
 
 更早一版（数据至 2026-10-01 17:48:40 UTC）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-10-01-1748-live.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-10-01-1748-live.html
 
 更早一版（数据同样至 2026-10-01 17:48:40 UTC，焦点国家分析仍带「把整体往下拉」）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-10-01-1748.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-10-01-1748.html
 
 更早一版（数据至 2026-10-01 17:13:33 UTC，布局已是折叠版本对比 + 年龄×级别在分日上面）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-10-01-1713-collapse.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-10-01-1713-collapse.html
 
 更早一版（数据同样至 2026-10-01 17:13:33 UTC，版本对比仍在顶部 Tab、年龄×级别矩阵还在核心年龄段后面）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-10-01-1713.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-10-01-1713.html
 
 更早一版（数据至 2026-09-30 11:14:22 UTC）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-09-30-1114-labels.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-09-30-1114-labels.html
 
 更早一版（数据同样至 2026-09-30 11:14:22 UTC，尚无年龄×级别矩阵）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-09-30-1114.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-09-30-1114.html
 
 更早一版（数据至 2026-09-29 12:13:21 UTC）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-09-29-1213.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-09-29-1213.html
 
 更早一版（数据至 2026-09-29 02:13:57 UTC，年龄 × 英文能力已拆单岁/历史段）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-09-29-0213-age-ability.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-09-29-0213-age-ability.html
 
 更早一版（数据同样至 2026-09-29 02:13:57 UTC，年龄 × 英文能力仍是一段表）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-09-29-0213-l1-hide-profile.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-09-29-0213-l1-hide-profile.html
 
 更早一版（数据同样至 2026-09-29 02:13:57 UTC，L1 也展示画像）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-09-29-0213-l1-profile.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-09-29-0213-l1-profile.html
 
 更早一版（数据同样至 2026-09-29 02:13:57 UTC，版本对比仍是完课率柱+表）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-09-29-0213-version-tabs.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-09-29-0213-version-tabs.html
 
 更早一版（数据同样至 2026-09-29 02:13:57 UTC，默认窗口仍是 9/14 至今）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-09-29-0213.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-09-29-0213.html
 
 更早一版（数据至 2026-09-28 02:10:40 UTC，漏斗仅 L1 分版本）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-09-28-0210-l1-funnel.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-09-28-0210-l1-funnel.html
 
 更早一版（数据同样至 2026-09-28 02:10:40 UTC，仍带 wrap-up 勾选框）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-09-28-0210.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-09-28-0210.html
 
 更早一版（数据至 2026-09-27 05:10:54 UTC）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-09-27-0510.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-09-27-0510.html
 
 更早一版（数据至 2026-09-24 10:11:35 UTC）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-09-24-1011.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-09-24-1011.html
 
 更早一版（数据至 2026-09-24 03:13:03 UTC）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-09-24-0313.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-09-24-0313.html
 
 更早一版（数据至 2026-09-23 03:47:28 UTC，已排除这三个测试账号）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-09-23-test-filter.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-09-23-test-filter.html
 
 更早一版（仍含这三个测试环境账号的 12 节课）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-09-23-before-test-filter.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-09-23-before-test-filter.html
 
 更早一版（分析文案已更新，核心年龄柱改为绿色之前）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-09-23-analysis.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-09-23-analysis.html
 
 更早一版（2026-09-23 数据已刷新，分析文案与升降用词更新前）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-09-23-data.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-09-23-data.html
 
 更早一版（2026-09-23 数据刷新前，含漏斗平均耗时 / 沙特对照）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-09-23.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-09-23.html
 
 再早一版（2026-09-22 凌晨，含漏斗、不含平均耗时 / 沙特对照）：
 
-https://rosannabebe.github.io/trial-lesson-completion/archive/2026-09-22.html
+https://shenludidi-eng.github.io/trial-lesson-completion/archive/2026-09-22.html
 
 最近一次数据重算：2026-10-19 03:22:33 UTC。体验课 17,624 节；正式课 3,044 节，正式课事件截止 2026-10-19 01:20:17 UTC。

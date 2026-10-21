@@ -19,6 +19,6 @@ python3 tools/prepare_deployment.py \
 5. 提交并正常推送 `main`，禁止强制推送。远端有新提交时，先同步并重新基于最新首页创建快照。
 6. 等待 GitHub Pages 成功，确认部署提交与刚推送提交一致，并核验线上首页及历史快照内容。
 
-历史入口：https://rosannabebe.github.io/trial-lesson-completion/archive/
+历史入口：https://shenludidi-eng.github.io/trial-lesson-completion/archive/
 
 当前本地数据脚本位于 `00. 数据/Data/`。完成导出后还需依次刷新 `export_trial_student_turns.py`、`export_first_utterance_reply.py`、`export_formal_l1l4_homework.py` 和设备系统数据，再运行 `build_trial_lesson_completion_html.py`。首次回复导出必须指向本次元数据的课堂与模板文件，不使用脚本里旧日期的默认路径。
