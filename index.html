@@ -214,6 +214,7 @@ code{font-size:12px;background:#f5f5f5;padding:1px 4px}
 .feedback-theme-level.is-zero{background:#fafbfc;border-color:#edf0f4}
 .feedback-theme-level.is-zero dt,.feedback-theme-level.is-zero dd{color:#8b96a5}
 @media(max-width:580px){.feedback-theme-levels{gap:6px}.feedback-theme-level{padding:6px 7px;gap:4px}.feedback-theme-level dt{font-size:10px}.feedback-theme-level dd strong{font-size:13px}.feedback-theme-level dd span{font-size:9px}}
+.country-cards{grid-template-columns:repeat(auto-fit,minmax(155px,1fr))}
 </style>
 </head>
 <body>
@@ -24294,6 +24295,7 @@ const FOCUS_COUNTRIES = [
   {name:"韩国", short:"韩国", color:"#c47b1a"},
   {name:"沙特阿拉伯", short:"沙特", color:"#7b5ea7"},
   {name:"日本", short:"日本", color:"#c45c6a"},
+  {name:"土耳其", short:"土耳其", color:"#1996a3"},
 ];
 const PROFILE_COUNTRIES = [
   {name:"马来西亚", short:"马来"},
@@ -24301,6 +24303,7 @@ const PROFILE_COUNTRIES = [
   {name:"韩国", short:"韩国"},
   {name:"沙特阿拉伯", short:"沙特"},
   {name:"日本", short:"日本"},
+  {name:"土耳其", short:"土耳其"},
   {name:"泰国", short:"泰国"},
   {name:"印度尼西亚", short:"印尼"},
 ];
@@ -24311,6 +24314,7 @@ const COUNTRY_ALIAS = {
   VN:"越南", Vietnam:"越南",
   SA:"沙特阿拉伯", "Saudi Arabia":"沙特阿拉伯",
   JP:"日本", Japan:"日本",
+  TR:"土耳其", TUR:"土耳其", Turkey:"土耳其", Türkiye:"土耳其", Turkiye:"土耳其", "土耳其":"土耳其",
   TH:"泰国", Thailand:"泰国",
   ID:"印度尼西亚", Indonesia:"印度尼西亚",
   AE:"阿联酋", "United Arab Emirates":"阿联酋",
@@ -24324,7 +24328,7 @@ const AGE_ORDER = ["3–5","6–8","9–12","13–17","18+","13+","年龄未知"
 const AGE_YEAR_ORDER = ["3","4","5","6","7","8","9","10","11","12","13","14","15","13+","3–5","6–8","9–12","13–17","18+","年龄未知",""];
 const AGE_LEVEL_YEARS = ["3","4","5","6","7","8","9","10","11","12","14","15"];
 const AGE_YEAR_CUTOFF = Date.parse("2026-09-14T00:00:00Z");
-const COUNTRY_ORDER = ["马来西亚","越南","韩国","沙特阿拉伯","日本","泰国","印度尼西亚"];
+const COUNTRY_ORDER = ["马来西亚","越南","韩国","沙特阿拉伯","日本","土耳其","泰国","印度尼西亚"];
 const DAILY_SEGMENTS = [
   {value:"all",label:"全量"},
   {value:"malaysia",label:"马来"},
@@ -24332,6 +24336,7 @@ const DAILY_SEGMENTS = [
   {value:"korea",label:"韩国"},
   {value:"saudi",label:"沙特"},
   {value:"japan",label:"日本"},
+  {value:"turkey",label:"土耳其"},
   {value:"thailand",label:"泰国"},
   {value:"indonesia",label:"印尼"},
 ];
@@ -24352,6 +24357,7 @@ const SEGMENTS = [
   {value:"korea",label:"韩国",country:"韩国"},
   {value:"saudi",label:"沙特",country:"沙特阿拉伯"},
   {value:"japan",label:"日本",country:"日本"},
+  {value:"turkey",label:"土耳其",country:"土耳其"},
   {value:"thailand",label:"泰国",country:"泰国"},
   {value:"indonesia",label:"印尼",country:"印度尼西亚"},
 ];
@@ -24362,6 +24368,7 @@ const COUNTRY_OPTIONS = [
   {value:"韩国",label:"韩国"},
   {value:"沙特阿拉伯",label:"沙特"},
   {value:"日本",label:"日本"},
+  {value:"土耳其",label:"土耳其"},
   {value:"泰国",label:"泰国"},
   {value:"印度尼西亚",label:"印尼"},
 ];
@@ -24406,7 +24413,7 @@ titleCourse:"体验课完课率看板",
 titleHomework:"体验课课后练习完成情况",
 titleFormalHw:"正式课课后练习完成情况",
 titleDinoHelp:"体验课课中Dino助手使用情况",
-descCourse:"L1–L4 完课率、马来/越南/韩国/沙特/日本对照，以及 L1–L4 的 V1 / V2 版本对比合在同一页。窗口内任意一次 <code>class_stage_start</code> 都算开课，完课看 <code>trigger + type=trial + result=complete</code>，分母是独立 <code>class_id</code>。改 UTC 时间窗后，下面所有数字一起重算。",
+descCourse:"L1–L4 完课率、马来/越南/韩国/沙特/日本/土耳其对照，以及 L1–L4 的 V1 / V2 版本对比合在同一页。窗口内任意一次 <code>class_stage_start</code> 都算开课，完课看 <code>trigger + type=trial + result=complete</code>，分母是独立 <code>class_id</code>。改 UTC 时间窗后，下面所有数字一起重算。",
 descHomework:"这一页单独看 L1–L4 体验课完课，以及对应课后练习。课后练习不并进上一页的完课率。开课仍是窗口内任意一次 <code>class_stage_start</code>；课程完课看 <code>trigger + type=trial + result=complete</code>。一课通常有词句 / 口语 / 听力三练，分别统计完成率。练习挂到同一用户、同一课的课堂。1.8.0 于 2026-09-21 上线，可练分母只计入当天 00:00 UTC 及之后完课的课堂。",
 descFormal:"这一页只看 L1–L4 正式课完课和对应课后练习，不含体验课 <code>732 / 1615 / 734 / 733</code>，也不含 <code>1661 / 1616</code>。开课是窗口内任意一次 <code>class_stage_start</code>；课程完课看 <code>class_lesson_end + result=complete</code>。课后练习不并进完课率。一课通常有词句 / 口语 / 听力三练。练习挂到同一用户、同一课的课堂。1.8.0 于 2026-09-21 上线，可练分母只计入当天 00:00 UTC 及之后完课的课堂。",
 descDinoHelp:"这一页只看 L1–L4 体验课课中的 Dino 助手。入口按钮是 <code>click + class_help</code>，只计 <code>lesson_id</code> 732 / 1615 / 734 / 733。面板里三个按钮分别是「下一页」<code>class_help_next_page</code>、「求助Dino」<code>class_help_dino</code>、「问题反馈」<code>class_help_feedback</code>。开课仍是窗口内任意一次 <code>class_stage_start</code>；完课看 <code>trigger + type=trial + result=complete</code>。点击量、用户量、课堂量只计窗口内的点击。求助过 = 这节课在窗口内点过「求助Dino」。改 UTC 时间窗或筛选后，点击与完课数据一起重算；下方录音分析使用自己的四项筛选。",
@@ -24445,6 +24452,7 @@ vietnam:"越南",
 korea:"韩国",
 saudi:"沙特",
 japan:"日本",
+turkey:"土耳其",
 thailand:"泰国",
 indonesia:"印尼",
 allSeg:"全量",
@@ -24475,7 +24483,7 @@ invalidTime:"<b>时间格式无效</b>　请使用 UTC 日期 YYYY-MM-DD 和时�
 noStarts:"<b>这个 UTC 窗口没有开课</b>　可放宽时间窗，或把人群改回全部国家。数据最早从 {start} UTC 开始。",
 secRate:"体验课完课率（{segment}）",
 secAnalysis:"完课率分析",
-secFocus:"马来 / 越南 / 韩国 / 沙特 / 日本 · 分 Level 完课率",
+secFocus:"马来 / 越南 / 韩国 / 沙特 / 日本 / 土耳其 · 分 Level 完课率",
 baseline50:"50%",
 secProfile:"核心国家 · 年龄 × 英文能力",
 secFunnel:"Template触达漏斗（{countries}）",
@@ -24492,7 +24500,7 @@ secCountryOne:"{level} 分国家",
 secCoreAge:"核心年龄段用户完课情况",
 secAge:"各年龄段整体完课率",
 secAbility:"英文能力完课率",
-secTurns:"马来 / 越南 / 韩国 / 沙特 / 日本 · 分 Level 课均开口次数",
+secTurns:"马来 / 越南 / 韩国 / 沙特 / 日本 / 土耳其 · 分 Level 课均开口次数",
 turnsAll:"整体",
 turnsAllCountries:"所有国家",
 turnsN:"{n} 节课",
@@ -24539,9 +24547,9 @@ secHwRate:"课程与课后练习",
 secHwLevel:"分 Level",
 secHwFunnel:"课后练习漏斗",
 secHwDaily:"分日完成情况",
-secHwFocus:"马来 / 越南 / 韩国 / 沙特 / 日本",
-focusNames:"马来、越南、韩国、沙特、日本",
-analysisIntro:"对照上一相同时长周期 {prev}。改 UTC 窗口或筛选后，这一节按当前数字重写。先写马来、越南、韩国、沙特、日本的完课率和开课占比；泰国、印尼或其他国家只有在把本级别完课率往下拉时才写出。核心用户按 5–8 岁看占比和完课率相对上期的变化，并和这五个国家交叉。英文能力只在已回填的课里对比，回填不足时不拿能力结构解释完课。L3 / L4 另写距 50% 的缺口。",
+secHwFocus:"马来 / 越南 / 韩国 / 沙特 / 日本 / 土耳其",
+focusNames:"马来、越南、韩国、沙特、日本、土耳其",
+analysisIntro:"对照上一相同时长周期 {prev}。改 UTC 窗口或筛选后，这一节按当前数字重写。先写马来、越南、韩国、沙特、日本、土耳其的完课率和开课占比；泰国、印尼或其他国家只有在把本级别完课率往下拉时才写出。核心用户按 5–8 岁看占比和完课率相对上期的变化，并和这六个国家交叉。英文能力只在已回填的课里对比，回填不足时不拿能力结构解释完课。L3 / L4 另写距 50% 的缺口。",
 country:"国家",
 profile:"进课画像",
 gap50:"距 50%",
@@ -24556,8 +24564,8 @@ shareBit:"占比 {from}%→{to}%（{delta}）",
 belowLevel:"低于本级别 {gap}pp",
 aboveLevel:"高于本级别 {gap}pp",
 dragLine:"{label} {rate}% · {count}，占开课 {share}%，把整体往下拉 {drag}pp",
-focusLead:"马来、越南、韩国、沙特、日本：{lines}",
-focusEmpty:"马来、越南、韩国、沙特、日本在这个窗口几乎没有开课",
+focusLead:"马来、越南、韩国、沙特、日本、土耳其：{lines}",
+focusEmpty:"马来、越南、韩国、沙特、日本、土耳其在这个窗口几乎没有开课",
 watchLead:"泰国、印尼或其他国家里，把整体往下拉的是{lines}",
 abilityShift:"{key} 占比 {from}%→{to}%（{delta}）",
 abilityRate:"，完课率 {rate}%",
@@ -24575,7 +24583,7 @@ abilityScopeCore:"5–8 岁里已填写英文能力的用户",
 abilityScopeAll:"已填写英文能力的用户",
 abilityChanged:"{scope}里，{lines}",
 abilityStable:"{scope}里，能力结构和完课率相对上期变化不大",
-crossLead:"五国 × 5–8 岁：{lines}",
+crossLead:"六国 × 5–8 岁：{lines}",
 belowCountry:"，低于该国整体",
 aboveCountry:"，高于该国整体",
 watchCore:"{label}的 5–8 岁 {rate}%（{count}），把整体往下拉 {drag}pp",
@@ -24720,7 +24728,7 @@ titleCourse:"Trial lesson completion",
 titleHomework:"Trial homework completion",
 titleFormalHw:"Regular-lesson homework",
 titleDinoHelp:"In-class Dino helper",
-descCourse:"L1–L4 completion, Malaysia / Vietnam / Korea / Saudi / Japan, and V1 / V2 on one page. Any <code>class_stage_start</code> in the UTC window counts as a start. Complete = <code>trigger + type=trial + result=complete</code>. Denominator is distinct <code>class_id</code>. Changing the UTC window recalculates every number below.",
+descCourse:"L1–L4 completion, Malaysia / Vietnam / Korea / Saudi / Japan / Türkiye, and V1 / V2 on one page. Any <code>class_stage_start</code> in the UTC window counts as a start. Complete = <code>trigger + type=trial + result=complete</code>. Denominator is distinct <code>class_id</code>. Changing the UTC window recalculates every number below.",
 descHomework:"This page is L1–L4 trial completion plus the matching homework. Homework is not mixed into the completion rates on the previous tab. A start is still any <code>class_stage_start</code> in the window. Course complete = <code>trigger + type=trial + result=complete</code>. A course usually has words & sentences / speaking / listening. Homework is attached to the same user and lesson. 1.8.0 launched on 2026-09-21; the eligible denominator only includes classes completed at or after 00:00 UTC that day.",
 descFormal:"This page is L1–L4 regular lessons only — not trial <code>732 / 1615 / 734 / 733</code>, and not <code>1661 / 1616</code>. A start is any <code>class_stage_start</code> in the window. Course complete = <code>class_lesson_end + result=complete</code>. Homework is not mixed into completion. A course usually has words & sentences / speaking / listening. Homework is attached to the same user and lesson. 1.8.0 launched on 2026-09-21; the eligible denominator only includes classes completed at or after 00:00 UTC that day.",
 descDinoHelp:"This page is the in-class Dino helper on L1–L4 trial lessons only. The entry button is <code>click + class_help</code>, limited to lesson_id 732 / 1615 / 734 / 733. Inside the panel: Next page <code>class_help_next_page</code>, Ask Dino <code>class_help_dino</code>, Feedback <code>class_help_feedback</code>. A start is still any <code>class_stage_start</code> in the window. Complete = <code>trigger + type=trial + result=complete</code>. Clicks, users, and classes only count events inside the window. Asked for help = the class clicked Ask Dino in the window. Changing the UTC window or filters recalculates clicks and completion. Recording analysis below has its own four filters.",
@@ -24759,6 +24767,7 @@ vietnam:"Vietnam",
 korea:"Korea",
 saudi:"Saudi",
 japan:"Japan",
+turkey:"Türkiye",
 thailand:"Thailand",
 indonesia:"Indonesia",
 allSeg:"All",
@@ -24789,7 +24798,7 @@ invalidTime:"<b>Invalid time</b>　Use UTC date YYYY-MM-DD and time HH:MM:SS, an
 noStarts:"<b>No starts in this UTC window</b>　Widen the window, or switch countries back to all. Data starts at {start} UTC.",
 secRate:"Trial completion ({segment})",
 secAnalysis:"Completion analysis",
-secFocus:"Malaysia / Vietnam / Korea / Saudi / Japan · completion by level",
+secFocus:"Malaysia / Vietnam / Korea / Saudi / Japan / Türkiye · completion by level",
 baseline50:"50%",
 secProfile:"Core countries · age × English ability",
 secFunnel:"Template reach funnel ({countries})",
@@ -24806,7 +24815,7 @@ secCountryOne:"{level} by country",
 secCoreAge:"Core-age completion",
 secAge:"Overall completion by age",
 secAbility:"Completion by English ability",
-secTurns:"Malaysia / Vietnam / Korea / Saudi / Japan · turns per class by level",
+secTurns:"Malaysia / Vietnam / Korea / Saudi / Japan / Türkiye · turns per class by level",
 turnsAll:"Overall",
 turnsAllCountries:"All countries",
 turnsN:"{n} classes",
@@ -24853,9 +24862,9 @@ secHwRate:"Course and homework",
 secHwLevel:"By level",
 secHwFunnel:"Homework funnel",
 secHwDaily:"Daily completion",
-secHwFocus:"Malaysia / Vietnam / Korea / Saudi / Japan",
-focusNames:"Malaysia, Vietnam, Korea, Saudi, Japan",
-analysisIntro:"Compared with the previous period of the same length, {prev}. This section rewrites from the current numbers after you change the UTC window or filters. It leads with Malaysia, Vietnam, Korea, Saudi, and Japan completion and start share. Thailand, Indonesia, or other countries are written only when they drag this level down. Core learners are ages 5–8: share, completion vs previous, and a cross with these five countries. English ability is compared only among filled classes; if fill is too low, ability mix is not used to explain completion. L3 / L4 also show the gap to 50%.",
+secHwFocus:"Malaysia / Vietnam / Korea / Saudi / Japan / Türkiye",
+focusNames:"Malaysia, Vietnam, Korea, Saudi, Japan, Türkiye",
+analysisIntro:"Compared with the previous period of the same length, {prev}. This section rewrites from the current numbers after you change the UTC window or filters. It leads with Malaysia, Vietnam, Korea, Saudi, Japan, and Türkiye completion and start share. Thailand, Indonesia, or other countries are written only when they drag this level down. Core learners are ages 5–8: share, completion vs previous, and a cross with these six countries. English ability is compared only among filled classes; if fill is too low, ability mix is not used to explain completion. L3 / L4 also show the gap to 50%.",
 country:"Country",
 profile:"Learner mix",
 gap50:"Gap to 50%",
@@ -24870,8 +24879,8 @@ shareBit:"share {from}%→{to}% ({delta})",
 belowLevel:"{gap}pp below this level",
 aboveLevel:"{gap}pp above this level",
 dragLine:"{label} {rate}% · {count}, {share}% of starts, dragging the total down {drag}pp",
-focusLead:"Malaysia, Vietnam, Korea, Saudi, Japan: {lines}",
-focusEmpty:"Malaysia, Vietnam, Korea, Saudi, and Japan had almost no starts in this window",
+focusLead:"Malaysia, Vietnam, Korea, Saudi, Japan, Türkiye: {lines}",
+focusEmpty:"Malaysia, Vietnam, Korea, Saudi, Japan, and Türkiye had almost no starts in this window",
 watchLead:"Among Thailand, Indonesia, or other countries, the drag comes from {lines}",
 abilityShift:"{key} share {from}%→{to}% ({delta})",
 abilityRate:", completion {rate}%",
@@ -24889,7 +24898,7 @@ abilityScopeCore:"among ages 5–8 with English ability filled",
 abilityScopeAll:"among learners with English ability filled",
 abilityChanged:"{scope}, {lines}",
 abilityStable:"{scope}, ability mix and completion barely moved vs previous",
-crossLead:"Five countries × ages 5–8: {lines}",
+crossLead:"Six countries × ages 5–8: {lines}",
 belowCountry:", below that country overall",
 aboveCountry:", above that country overall",
 watchCore:"{label} ages 5–8 {rate}% ({count}), dragging the total down {drag}pp",
@@ -25044,6 +25053,7 @@ const COUNTRY_I18N = {
   "韩国":{en:"Korea", enShort:"Korea"},
   "沙特阿拉伯":{en:"Saudi Arabia", enShort:"Saudi"},
   "日本":{en:"Japan", enShort:"Japan"},
+  "土耳其":{en:"Türkiye", enShort:"Türkiye"},
   "泰国":{en:"Thailand", enShort:"Thailand"},
   "印度尼西亚":{en:"Indonesia", enShort:"Indonesia"},
   "其他":{en:"Other", enShort:"Other"},
@@ -25160,7 +25170,7 @@ function displayLessonName(name){
   return name;
 }
 function focusTitle(){
-  return isEn() ? t("secHwFocus") : "马来 / 越南 / 韩国 / 沙特 / 日本";
+  return isEn() ? t("secHwFocus") : "马来 / 越南 / 韩国 / 沙特 / 日本 / 土耳其";
 }
 function presetLabelOf(p){
   if(p.value==="prevWeek"){
@@ -25204,7 +25214,8 @@ function rateHitCell(metric){
   if(v!==null && v<=30) return `<span class="rate-low">${esc(text)}</span>`;
   return esc(text);
 }
-function focusDetail(curr, prev){
+function focusDetail(curr, prev, country=null){
+  if(turkeyComparisonBlocked(country)) return esc(detail(curr));
   if(!curr.started) return "—";
   const a = rate(curr), b = rate(prev);
   if(a===null || b===null) return esc(detail(curr));
@@ -25219,15 +25230,16 @@ function utcStampText(ms){
   const d = new Date(ms);
   return `${d.getUTCFullYear()}-${pad(d.getUTCMonth()+1)}-${pad(d.getUTCDate())} ${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:${pad(d.getUTCSeconds())}`;
 }
-function prevCmpText(curr, prev){
+function prevCmpText(curr, prev, country=null){
+  if(turkeyComparisonBlocked(country)) return turkeyNoComparison();
   const a = rate(curr), b = rate(prev);
   if(b===null) return "—";
   if(a===null) return rateText(prev);
   const d = Number((a-b).toFixed(1));
   return rateText(prev)+"（"+(d>0?"+":"")+d.toFixed(1)+"pp）";
 }
-function cmpHTML(curr, prev){
-  return cmpPercentHTML(rate(curr), rate(prev));
+function cmpHTML(curr, prev, country=null){
+  return cmpPercentHTML(rate(curr), rate(prev), country);
 }
 function cmpTurnsHTML(curr, prev){
   if(!prev) return `<div class="cmp">${t("prev")} —</div>`;
@@ -25236,7 +25248,8 @@ function cmpTurnsHTML(curr, prev){
   const delta = d===null ? "—" : (d>0?"+":"")+d.toFixed(1);
   return `<div class="cmp">${t("prev")} ${prev.avg.toFixed(1)}<span class="${cls}">${delta}</span></div>`;
 }
-function cmpPercentHTML(curr, prev){
+function cmpPercentHTML(curr, prev, country=null){
+  if(turkeyComparisonBlocked(country)) return turkeyComparisonBadge();
   if(prev===null || Number.isNaN(prev)) return `<div class="cmp">${t("prev")} —</div>`;
   const d = curr===null || Number.isNaN(curr) ? null : Number((curr-prev).toFixed(1));
   const cls = d===null || d===0 ? "" : d>0 ? " up" : " down";
@@ -25244,6 +25257,7 @@ function cmpPercentHTML(curr, prev){
   return `<div class="cmp">${t("prev")} ${prev.toFixed(1)}%<span class="${cls}">${delta}</span></div>`;
 }
 function ppCell(curr, prev){
+  if(turkeyComparisonBlocked()) return "—";
   if(curr===null || Number.isNaN(curr) || prev===null || Number.isNaN(prev)) return "—";
   const d = Number((curr-prev).toFixed(1));
   const cls = d>0 ? "delta-up" : d<0 ? "delta-down" : "";
@@ -25554,8 +25568,37 @@ function parseClassLine(line, idx){
     ...parseHelpPack(helpEvents),
   };
 }
+// Business dates use UTC, like all existing dashboard date filters.
+const TURKEY_DATA_START = Date.parse("2026-10-16T00:00:00Z");
+const TURKEY_FIRST_WEEK = Date.parse("2026-10-19T00:00:00Z");
+const TURKEY_COMPARE_START = Date.parse("2026-10-26T00:00:00Z");
+function turkeyComparisonAllowed(start, previousStart){
+  return start >= TURKEY_COMPARE_START && previousStart >= TURKEY_FIRST_WEEK;
+}
+function turkeyComparisonBlocked(country=null){
+  const turkeyScope = country === "土耳其" || (!country && state.countries.length === 1 && state.countries[0] === "土耳其");
+  if(!turkeyScope) return false;
+  const start = parseUtcStamp(joinStamp(state.startDate,state.startTime));
+  const end = parseUtcStamp(joinStamp(state.endDate,state.endTime));
+  return !turkeyComparisonAllowed(start, start-(end-start));
+}
+function turkeyNoComparison(){
+  return isEn() ? "Launch period · no previous-period comparison" : "首期数据 · 暂不上期对比";
+}
+function turkeyComparisonBadge(){
+  return `<div class="cmp">${turkeyNoComparison()}</div>`;
+}
+function applyTurkeyDataStart(rows){
+  return rows.filter(row=>{
+    if(row.country!=="土耳其") return true;
+    // Preserve the original start: template event offsets refer to that timestamp.
+    row.starts=row.starts.filter(stamp=>stamp>=TURKEY_DATA_START);
+    return row.starts.length>0;
+  });
+}
+
 function parseClassCsv(text){
-  return (text||"").trim().split("\n").filter(Boolean).map(parseClassLine);
+  return applyTurkeyDataStart((text||"").trim().split("\n").filter(Boolean).map(parseClassLine));
 }
 const FEEDBACK_ANALYSIS = JSON.parse(document.getElementById("feedback-analysis-json").textContent);
 const feedbackUiState = {country:"__all__",level:"__all__",age:"__all__",ability:"__all__",breakdown:"country"};
@@ -25954,7 +25997,7 @@ function dimItems(currMap, prevMap, currN, prevN){
   }
   return items;
 }
-const ANALYSIS_FOCUS = ["马来西亚","越南","韩国","沙特阿拉伯","日本"];
+const ANALYSIS_FOCUS = ["马来西亚","越南","韩国","沙特阿拉伯","日本","土耳其"];
 const ANALYSIS_WATCH = ["泰国","印度尼西亚"];
 function rowsMetric(rows, end){
   const metric = emptyMetric();
@@ -26009,7 +26052,7 @@ function countryAnalysisText(currRows, prevRows, currMetric, prevMetric, rangeEn
   }
   function pack(key){
     const now = rowsMetric(bucketRows(currRows, key), rangeEnd);
-    const prev = rowsMetric(bucketRows(prevRows, key), prevEnd);
+    const prev = rowsMetric(turkeyComparisonBlocked(key)?[]:bucketRows(prevRows, key), prevEnd);
     return {
       key, now, prev,
       nowShare: shareOf(now.started, currMetric.started),
@@ -26121,7 +26164,7 @@ function profileAnalysisText(currRows, prevRows, currMetric, prevMetric, rangeEn
           prevShare: shareOf(prev.started, corePrev.started),
         };
       }).filter(item=>Math.abs(item.nowShare-item.prevShare)>=5 && item.now.started>=5);
-      if(yearShift.length && coreNow.started>=20){
+      if(!turkeyComparisonBlocked() && yearShift.length && coreNow.started>=20){
         parts.push(t("coreInner", {lines: joinCn(yearShift.slice(0,3).map(item=>{
           const nowRate = rate(item.now);
           return t("yearShare", {year: item.year, from: item.prevShare.toFixed(1), to: item.nowShare.toFixed(1), delta: signedPp(item.nowShare-item.prevShare)}) + (nowRate===null ? "" : t("yearRate", {rate: nowRate.toFixed(1)}));
@@ -26137,7 +26180,7 @@ function profileAnalysisText(currRows, prevRows, currMetric, prevMetric, rangeEn
     const coreKnownNow = coreNowRows.filter(r=>r.ability);
     const coreKnownPrev = corePrevRows.filter(r=>r.ability);
     const coreCov = shareOf(coreKnownNow.length, coreNow.started);
-    if(Math.abs(covNow-covPrev)>=10){
+    if(!turkeyComparisonBlocked() && Math.abs(covNow-covPrev)>=10){
       parts.push(t("abilityFillShift", {from: covPrev.toFixed(1), to: covNow.toFixed(1)}));
     }
     if(covNow<30 && coreCov<30){
@@ -26146,13 +26189,13 @@ function profileAnalysisText(currRows, prevRows, currMetric, prevMetric, rangeEn
       const useCore = coreCov>=30;
       const shifts = abilityShifts(useCore?coreKnownNow:knownNow, useCore?coreKnownPrev:knownPrev, rangeEnd, prevEnd);
       const scope = useCore ? t("abilityScopeCore") : t("abilityScopeAll");
-      parts.push(shifts.length ? t("abilityChanged", {scope, lines: joinCn(shifts.slice(0,3).map(abilityShiftText))}) : t("abilityStable", {scope}));
+      if(!turkeyComparisonBlocked()) parts.push(shifts.length ? t("abilityChanged", {scope, lines: joinCn(shifts.slice(0,3).map(abilityShiftText))}) : t("abilityStable", {scope}));
     }
   }
   const crosses = [];
   for(const name of ANALYSIS_FOCUS){
     const now = rowsMetric(currRows.filter(r=>r.country===name && isCoreAge(r)), rangeEnd);
-    const prev = rowsMetric(prevRows.filter(r=>r.country===name && isCoreAge(r)), prevEnd);
+    const prev = rowsMetric(turkeyComparisonBlocked(name)?[]:prevRows.filter(r=>r.country===name && isCoreAge(r)), prevEnd);
     const countryNow = rowsMetric(currRows.filter(r=>r.country===name), rangeEnd);
     if(now.started<6 && prev.started<6) continue;
     crosses.push({name, now, prev, countryRate: rate(countryNow), nowRate: rate(now), prevRate: rate(prev)});
@@ -26186,7 +26229,7 @@ function profileAnalysisText(currRows, prevRows, currMetric, prevMetric, rangeEn
     for(const name of ANALYSIS_FOCUS){
       const countryRows = currRows.filter(r=>r.country===name);
       const known = countryRows.filter(r=>r.ability);
-      const knownPrev = prevRows.filter(r=>r.country===name && r.ability);
+      const knownPrev = turkeyComparisonBlocked(name)?[]:prevRows.filter(r=>r.country===name && r.ability);
       if(countryRows.length<8 || shareOf(known.length, countryRows.length)<30) continue;
       const abilities = new Set(known.map(r=>abilityLabel(r.ability)));
       for(const ability of abilities){
@@ -26825,12 +26868,13 @@ function render(){
   const duration = rangeEnd - rangeStart;
   const prevStart = rangeStart - duration;
   const prevEnd = rangeStart - 1;
-  const prevLabel = `${utcStampText(prevStart)} – ${utcStampText(prevEnd)} UTC`;
+  const prevLabel = turkeyComparisonBlocked() ? turkeyNoComparison() : `${utcStampText(prevStart)} – ${utcStampText(prevEnd)} UTC`;
   const sourceRows = currentRows();
   const allInWindow = sourceRows.filter(row =>
     firstInWindow(row,rangeStart,rangeEnd)!==null && inFilters(row,state.countries,state.age,state.ability,state.exclude13)
   );
   const prevInWindow = sourceRows.filter(row =>
+    !turkeyComparisonBlocked() &&
     firstInWindow(row,prevStart,prevEnd)!==null && inFilters(row,state.countries,state.age,state.ability,state.exclude13)
   );
   const scoped = allInWindow.filter(row => selectedLevel===null || row.level===selectedLevel);
@@ -27350,11 +27394,11 @@ function render(){
 
   if(totals.started>0){
     addSec("sec-focus", t("secFocus"), `
-      <h2>${t("secFocus")}</h2>
-      <div class="grid g5" style="margin-bottom:12px">
+      <h2>${t("secFocus")}</h2><p class="tiny">${isEn()?"Türkiye: data from Oct 16 (UTC); Oct 19–25 is the first week, without previous-period comparisons. Comparisons begin with Oct 26–Nov 1.":"土耳其：从10月16日（UTC）起取数；10月19–25日为第一周，不做上期对比。从10月26日–11月1日这一周开始对比。"}</p>
+      <div class="grid country-cards" style="margin-bottom:12px">
         ${FOCUS_COUNTRIES.map(c=>{
           const m = focusByCountry[c.name].all;
-          return `<div class="stat"><div class="k">${displayCountryShort(c.name)} ${t("total")} · ${countText(m)}</div><div class="v">${rateText(m)}</div>${cmpHTML(m, prevFocusByCountry[c.name].all)}</div>`;
+          return `<div class="stat"><div class="k">${displayCountryShort(c.name)} ${t("total")} · ${countText(m)}</div><div class="v">${rateText(m)}</div>${cmpHTML(m, prevFocusByCountry[c.name].all, c.name)}</div>`;
         }).join("")}
       </div>
       ${groupBarChart(
@@ -27371,12 +27415,12 @@ function render(){
         LEVELS.map(l=>[
           l.label,
           displayLessonName(l.name),
-          ...FOCUS_COUNTRIES.map(c=>focusDetail(focusByCountry[c.name][l.level], prevFocusByCountry[c.name][l.level])),
+          ...FOCUS_COUNTRIES.map(c=>focusDetail(focusByCountry[c.name][l.level], prevFocusByCountry[c.name][l.level], c.name)),
         ]),
         2,
         2
       )}
-      <p class="tiny">${isEn() ? "X-axis: trial level; Y-axis: class completion (%). The dashed line is the 50% target. Malaysia, Vietnam, Korea, Saudi Arabia, and Japan only. Recalculates with the UTC window, age, ability, and “exclude 13+”; ignores the country filter above. Cells are completion · completed/started. Parentheses are percentage points vs the previous period of the same length." : "横轴：体验课 Level；纵轴：课堂完课率（%）。橙色虚线是 50% 完课目标。只看马来西亚、越南、韩国、沙特阿拉伯、日本，随 UTC 时间窗、用户年龄、英文能力和「排除 13+ 用户」重算，不受上方人群国家下拉影响。单元格为完课率 · 完课/开课，括号是相对上一相同长度周期的百分点，+ 为上升，− 为下降。"}</p>
+      <p class="tiny">${isEn() ? "X-axis: trial level; Y-axis: class completion (%). The dashed line is the 50% target. Malaysia, Vietnam, Korea, Saudi Arabia, Japan, and Türkiye only. Recalculates with the UTC window, age, ability, and “exclude 13+”; ignores the country filter above. Cells are completion · completed/started. Parentheses are percentage points vs the previous period of the same length." : "横轴：体验课 Level；纵轴：课堂完课率（%）。橙色虚线是 50% 完课目标。只看马来西亚、越南、韩国、沙特阿拉伯、日本、土耳其，随 UTC 时间窗、用户年龄、英文能力和「排除 13+ 用户」重算，不受上方人群国家下拉影响。单元格为完课率 · 完课/开课，括号是相对上一相同长度周期的百分点，+ 为上升，− 为下降。"}</p>
     `);
     addSec("sec-profile", t("secProfile")+ (selectedLevel?" · "+currentLevel.label:""), `
       <h2>${t("secProfile")}${selectedLevel?" · "+currentLevel.label:""}</h2>
@@ -27413,7 +27457,7 @@ function render(){
                 String(r.metric.started),
                 String(r.metric.completed),
                 rateText(r.metric),
-                prevCmpText(r.metric, prev),
+                prevCmpText(r.metric, prev, r.country),
                 profileShare(r),
               ];
             }),
@@ -27563,7 +27607,7 @@ function render(){
 
   if(dailySegmentRows.length){
     addSec("sec-daily-country", (useHourly?t("secDailyCountryHour"):t("secDailyCountryDay"))+(currentLevel?" · "+currentLevel.label:""), `<h2>${useHourly?t("secDailyCountryHour"):t("secDailyCountryDay")}${currentLevel?" · "+currentLevel.label:""}</h2>${tableHTML(
-      [useHourly?t("utcHour"):t("utcDate"), ...DAILY_SEGMENTS.map(x=>x.value==="all"?t("allSeg"):displayCountryShort(({malaysia:"马来西亚",vietnam:"越南",korea:"韩国",saudi:"沙特阿拉伯",japan:"日本",thailand:"泰国",indonesia:"印度尼西亚"})[x.value]||x.label))],
+      [useHourly?t("utcHour"):t("utcDate"), ...DAILY_SEGMENTS.map(x=>x.value==="all"?t("allSeg"):displayCountryShort(({malaysia:"马来西亚",vietnam:"越南",korea:"韩国",saudi:"沙特阿拉伯",japan:"日本",turkey:"土耳其",thailand:"泰国",indonesia:"印度尼西亚"})[x.value]||x.label))],
       dailySegmentRows.map(r=>[r.key, ...DAILY_SEGMENTS.map(x=>detail(r.cells[x.value]))]),
       1
     )}<p class="tiny">${t("cellRate")} ${esc(caption)}</p>`);
@@ -27685,12 +27729,12 @@ function render(){
     if(levelRows.length>1) tableRows.push([t("turnsAll"), ...rowPacks("all")]);
     for(const l of levelRows) tableRows.push([l.label, ...rowPacks(l.level)]);
     const cardLabel = selectedLevel ? `L${selectedLevel}` : t("turnsAll");
-    const turnCard = (title, now, prev) => `<div class="stat"><div class="k">${title}</div><div class="v">${now?now.avg.toFixed(1):"—"}</div><div class="k" style="margin-top:6px">${now?t("turnsN",{n:now.n}):t("turnsNone")}</div>${now?`<div class="turns-rate">${t("turnsRate",{rate:now.rate.toFixed(1)})}</div>`:""}${cmpTurnsHTML(now, prev)}</div>`;
+    const turnCard = (title, now, prev, country="all") => `<div class="stat"><div class="k">${title}</div><div class="v">${now?now.avg.toFixed(1):"—"}</div><div class="k" style="margin-top:6px">${now?t("turnsN",{n:now.n}):t("turnsNone")}</div>${now?`<div class="turns-rate">${t("turnsRate",{rate:now.rate.toFixed(1)})}</div>`:""}${turkeyComparisonBlocked(country)?turkeyComparisonBadge():cmpTurnsHTML(now, prev)}</div>`;
     addSec("sec-turns", t("secTurns"), `
       <h2>${t("secTurns")}</h2>
-      <div class="grid g6" style="margin-bottom:12px">
+      <div class="grid country-cards" style="margin-bottom:12px">
         ${turnCard(`${t("turnsAllCountries")} · ${cardLabel}`, packTurns(allNow, rangeEnd), packTurns(prevAll, prevEnd))}
-        ${FOCUS_COUNTRIES.map(c=>turnCard(`${displayCountryShort(c.name)} · ${cardLabel}`, packTurns(buckets[c.name].all, rangeEnd), packTurns(prevBuckets[c.name], prevEnd))).join("")}
+        ${FOCUS_COUNTRIES.map(c=>turnCard(`${displayCountryShort(c.name)} · ${cardLabel}`, packTurns(buckets[c.name].all, rangeEnd), packTurns(prevBuckets[c.name], prevEnd), c.name)).join("")}
       </div>
       ${levelRows.length>1 ? turnsGroupChart(
         levelRows.map(l=>l.label),
