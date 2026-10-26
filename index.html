@@ -27560,7 +27560,7 @@ function render(){
           </div>
           <div>
             <h3>${t("countryShare")}</h3>
-            ${versionShareChart(v1rows, v2rows, row=>countryShort(row.country), [displayCountryShort("马来西亚"),displayCountryShort("越南"),displayCountryShort("韩国"),displayCountryShort("沙特阿拉伯"),displayCountryShort("泰国"),displayCountryShort("印度尼西亚")], 8)}
+            ${versionShareChart(v1rows, v2rows, row=>countryShort(row.country), PROFILE_COUNTRIES.map(c=>displayCountryShort(c.name)), PROFILE_COUNTRIES.length)}
           </div>
           <div>
             <h3>${t("osShare")}</h3>
