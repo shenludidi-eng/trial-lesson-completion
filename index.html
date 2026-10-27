@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#4a7cff">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <title>体验课完课率看板</title>
 <style>
 :root {
@@ -24325,8 +24327,8 @@ const ABILITY_LABEL = {
   RW:"Can read & write",RT:"Can read & talk",AD:"Advanced",MA:"More advanced",
 };
 const AGE_ORDER = ["3–5","6–8","9–12","13–17","18+","13+","年龄未知",""];
-const AGE_YEAR_ORDER = ["3","4","5","6","7","8","9","10","11","12","13","14","15","13+","3–5","6–8","9–12","13–17","18+","年龄未知",""];
-const AGE_LEVEL_YEARS = ["3","4","5","6","7","8","9","10","11","12","14","15"];
+const AGE_YEAR_ORDER = ["3","4","5","6","7","8","9","10","11","12","13+","3–5","6–8","9–12","13–17","18+","年龄未知",""];
+const AGE_LEVEL_YEARS = ["3","4","5","6","7","8","9","10","11","12","13+"];
 const AGE_YEAR_CUTOFF = Date.parse("2026-09-14T00:00:00Z");
 const COUNTRY_ORDER = ["马来西亚","越南","韩国","沙特阿拉伯","日本","土耳其","泰国","印度尼西亚"];
 const DAILY_SEGMENTS = [
@@ -24489,6 +24491,8 @@ secProfile:"核心国家 · 年龄 × 英文能力",
 secFunnel:"Template触达漏斗（{countries}）",
 secVersion:"版本对比 · V1 vs V2",
 secAgeLevel:"年龄 × 级别 × 完课率（{countries}）",
+secAgeAbilityLevel:"年龄 × 英文能力 × 级别 × 完课率（{countries}）",
+ageAbilityLevelNote:"每行是单岁年龄 × 英文能力，单元格为完课率 · 完课/开课。能力未知的数据保留展示，并随上方时间窗和筛选条件重算。",
 secDailyHour:"分小时完课率",
 secDailyDay:"分日完课率",
 secDailyCountryHour:"分小时 × 国家段",
@@ -24804,6 +24808,8 @@ secProfile:"Core countries · age × English ability",
 secFunnel:"Template reach funnel ({countries})",
 secVersion:"Version comparison · V1 vs V2",
 secAgeLevel:"Age × level × completion ({countries})",
+secAgeAbilityLevel:"Age × English ability × level × completion ({countries})",
+ageAbilityLevelNote:"Each row is exact age × English ability. Cells show completion · completed/started. Unknown ability is retained, and the table recalculates with the UTC window and filters above.",
 secDailyHour:"Hourly completion",
 secDailyDay:"Daily completion",
 secDailyCountryHour:"Hourly × country",
@@ -25292,11 +25298,15 @@ function inAge(row, ageFilter, exclude13){
   if(ageFilter==="unknown") return !row.age || row.age==="年龄未知";
   return row.age===ageFilter;
 }
+function ageYearBucket(row){
+  const age = row.ageYear || row.age || "年龄未知";
+  return ["13","14","15"].includes(age) ? "13+" : age;
+}
 function ageBucket(row, useYear){
-  if(useYear) return row.ageYear || row.age || "年龄未知";
+  if(useYear) return ageYearBucket(row);
   return row.age || "年龄未知";
 }
-const AGE_YEAR_ONLY = ["3","4","5","6","7","8","9","10","11","12","13","14","15","13+"];
+const AGE_YEAR_ONLY = ["3","4","5","6","7","8","9","10","11","12","13+"];
 function isYearlyAgeLabel(age){
   return AGE_YEAR_ONLY.indexOf(age)!==-1 || /^\d+$/.test(age||"");
 }
@@ -26906,10 +26916,30 @@ function render(){
   const ageLevelMap = {};
   for(const age of AGE_LEVEL_YEARS) ageLevelMap[age] = {1:emptyMetric(),2:emptyMetric(),3:emptyMetric(),4:emptyMetric()};
   for(const row of allInWindow){
-    const year = row.ageYear;
+    const year = ageYearBucket(row);
     if(!ageLevelMap[year] || !ageLevelMap[year][row.level]) continue;
     add(ageLevelMap[year][row.level], isCompleted(row, rangeEnd, state.wrapupComplete));
   }
+  const ageAbilityLevelMap = new Map();
+  for(const row of allInWindow){
+    const age = ageYearBucket(row);
+    if(!AGE_LEVEL_YEARS.includes(age)) continue;
+    const ability = abilityLabel(row.ability);
+    const key = age+"\t"+ability;
+    if(!ageAbilityLevelMap.has(key)) ageAbilityLevelMap.set(key, makeLevelMetrics());
+    addLevel(ageAbilityLevelMap.get(key), row.level, isCompleted(row, rangeEnd, state.wrapupComplete));
+  }
+  const ageAbilityLevelRows = [...ageAbilityLevelMap.entries()].map(([key, metrics])=>{
+    const [age, ability] = key.split("\t");
+    return {age, ability, metrics};
+  }).sort((a,b)=>{
+    const ageDiff = sortKey(AGE_LEVEL_YEARS, a.age)-sortKey(AGE_LEVEL_YEARS, b.age);
+    if(ageDiff) return ageDiff;
+    const abilityOrder = [...Object.values(ABILITY_LABEL), "能力未知"];
+    const abilityDiff = sortKey(abilityOrder, a.ability)-sortKey(abilityOrder, b.ability);
+    if(abilityDiff) return abilityDiff;
+    return b.metrics.all.started-a.metrics.all.started;
+  });
   const coreRows = CLASSES.filter(row =>
     firstInWindow(row,rangeStart,rangeEnd)!==null &&
     inCountries(row,state.countries) &&
@@ -27589,6 +27619,24 @@ function render(){
           1
         )}
       `);
+
+      addSec("sec-age-ability-level", t("secAgeAbilityLevel", {countries: segmentLabel}), `
+        <h2>${esc(t("secAgeAbilityLevel", {countries: segmentLabel}))}</h2>
+        ${tableHTML(
+          [t("ageCol"),t("abilityCol"),"L1","L2","L3","L4"],
+          ageAbilityLevelRows.map(row=>[
+            t("ageYear", {age:row.age}),
+            displayAbilityName(row.ability),
+            rateHitCell(row.metrics[1]),
+            rateHitCell(row.metrics[2]),
+            rateHitCell(row.metrics[3]),
+            rateHitCell(row.metrics[4]),
+          ]),
+          2,
+          2
+        )}
+        <p class="tiny">${t("ageAbilityLevelNote")} ${esc(caption)}</p>
+      `);
     }
 
     addSec("sec-daily", useHourly?t("secDailyHour"):t("secDailyDay"), `
@@ -27891,7 +27939,12 @@ document.getElementById("app").addEventListener("click", e=>{
   if(sec){
     markSection(sec.dataset.section);
     const el = document.getElementById(sec.dataset.section);
-    if(el) el.scrollIntoView({behavior:"smooth", block:"start"});
+    if(el){
+      const navEl = document.getElementById("sec-nav");
+      const offset = (navEl ? navEl.offsetHeight : 0) + 12;
+      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({top, behavior:"smooth"});
+    }
     return;
   }
   const hwFunnelBtn = e.target.closest("[data-hw-funnel]");
