@@ -2,7 +2,7 @@
 
 每次发布必须保留发布前和发布后两份独立 HTML 快照。主链接显示最新版，历史页面保留当时的数据与计算逻辑。
 
-1. 获取远端 `main` 最新版本，再运行本地数据导出和 HTML 生成流程。延用当前看板口径：独立课堂、窗口内任意一次进课、排除测试账号、体验课完课取 `trigger + type=trial + result=complete`。刷新课后练习、开口轮次、首轮回复、Dino 助手、设备及正式课模块。
+1. 获取远端 `main` 最新版本，再执行 `python3 refresh_dashboard.py` 统一刷新原看板与练习分析的所有时间数据。延用当前看板口径：独立课堂、窗口内任意一次进课、排除测试账号、体验课完课取 `trigger + type=trial + result=complete`。刷新课后练习、开口轮次、首轮回复、Dino 助手、设备、正式课及全部练习题模块。
 2. 记录数据源实际最新事件时间。页面上的数据截止时间不能直接用脚本执行时间代替。
 3. 用下列脚本准备发布；时间参数传入本次元数据中的实际 UTC 截止时间：
 
@@ -21,4 +21,4 @@ python3 tools/prepare_deployment.py \
 
 历史入口：https://shenludidi-eng.github.io/trial-lesson-completion/archive/
 
-当前本地数据脚本位于 `00. 数据/Data/`。完成导出后还需依次刷新 `export_trial_student_turns.py`、`export_first_utterance_reply.py`、`export_formal_l1l4_homework.py` 和设备系统数据，再运行 `build_trial_lesson_completion_html.py`。首次回复导出必须指向本次元数据的课堂与模板文件，不使用脚本里旧日期的默认路径。
+生产刷新入口已统一为仓库根目录的 `refresh_dashboard.py`。新模块不得建立人工下载步骤；必须将参数化 SQL、聚合产物、校验和回滚同时接入该命令。

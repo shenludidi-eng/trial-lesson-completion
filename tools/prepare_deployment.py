@@ -20,12 +20,15 @@ def write_new(path, data):
         handle.write(data)
 
 
-def prepare(source, data_end, formal_data_end):
+def prepare(source, data_end, formal_data_end, before_ref=None):
     current = ROOT / 'index.html'
     archive = ROOT / 'archive'
     archive.mkdir(exist_ok=True)
     before = {p: digest(p.read_bytes()) for p in archive.rglob('*.html') if p.name != 'index.html'}
-    original = current.read_bytes()
+    original = (
+        subprocess.check_output(['git', 'show', f'{before_ref}:index.html'], cwd=ROOT)
+        if before_ref else current.read_bytes()
+    )
     incoming = source.read_text(encoding='utf-8')
     if '__CLASS_CSV__' in incoming or 'id="class-csv"' not in incoming or 'id="formal-class-csv"' not in incoming:
         raise SystemExit('Source is not a rendered completion dashboard')
@@ -43,7 +46,9 @@ def prepare(source, data_end, formal_data_end):
     # Exclusive creation prevents even a repeated timestamp from overwriting history.
     write_new(archive / old_name, original)
     write_new(archive / new_name, updated)
-    commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
+    commit = subprocess.check_output(
+        ['git', 'rev-parse', before_ref or 'HEAD'], cwd=ROOT, text=True
+    ).strip()
     record = {'created_at_utc': stamp, 'previous_commit': commit,
               'previous': old_name, 'previous_sha256': digest(original),
               'release': new_name, 'release_sha256': digest(updated),
@@ -69,5 +74,6 @@ if __name__ == '__main__':
     parser.add_argument('--source', type=Path, required=True)
     parser.add_argument('--data-end', required=True, help='Latest available trial event in UTC')
     parser.add_argument('--formal-data-end', required=True)
+    parser.add_argument('--before-ref', help='Git ref whose index.html is the before snapshot')
     args = parser.parse_args()
-    prepare(args.source, args.data_end, args.formal_data_end)
+    prepare(args.source, args.data_end, args.formal_data_end, args.before_ref)
