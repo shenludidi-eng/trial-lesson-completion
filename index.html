@@ -30954,10 +30954,16 @@ function normalizeTime(value){
 ["startDate","startTime","endDate","endTime"].forEach(id=>{
   const el = document.getElementById(id);
   const apply = e=>{
+    const next = id.endsWith("Time") ? normalizeTime(e.target.value) : e.target.value;
+    if(!next || state[id]===next) return;
     markCustom();
-    state[id] = id.endsWith("Time") ? normalizeTime(e.target.value) : e.target.value;
+    state[id] = next;
     render();
   };
+  // Safari/Chromium date controls can update their visible value before
+  // dispatching `change` (usually only after blur). Listen to `input` as well
+  // so the displayed UTC window and every time-based aggregation stay in sync.
+  el.addEventListener("input", apply);
   el.addEventListener("change", apply);
 });
 applyPreset("last7full");
