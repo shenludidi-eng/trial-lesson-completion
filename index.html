@@ -217,6 +217,92 @@ code{font-size:12px;background:#f5f5f5;padding:1px 4px}
 .feedback-theme-level.is-zero dt,.feedback-theme-level.is-zero dd{color:#8b96a5}
 @media(max-width:580px){.feedback-theme-levels{gap:6px}.feedback-theme-level{padding:6px 7px;gap:4px}.feedback-theme-level dt{font-size:10px}.feedback-theme-level dd strong{font-size:13px}.feedback-theme-level dd span{font-size:9px}}
 .country-cards{grid-template-columns:repeat(auto-fit,minmax(155px,1fr))}
+
+/* Exercise performance prototype: aligned with the existing utilitarian dashboard. */
+.exercise-hero{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(280px,.55fr);gap:18px;align-items:stretch;margin:12px 0 22px}
+.exercise-hero.single{grid-template-columns:1fr}
+.exercise-filter-scope{padding:12px 14px;border:1px solid #dfe6f2;border-radius:12px;background:#fff;margin-bottom:10px}
+.exercise-filter-scope .k{display:block;margin-bottom:8px;color:#34445f;font-weight:700}
+.exercise-filter-child{margin:0 0 12px 18px;padding:10px 12px;border-left:3px solid #9ebcff;background:#f7faff;border-radius:0 10px 10px 0}
+.exercise-filter-child .k{display:block;margin-bottom:8px;color:#52637f;font-weight:700}
+.exercise-hero-main{position:relative;overflow:hidden;border:1px solid #dbe4f7;border-radius:14px;padding:22px 24px;background:linear-gradient(135deg,#f8fbff 0%,#eef4ff 100%)}
+.exercise-hero-main:after{content:"";position:absolute;right:-44px;top:-62px;width:190px;height:190px;border:38px solid rgba(74,124,255,.08);border-radius:50%}
+.exercise-eyebrow{display:flex;gap:8px;align-items:center;color:#48689e;font-size:11px;font-weight:650;letter-spacing:.08em;text-transform:uppercase}
+.exercise-eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:#4a7cff;box-shadow:0 0 0 5px rgba(74,124,255,.1)}
+.exercise-hero-main h2{position:relative;z-index:1;margin:16px 0 8px;font-size:21px;letter-spacing:-.02em;color:#1d3152}
+.exercise-hero-main p{position:relative;z-index:1;max-width:760px;margin:0;color:#61708a;font-size:12px;line-height:1.75}
+.exercise-hero-side{border:1px solid #e3e8f1;border-radius:14px;padding:19px 20px;background:#fff}
+.exercise-hero-side strong{display:block;color:#263850;font-size:13px;margin-bottom:8px}
+.exercise-hero-side p{margin:0;color:#758198;font-size:11px;line-height:1.8}
+.exercise-kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.exercise-kpi{min-width:0;border:1px solid #e2e8f1;border-radius:11px;padding:15px 15px 16px;background:#fff}
+.exercise-kpi.primary{background:#244a8f;border-color:#244a8f;color:#fff}
+.exercise-kpi.warn{background:#fff9ef;border-color:#f0dfb9}
+.exercise-kpi .label{font-size:11px;color:#748197;line-height:1.45}
+.exercise-kpi.primary .label{color:#cad8f7}
+.exercise-kpi .value{margin-top:8px;color:#21334d;font-size:27px;line-height:1;font-weight:650;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.exercise-kpi.primary .value{color:#fff}
+.exercise-kpi.warn .value{color:#a36513}
+.exercise-kpi .sub{margin-top:8px;color:#8a95a6;font-size:10px;line-height:1.45}
+.exercise-kpi.primary .sub{color:#bccbeb}
+.exercise-toolrow{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:12px 0}
+.exercise-toolrow .pills{max-width:980px}
+.exercise-pill{display:inline-flex;align-items:center;gap:6px}
+.exercise-pill .count{color:#8b96a8;font-size:10px}
+.exercise-pill.active .count{color:#526fae}
+.exercise-matrix-wrap{overflow:auto;border:1px solid #e4e9f1;border-radius:11px}
+.exercise-matrix-legend{display:flex;align-items:center;gap:8px;margin:0 0 10px;padding:9px 12px;border-left:3px solid #315fba;background:#f5f8ff;color:#53627a;font-size:11px;line-height:1.5}
+.exercise-matrix-legend strong{color:#294f98;font-weight:650}
+.exercise-matrix{min-width:860px;margin:0}
+.exercise-matrix th{position:static;background:#f7f9fc;color:#6f7c90;font-size:11px;padding:10px 12px}
+.exercise-matrix td{padding:9px 12px}
+.exercise-type-name{min-width:220px;color:#34445d;font-weight:550}
+.exercise-code{display:block;margin-top:3px;color:#98a2b2;font-size:9px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:400}
+.heat-cell{display:block;min-width:92px;border-radius:7px;padding:8px 9px;text-align:center;font-variant-numeric:tabular-nums}
+.heat-cell.high{background:#e6f4ed;color:#17694f}
+.heat-cell.mid{background:#edf3ff;color:#365fba}
+.heat-cell.low{background:#fff1e3;color:#9c5b12}
+.heat-cell.very-low{background:#fde9e7;color:#a83228}
+.heat-cell.na{background:#f5f6f8;color:#9aa2ad}
+.heat-cell.meta-1{background:#f2f6ff;color:#526fae}
+.heat-cell.meta-2{background:#dfe9ff;color:#4267b2}
+.heat-cell.meta-3{background:#c7d8fb;color:#2f57a4}
+.heat-cell.meta-4{background:#315495;color:#fff}
+.heat-cell small{display:block;margin-top:2px;color:inherit;opacity:.72;font-size:9px}
+.exercise-table td{padding:9px 10px}
+.exercise-rate{font-weight:650;font-variant-numeric:tabular-nums}
+.exercise-rate.high{color:#187257}.exercise-rate.mid{color:#365fba}.exercise-rate.low{color:#a96312}.exercise-rate.very-low{color:#ad342a}
+.exercise-badge{display:inline-flex;align-items:center;border-radius:999px;padding:3px 8px;background:#eef3fb;color:#4d648a;font-size:10px;white-space:nowrap}
+.exercise-badge.oral{background:#f3effb;color:#7155a2}
+.exercise-insights{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.exercise-insight{border:1px solid #e3e8ef;border-radius:11px;padding:16px 17px;background:#fff}
+.exercise-insight .rank{color:#98a3b2;font-size:10px;letter-spacing:.08em}
+.exercise-insight h3{margin:9px 0 5px;color:#304059;font-size:14px}
+.exercise-insight p{margin:0;color:#778397;font-size:11px;line-height:1.65}
+.exercise-quality{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.exercise-quality>div{border-left:3px solid #9ab2e8;background:#f7f9fd;padding:13px 15px}
+.exercise-quality strong{display:block;color:#344967;font-size:17px;font-variant-numeric:tabular-nums}
+.exercise-quality span{display:block;margin-top:4px;color:#7d899b;font-size:10px;line-height:1.55}
+.exercise-segment-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.exercise-segment-card{min-width:0;border:1px solid #e2e8f1;border-radius:12px;background:#fff;overflow:hidden}
+.exercise-segment-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:15px 17px 12px;border-bottom:1px solid #edf0f5;background:#f9fbfe}
+.exercise-segment-head h3{margin:0;color:#2c3f5c;font-size:14px}
+.exercise-segment-head span{color:#8a95a6;font-size:10px;line-height:1.5;text-align:right}
+.exercise-segment-list{padding:5px 17px 9px}
+.exercise-segment-row{display:grid;grid-template-columns:minmax(110px,1.15fr) minmax(120px,1.6fr) 70px 58px;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid #eef1f5}
+.exercise-segment-row:last-child{border-bottom:0}
+.exercise-segment-label{min-width:0;color:#34445d;font-size:11px;font-weight:600;line-height:1.35}
+.exercise-segment-label small{display:block;margin-top:3px;color:#98a2b2;font-size:9px;font-weight:400}
+.exercise-segment-track{height:8px;border-radius:999px;background:#edf1f7;overflow:hidden}
+.exercise-segment-fill{height:100%;min-width:2px;border-radius:inherit;background:#4a7cff}
+.exercise-segment-row.low-sample .exercise-segment-fill{background:#c7cfdb}
+.exercise-segment-metric{text-align:right;color:#263850;font-size:11px;font-weight:650;font-variant-numeric:tabular-nums}
+.exercise-segment-avg{text-align:right;color:#708097;font-size:10px;font-variant-numeric:tabular-nums}
+.exercise-segment-empty{padding:25px 17px;color:#8995a5;font-size:11px;line-height:1.7}
+.empty-cell{text-align:center!important;color:#8a96a8!important;padding:26px!important;background:#fafbfd}
+@media(max-width:980px){.exercise-hero{grid-template-columns:1fr}.exercise-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.exercise-kpi.primary{grid-column:span 2}.exercise-insights,.exercise-quality,.exercise-segment-grid{grid-template-columns:1fr}}
+@media(max-width:620px){.exercise-segment-row{grid-template-columns:minmax(100px,1fr) minmax(85px,1.2fr) 58px}.exercise-segment-avg{display:none}}
+@media(max-width:560px){.exercise-hero-main{padding:18px}.exercise-kpis{grid-template-columns:1fr}.exercise-kpi.primary{grid-column:auto}.exercise-hero-side{padding:16px}}
 </style>
 </head>
 <body>
@@ -226,6 +312,7 @@ code{font-size:12px;background:#f5f5f5;padding:1px 4px}
     <button type="button" class="pill" data-board="homework">体验课课后练习完成情况</button>
     <button type="button" class="pill" data-board="formal_hw">正式课课后练习完成情况</button>
     <button type="button" class="pill" data-board="dino_help">体验课课中Dino助手使用情况</button>
+    <button type="button" class="pill" data-board="exercise">全部练习题表现</button>
   </div>
   <button type="button" class="lang-switch" id="lang-switch" aria-label="Language">
     <span class="lang-opt active" data-lang="zh">中文</span>
@@ -241,7 +328,14 @@ code{font-size:12px;background:#f5f5f5;padding:1px 4px}
     <h2 id="filter-title" style="margin:0">筛选</h2>
     <span class="tiny" id="filter-utc-note">日期和时间都按 UTC，不做本地换算</span>
   </div>
-  <div class="pills" id="level-pills"></div>
+  <div class="exercise-filter-scope" id="exercise-scene-wrap" style="display:none">
+    <label class="k" id="lbl-exercise-scene">练习场景</label>
+    <div class="pills" id="exercise-scene-pills"></div>
+  </div>
+  <div id="level-filter-wrap">
+    <label class="k" id="level-filter-label" style="display:none">Level</label>
+    <div class="pills" id="level-pills"></div>
+  </div>
   <div class="grid g5" style="margin-top:12px">
     <div>
       <label class="k" id="lbl-preset">快捷窗口</label>
@@ -255,10 +349,16 @@ code{font-size:12px;background:#f5f5f5;padding:1px 4px}
       </div>
     </div>
     <div>
-      <label class="k" id="lbl-tier">设备档位（可多选）</label>
-      <div class="msel" id="tier-msel">
-        <button type="button" class="msel-btn" id="tier-msel-btn">全部档位</button>
-        <div class="msel-panel" id="tier-msel-panel"></div>
+      <div id="tier-filter-field">
+        <label class="k" id="lbl-tier">设备档位（可多选）</label>
+        <div class="msel" id="tier-msel">
+          <button type="button" class="msel-btn" id="tier-msel-btn">全部档位</button>
+          <div class="msel-panel" id="tier-msel-panel"></div>
+        </div>
+      </div>
+      <div id="exercise-level-filter-field" style="display:none">
+        <label class="k" id="lbl-exercise-level-select">级别筛选</label>
+        <select id="exercise-level-select"></select>
       </div>
     </div>
     <div>
@@ -24324,7 +24424,7 @@ const COUNTRY_ALIAS = {
 const ABILITY_LABEL = {
   JS:"Just starting",NE:"New to English",KL:"Knows a little",KB:"Knows the basics",
   NS:"Not sure",CC:"Can communicate",BL:"Basic level",SC:"Simple conversations",
-  RW:"Can read & write",RT:"Can read & talk",AD:"Advanced",MA:"More advanced",
+  SU:"Can speak up",RW:"Can read & write",RT:"Can read & talk",AD:"Advanced",MA:"More advanced",
 };
 const AGE_ORDER = ["3–5","6–8","9–12","13–17","18+","13+","年龄未知",""];
 const AGE_YEAR_ORDER = ["3","4","5","6","7","8","9","10","11","12","13+","3–5","6–8","9–12","13–17","18+","年龄未知",""];
@@ -25043,6 +25143,7 @@ how:"Source table: <code>Data/trial_lesson_completion_classes_enriched.csv</code
 },
 };
 function isEn(){ return typeof state!=="undefined" && state.lang==="en"; }
+function words(zh,en){ return isEn() ? en : zh; }
 function t(key, vars){
   const pack = isEn() ? I18N.en : I18N.zh;
   let text = Object.prototype.hasOwnProperty.call(pack, key) ? pack[key] : (I18N.zh[key] || key);
@@ -25614,6 +25715,117 @@ const FEEDBACK_ANALYSIS = JSON.parse(document.getElementById("feedback-analysis-
 const feedbackUiState = {country:"__all__",level:"__all__",age:"__all__",ability:"__all__",breakdown:"country"};
 const CLASSES = parseClassCsv(document.getElementById("class-csv").textContent);
 const FORMAL_CLASSES = parseClassCsv((document.getElementById("formal-class-csv")||{}).textContent||"");
+const EXERCISE_SNAPSHOT = {
+  start:"2026-10-22 00:00:00", end:"2026-10-28 23:59:59", users:1830,
+  trialLevels:[
+    [1,"word_practice_bubble_image",1799,638,2152,1589,115,47,48,1.20,1,2],[1,"word_practice_oral_assessment",1768,617,3054,1001,248,519,0,1.73,1,3],[1,"practice_listen_choose_image",505,490,674,408,51,32,14,1.33,1,2],[1,"sentence_practice_oral_assessment",500,485,856,290,64,146,0,1.71,1,3],
+    [2,"word_practice_bubble_image",1441,499,1764,1243,118,35,45,1.22,1,2],[2,"word_practice_img_select_word",1432,496,1683,1264,101,56,11,1.18,1,2],[2,"word_practice_oral_assessment",1426,494,2048,1032,166,228,0,1.44,1,3],[2,"sentence_word_order",1249,418,1447,1067,170,8,4,1.16,1,2],[2,"sentence_practice_oral_assessment",1219,409,1987,751,168,300,0,1.63,1,3],
+    [3,"word_practice_oral_assessment",1196,429,1766,828,166,202,0,1.48,1,3],[3,"word_practice_bubble_image",440,437,577,361,38,24,17,1.31,1,2],[3,"word_practice_word_select_img",403,400,472,355,31,13,4,1.17,1,2],[3,"word_practice_img_select_word",386,383,418,366,10,9,1,1.08,1,1],[3,"sentence_practice_oral_assessment",340,332,433,276,35,29,0,1.27,1,2],[3,"practice_listen_choose_image",333,331,397,294,24,9,6,1.19,1,2],[3,"sentence_word_order",18,6,26,10,8,0,0,1.44,1,2],
+    [4,"word_practice_oral_assessment",466,239,992,175,56,235,0,2.13,3,3],[4,"sentence_word_order",369,179,456,296,63,6,4,1.24,1,2],[4,"word_practice_spelling_l2l6",245,239,518,108,61,29,47,2.11,2,4],[4,"practice_listen_choose_image",223,219,327,160,32,24,7,1.47,1,3],[4,"sentence_practice_oral_assessment",185,177,213,164,14,7,0,1.15,1,2],
+  ].map(([level,type,questions,users,attempts,once,twice,three,fourPlus,avg,p50,p90])=>({level,type,questions,users,attempts,once,twice,three,fourPlus,avg,p50,p90})),
+  formalLevels:[
+    [1,"word_practice_oral_assessment",730,206,1218,428,116,186,0,1.6685,1,3],[1,"practice_listen_choose_word_image",678,208,812,586,62,20,10,1.1976,1,2],[1,"word_practice_bubble_image",568,186,753,440,82,35,11,1.3257,1,2],[1,"sentence_practice_oral_assessment",268,52,500,130,44,94,0,1.8657,2,3],[1,"practice_listen_choose_word",171,37,257,123,25,8,15,1.5029,1,3],[1,"practice_listen_choose_image",124,38,149,107,10,6,1,1.2016,1,2],[1,"sentence_word_order",100,33,117,83,17,0,0,1.17,1,2],
+    [2,"word_practice_oral_assessment",669,102,1147,380,100,189,0,1.7145,1,3],[2,"practice_listen_choose_word_image",422,93,493,370,36,13,3,1.1682,1,2],[2,"sentence_practice_oral_assessment",369,79,684,184,55,130,0,1.8537,2,3],[2,"sentence_word_order",261,69,422,158,59,30,14,1.6169,1,3],[2,"practice_listen_choose_word",255,64,316,212,32,4,7,1.2392,1,2],[2,"word_practice_bubble_image",211,71,261,169,34,8,0,1.237,1,2],[2,"practice_listen_choose_image",145,34,207,108,17,15,5,1.4276,1,3],
+    [3,"word_practice_oral_assessment",682,84,1017,479,71,132,0,1.4912,1,3],[3,"word_practice_bubble_image",489,77,570,429,43,13,4,1.1656,1,2],[3,"practice_listen_choose_word_image",481,77,527,453,16,9,3,1.0956,1,1],[3,"sentence_practice_oral_assessment",474,79,729,324,45,105,0,1.538,1,3],[3,"sentence_word_order",436,74,855,226,87,53,70,1.961,1,4],[3,"practice_listen_choose_word",70,14,79,63,5,2,0,1.1286,1,1],[3,"discourse_practice_reading_question",57,20,88,38,11,4,4,1.5439,1,3],
+    [4,"sentence_practice_oral_assessment",245,33,309,202,22,21,0,1.2612,1,2],[4,"word_practice_oral_assessment",203,32,275,160,14,29,0,1.3547,1,3],[4,"sentence_word_order",165,31,350,83,33,16,33,2.1212,1,4],[4,"word_practice_spelling_l2l6",161,32,229,113,35,8,5,1.4224,1,2],[4,"discourse_practice_reading_question",87,24,127,63,12,8,4,1.4598,1,3],[4,"word_practice_bubble_image",21,6,25,17,4,0,0,1.1905,1,2],
+  ].map(([level,type,questions,users,attempts,once,twice,three,fourPlus,avg,p50,p90])=>({level,type,questions,users,attempts,once,twice,three,fourPlus,avg,p50,p90})),
+  trialAfterLevels:[
+    [1,"word_practice_oral_assessment",1127,487],[1,"word_practice_bubble_image",1012,487],[1,"sentence_practice_oral_assessment",450,442],
+    [2,"sentence_practice_oral_assessment",736,395],[2,"word_practice_oral_assessment",665,382],[2,"sentence_word_order",488,306],[2,"word_practice_bubble_image",407,264],
+    [3,"word_practice_oral_assessment",977,329],[3,"sentence_practice_oral_assessment",334,327],[3,"word_practice_bubble_image",236,234],[3,"sentence_word_order",16,9],
+    [4,"word_practice_oral_assessment",354,176],[4,"sentence_word_order",190,172],[4,"sentence_practice_oral_assessment",172,167],[4,"word_practice_spelling_l2l6",167,165],
+  ].map(([level,type,questions,users])=>({level,type,questions,users,attempts:0,once:0,twice:0,three:0,fourPlus:0,avg:0,p50:0,p90:0,metadataOnly:true})),
+  formalAfterLevels:[
+    [1,"word_practice_bubble_image",822,288],[1,"word_practice_oral_assessment",543,195],[1,"sentence_practice_oral_assessment",261,57],[1,"practice_listen_choose_word_image",193,134],[1,"sentence_word_order",143,45],
+    [2,"word_practice_oral_assessment",449,100],[2,"sentence_practice_oral_assessment",326,78],[2,"practice_listen_choose_word_image",264,89],[2,"sentence_word_order",211,65],[2,"word_practice_bubble_image",140,72],
+    [3,"word_practice_oral_assessment",286,78],[3,"sentence_practice_oral_assessment",276,80],[3,"sentence_word_order",253,73],[3,"word_practice_bubble_image",118,61],[3,"practice_listen_choose_word_image",100,52],[3,"discourse_practice_reading_question",61,18],
+    [4,"sentence_practice_oral_assessment",125,30],[4,"sentence_word_order",96,27],[4,"word_practice_oral_assessment",92,28],[4,"word_practice_spelling_l2l6",86,32],[4,"word_practice_bubble_image",6,3],
+  ].map(([level,type,questions,users])=>({level,type,questions,users,attempts:0,once:0,twice:0,three:0,fourPlus:0,avg:0,p50:0,p90:0,metadataOnly:true})),
+  levelHistory:{
+    5:{questions:2161,users:182,attempts:2985,once:1709,first:"2026-08-01",last:"2026-09-12"},
+    6:{questions:139,users:18,attempts:173,once:121,first:"2026-08-04",last:"2026-09-09"},
+  },
+  sceneSummaries:{
+    all:{questions:25650,users:1840,attempts:36228,once:19126,twice:2978,three:3124,fourPlus:422},
+    trial_in:{questions:15943,users:1562,attempts:22260,once:12038,twice:1739,three:1958,fourPlus:208},
+    formal_in:{questions:8542,users:419,attempts:12516,once:6128,twice:1087,three:1138,fourPlus:189},
+    trial_after:{questions:627,users:181,attempts:735,once:542,twice:70,three:9,fourPlus:6},
+    formal_after:{questions:538,users:101,attempts:717,once:418,twice:82,three:19,fourPlus:19},
+  },
+  sceneTypes:{
+    trial_in:[
+      ["word_practice_oral_assessment",4856,1479,7860,3036,636,1184,0,1.62,1,3],["word_practice_bubble_image",3680,1356,4493,3193,271,106,110,1.22,1,2],["sentence_practice_oral_assessment",2244,1146,3489,1481,281,482,0,1.55,1,3],["word_practice_img_select_word",1818,807,2101,1630,111,65,12,1.16,1,2],["sentence_word_order",1636,578,1929,1373,241,14,8,1.18,1,2],["practice_listen_choose_image",1061,943,1398,862,107,65,27,1.32,1,2],["word_practice_word_select_img",403,400,472,355,31,13,4,1.17,1,2],["word_practice_spelling_l2l6",245,239,518,108,61,29,47,2.11,2,4],
+    ],
+    formal_in:[
+      ["word_practice_oral_assessment",2284,391,3657,1447,301,536,0,1.60,1,3],["practice_listen_choose_word_image",1581,354,1832,1409,114,42,16,1.16,1,2],["sentence_practice_oral_assessment",1356,234,2222,840,166,350,0,1.64,1,3],["word_practice_bubble_image",1289,321,1609,1055,163,56,15,1.25,1,2],["sentence_word_order",962,201,1744,550,196,99,117,1.81,1,4],["practice_listen_choose_word",496,114,652,398,62,14,22,1.31,1,2],["practice_listen_choose_image",269,71,356,215,27,21,6,1.32,1,3],["word_practice_spelling_l2l6",161,32,229,113,35,8,5,1.42,1,2],["discourse_practice_reading_question",144,44,215,101,23,12,8,1.49,1,3],
+    ],
+    trial_after:[
+      ["word_practice_oral_assessment",3123,1130,0,0,0,0,0,0,0,0,true],
+      ["sentence_practice_oral_assessment",1692,1092,0,0,0,0,0,0,0,0,true],
+      ["word_practice_bubble_image",1655,883,0,0,0,0,0,0,0,0,true],
+      ["sentence_word_order",694,474,0,0,0,0,0,0,0,0,true],
+      ["word_practice_spelling_l2l6",167,165,0,0,0,0,0,0,0,0,true],
+    ],
+    formal_after:[
+      ["word_practice_oral_assessment",1370,378,0,0,0,0,0,0,0,0,true],
+      ["word_practice_bubble_image",1086,406,0,0,0,0,0,0,0,0,true],
+      ["sentence_practice_oral_assessment",988,240,0,0,0,0,0,0,0,0,true],
+      ["sentence_word_order",703,207,0,0,0,0,0,0,0,0,true],
+      ["practice_listen_choose_word_image",557,260,0,0,0,0,0,0,0,0,true],
+      ["word_practice_spelling_l2l6",86,32,0,0,0,0,0,0,0,0,true],
+      ["discourse_practice_reading_question",61,18,0,0,0,0,0,0,0,0,true],
+    ],
+  },
+  countries:[
+    ["越南","Vietnam",10811,634,1123,15612,7882,1260,1500,169,1.44,1,3],["马来西亚","Malaysia",6235,447,673,8628,4763,677,700,95,1.38,1,3],["沙特阿拉伯","Saudi Arabia",3463,353,426,5120,2447,457,489,70,1.48,1,3],["韩国","South Korea",1314,133,172,1821,993,157,143,21,1.39,1,3],["泰国","Thailand",818,73,95,1162,611,81,116,10,1.42,1,3],["日本","Japan",742,65,83,930,617,71,46,8,1.25,1,2],["阿联酋","United Arab Emirates",222,23,28,341,153,26,37,6,1.54,1,3],["土耳其","Türkiye",208,21,25,284,162,22,18,6,1.37,1,3],["中国","China",168,11,19,190,152,11,4,1,1.13,1,1],["印度尼西亚","Indonesia",97,9,11,117,83,8,6,0,1.21,1,2],
+  ].map(([country,countryEn,questions,users,classes,attempts,once,twice,three,fourPlus,avg,p50,p90])=>({country,countryEn,questions,users,classes,attempts,once,twice,three,fourPlus,avg,p50,p90})),
+};
+const EXERCISE_TYPE_LABELS = {
+  word_practice_oral_assessment:["单词口语测评","Word speaking assessment"],
+  word_practice_bubble_image:["单词戳泡泡","Word bubble image"],
+  sentence_practice_oral_assessment:["句子口语测评","Sentence speaking assessment"],
+  sentence_word_order:["句子排序","Sentence word order"],
+  word_practice_img_select_word:["看图选词","Choose word by image"],
+  practice_listen_choose_word_image:["听音选词图","Listen and choose word image"],
+  practice_listen_choose_image:["听音选图","Listen and choose image"],
+  practice_listen_choose_word:["听音选词","Listen and choose word"],
+  word_practice_spelling_l2l6:["单词拼写","Word spelling"],
+  word_practice_word_select_img:["看词选图","Choose image by word"],
+  discourse_practice_reading_question:["阅读理解","Reading comprehension"],
+};
+Object.values(EXERCISE_SNAPSHOT.sceneTypes).forEach(rows=>rows.forEach((row,index)=>{
+  if(Array.isArray(row)) rows[index]={type:row[0],questions:row[1],users:row[2],attempts:row[3],once:row[4],twice:row[5],three:row[6],fourPlus:row[7],avg:row[8],p50:row[9],p90:row[10],metadataOnly:Boolean(row[11]),classes:0};
+}));
+let EXERCISE_PROFILE_ROWS = [];
+let exerciseProfileStatus = "loading";
+function parseExerciseProfileCsv(text){
+  const lines = String(text||"").trim().split(/\r?\n/).filter(Boolean);
+  if(lines.length<2) return [];
+  const headers = lines.shift().split(",");
+  return lines.map(line=>{
+    const raw = {};
+    line.split(",").forEach((value,index)=>{ raw[headers[index]]=value; });
+    return {
+      scene:raw.scene, level:Number(raw.level), type:raw.question_type,
+      age:raw.age_band, ability:raw.ability_code,
+      users:Number(raw.users)||0, questions:Number(raw.questions)||0, attempts:Number(raw.attempts)||0,
+      once:Number(raw.once)||0, twice:Number(raw.twice)||0, three:Number(raw.three)||0, fourPlus:Number(raw.four_plus)||0,
+      avg:Number(raw.avg_attempts)||0, p50:Number(raw.p50)||0, p90:Number(raw.p90)||0,
+    };
+  });
+}
+async function loadExerciseProfileRows(){
+  try{
+    const response = await fetch("data/exercise_profile_performance.csv",{cache:"no-store"});
+    if(!response.ok) throw new Error(`HTTP ${response.status}`);
+    EXERCISE_PROFILE_ROWS = parseExerciseProfileCsv(await response.text());
+    exerciseProfileStatus = EXERCISE_PROFILE_ROWS.length ? "ready" : "empty";
+  }catch(error){
+    exerciseProfileStatus = "error";
+    console.warn("Exercise profile cube failed to load",error);
+  }
+  if(state.board==="exercise") render();
+}
 function currentLevels(){ return state.board==="formal_hw" ? FORMAL_LEVELS : LEVELS; }
 function currentRows(){ return state.board==="formal_hw" ? FORMAL_CLASSES : CLASSES; }
 function currentCoverageEnd(){ return state.board==="formal_hw" ? FORMAL_DATA_END : DATA_END; }
@@ -25732,6 +25944,8 @@ const state = {
   tierOpen: false,
   section: "sec-rate",
   board: "course",
+  exerciseType: "all",
+  exerciseScene: "all",
   lang: (function(){
     try { return localStorage.getItem("trial-board-lang")==="en" ? "en" : "zh"; }
     catch(e){ return "zh"; }
@@ -25756,6 +25970,7 @@ function renderControls(){
   const isTrialHw = state.board==="homework";
   const isFormalHw = state.board==="formal_hw";
   const isDinoHelp = state.board==="dino_help";
+  const isExercise = state.board==="exercise";
   const isHw = isTrialHw || isFormalHw;
   document.documentElement.lang = isEn() ? "en" : "zh-CN";
   const titles = {
@@ -25763,12 +25978,17 @@ function renderControls(){
     homework: t("titleHomework"),
     formal_hw: t("titleFormalHw"),
     dino_help: t("titleDinoHelp"),
+    exercise: words("全部练习题表现","All exercise performance"),
   };
   document.title = titles[state.board] || titles.course;
   document.getElementById("board-title").textContent = titles[state.board] || titles.course;
-  document.getElementById("board-desc").innerHTML = isFormalHw ? t("descFormal") : isTrialHw ? t("descHomework") : isDinoHelp ? t("descDinoHelp") : t("descCourse");
+  document.getElementById("board-desc").innerHTML = isExercise
+    ? words("覆盖课中与课后练习题，统一查看当前题型、一次通过率、通关次数分布及人群差异。这个本地原型先使用 BigQuery 最近 7 个完整 UTC 日的只读快照。","Covers in-class and after-class exercises in one view: active question types, first-pass rate, attempts-to-pass distribution and segment differences. This local prototype uses a read-only BigQuery snapshot from the latest seven complete UTC days.")
+    : isFormalHw ? t("descFormal") : isTrialHw ? t("descHomework") : isDinoHelp ? t("descDinoHelp") : t("descCourse");
   const coverEnd = currentCoverageEnd();
-  document.getElementById("board-coverage").innerHTML = isHw
+  document.getElementById("board-coverage").innerHTML = isExercise
+    ? words("练习题数据快照覆盖 2026-10-22 至 2026-10-28 UTC；课中查询范围已覆盖 L1–L6。当前窗口 L5 / L6 无作答事件，页面会明确显示无样本。","Exercise snapshot covers Oct 22–28, 2026 UTC, and the in-class query now covers L1–L6. L5/L6 have no answer events in this window and are explicitly shown as no sample.")
+    : isHw
     ? t("coverHw", {start:"2026-08-01 00:00:00", end:coverEnd})
     : t("coverCourse", {start:"2026-08-01 00:00:00", end:"2026-10-26 02:12:59"});
   document.getElementById("board-how").innerHTML = t("how");
@@ -25787,15 +26007,38 @@ function renderControls(){
   document.querySelectorAll("#lang-switch .lang-opt").forEach(el=>{
     el.classList.toggle("active", el.dataset.lang===state.lang);
   });
-  const tabLabels = {course:t("tabCourse"), homework:t("tabHomework"), formal_hw:t("tabFormalHw"), dino_help:t("tabDinoHelp")};
+  const tabLabels = {course:t("tabCourse"), homework:t("tabHomework"), formal_hw:t("tabFormalHw"), dino_help:t("tabDinoHelp"), exercise:words("全部练习题表现","All exercises")};
   document.querySelectorAll("#board-tabs [data-board]").forEach(btn=>{
     btn.classList.toggle("active", btn.dataset.board===state.board);
     if(tabLabels[btn.dataset.board]) btn.textContent = tabLabels[btn.dataset.board];
   });
+  const exerciseSceneWrap = document.getElementById("exercise-scene-wrap");
+  const exerciseScenePills = document.getElementById("exercise-scene-pills");
+  exerciseSceneWrap.style.display = isExercise ? "block" : "none";
+  document.getElementById("lbl-exercise-scene").textContent = words("练习场景（一级筛选）","Exercise scene (primary filter)");
+  exerciseScenePills.innerHTML = isExercise ? [
+    ["all",words("全部四类","All four scenes")],
+    ["trial_in",words("体验课课中","Trial · in class")],
+    ["formal_in",words("正式课课中","Regular · in class")],
+    ["trial_after",words("体验课课后 · Words & Sentences","Trial after · Words & Sentences")],
+    ["formal_after",words("正式课课后 · Words & Sentences","Regular after · Words & Sentences")],
+  ].map(([value,label])=>`<button type="button" class="pill ${state.exerciseScene===value?"active":""}" data-exercise-scene="${value}">${esc(label)}</button>`).join("") : "";
   const levels = currentLevels();
-  document.getElementById("level-pills").innerHTML =
+  const levelWrap = document.getElementById("level-filter-wrap");
+  const levelLabel = document.getElementById("level-filter-label");
+  levelWrap.style.display = isExercise ? "none" : "block";
+  levelWrap.classList.remove("exercise-filter-child");
+  levelLabel.style.display = "none";
+  document.getElementById("level-pills").innerHTML = isExercise ? "" :
     `<button class="pill ${state.levelTab==="all"?"active":""}" data-level="all">${t("allLevels")}</button>` +
-    levels.map(l=>`<button class="pill ${state.levelTab===String(l.level)?"active":""}" data-level="${l.level}">${l.label} ${esc(displayLessonName(l.name))}</button>`).join("");
+    levels.map(l=>`<button class="pill ${state.levelTab===String(l.level)?"active":""}" data-level="${l.level}">${l.label}${l.name?` ${esc(displayLessonName(l.name))}`:""}</button>`).join("");
+  document.getElementById("tier-filter-field").style.display = isExercise ? "none" : "block";
+  document.getElementById("exercise-level-filter-field").style.display = isExercise ? "block" : "none";
+  document.getElementById("lbl-exercise-level-select").textContent = words("级别筛选","Level filter");
+  document.getElementById("exercise-level-select").innerHTML = [
+    ["all",words("全部 Level","All levels")],
+    ...[1,2,3,4,5,6].map(level=>[String(level),`L${level}`]),
+  ].map(([value,label])=>`<option value="${value}" ${state.levelTab===value?"selected":""}>${esc(label)}</option>`).join("");
   const presetSel = document.getElementById("preset");
   presetSel.innerHTML = PRESETS.map(p=>`<option value="${p.value}" ${p.value===state.preset?"selected":""}>${esc(presetLabelOf(p))}</option>`).join("");
   const allCountries = state.countries.length===0;
@@ -25815,7 +26058,13 @@ function renderControls(){
     return `<label data-tier="${s.value}"><input type="checkbox" data-tier="${s.value}" ${checked?"checked":""}>${esc(label)}</label>`;
   }).join("");
   const ageSel = document.getElementById("age");
-  ageSel.innerHTML = AGE_FILTERS.map(s=>{
+  const ageFilters = isExercise ? [
+    {value:"all",label:words("全部年龄","All ages")},
+    {value:"3–5",label:"3–5"},{value:"6–8",label:"6–8"},{value:"9–12",label:"9–12"},
+    {value:"13+",label:"13+"},{value:"unknown",label:words("年龄未知","Age unknown")},
+  ] : AGE_FILTERS;
+  if(!ageFilters.some(s=>s.value===state.age)) state.age="all";
+  ageSel.innerHTML = ageFilters.map(s=>{
     const label = s.value==="all" ? t("allAges") : s.value==="unknown" ? t("unknownAge") : s.label;
     return `<option value="${s.value}" ${s.value===state.age?"selected":""}>${esc(label)}</option>`;
   }).join("");
@@ -26861,8 +27110,320 @@ function renderHomeworkView(ctx){
   bindSectionNav();
 }
 
+function renderExerciseView(){
+  const data = EXERCISE_SNAPSHOT;
+  const selectedLevel = state.levelTab!=="all" ? Number(state.levelTab) : null;
+  const fallbackLevelRows = state.exerciseScene==="trial_in"
+    ? data.trialLevels
+    : state.exerciseScene==="formal_in"
+      ? data.formalLevels
+      : state.exerciseScene==="trial_after"
+        ? data.trialAfterLevels
+        : state.exerciseScene==="formal_after"
+          ? data.formalAfterLevels
+          : data.trialLevels.concat(data.formalLevels);
+  const typeLabel = code=>{
+    const pair = EXERCISE_TYPE_LABELS[code] || [code,code];
+    return pair[isEn()?1:0];
+  };
+  const n = value=>Number(value||0).toLocaleString(isEn()?"en-US":"zh-CN");
+  const pct = (value,total)=>total ? (value/total*100).toFixed(1)+"%" : "—";
+  const rateClass = (value,total)=>{
+    if(!total) return "";
+    const rate = value/total;
+    return rate>=.8 ? "high" : rate>=.65 ? "mid" : rate>=.5 ? "low" : "very-low";
+  };
+  const pBucket = row=>{
+    const total = row.questions||0;
+    if(!total) return {p50:"—",p90:"—"};
+    const buckets = [[1,row.once||0],[2,row.twice||0],[3,row.three||0],[4,row.fourPlus||0]];
+    const pick = target=>{
+      let running=0;
+      for(const [label,count] of buckets){ running+=count; if(running/total>=target) return label===4?"4+":String(label); }
+      return "—";
+    };
+    return {p50:row.p50||pick(.5),p90:row.p90||pick(.9)};
+  };
+  const sceneLabels = {
+    all:words("全部四类","All four scenes"),
+    trial_in:words("体验课课中","Trial · in class"),
+    formal_in:words("正式课课中","Regular · in class"),
+    trial_after:words("体验课课后 · Words & Sentences","Trial after · Words & Sentences"),
+    formal_after:words("正式课课后 · Words & Sentences","Regular after · Words & Sentences"),
+  };
+  const isAfterClass = state.exerciseScene.endsWith("_after");
+  const profileReady = exerciseProfileStatus==="ready" && EXERCISE_PROFILE_ROWS.length>0;
+  const inClassProfileAvailable = profileReady && !isAfterClass;
+  const ageMatch = row=>{
+    if(state.exclude13 && row.age==="13+") return false;
+    if(state.age==="all") return true;
+    if(state.age==="unknown") return row.age==="UNKNOWN";
+    return row.age===state.age;
+  };
+  const abilityMatch = row=>{
+    if(state.ability==="all") return true;
+    if(state.ability==="unknown") return row.ability==="UNKNOWN";
+    return row.ability===state.ability;
+  };
+  const profileSceneMatch = row=>state.exerciseScene==="all"
+    ? (row.scene==="trial_in" || row.scene==="formal_in")
+    : row.scene===state.exerciseScene;
+  const mergeRows = rows=>{
+    const merged = new Map();
+    rows.forEach(row=>{
+      const current = merged.get(row.type) || {type:row.type,questions:0,attempts:0,users:0,once:0,twice:0,three:0,fourPlus:0,classes:0,metadataOnly:true};
+      current.questions += row.questions||0;
+      current.attempts += row.attempts||0;
+      current.once += row.once||0;
+      current.twice += row.twice||0;
+      current.three += row.three||0;
+      current.fourPlus += row.fourPlus||0;
+      current.users = Math.max(current.users,row.users||0);
+      current.metadataOnly = Boolean(current.metadataOnly && row.metadataOnly);
+      current.avg = current.questions ? current.attempts/current.questions : 0;
+      merged.set(row.type,current);
+    });
+    return Array.from(merged.values());
+  };
+  const fallbackSceneRows = state.exerciseScene==="all"
+    ? mergeRows(data.sceneTypes.trial_in.concat(data.sceneTypes.formal_in))
+    : (data.sceneTypes[state.exerciseScene] || []);
+  const filteredProfileRows = inClassProfileAvailable ? EXERCISE_PROFILE_ROWS.filter(row=>
+    profileSceneMatch(row) && (!selectedLevel || row.level===selectedLevel) && ageMatch(row) && abilityMatch(row)
+  ) : [];
+  const demographicFilterActive = state.age!=="all" || state.ability!=="all" || state.exclude13;
+  const useProfileForMain = inClassProfileAvailable && demographicFilterActive;
+  const rowsBase = useProfileForMain
+    ? mergeRows(filteredProfileRows)
+    : selectedLevel
+      ? mergeRows(fallbackLevelRows.filter(row=>row.level===selectedLevel))
+      : fallbackSceneRows;
+  const visibleRows = rowsBase.filter(row=>state.exerciseType==="all" || row.type===state.exerciseType);
+  const reducedTotals = visibleRows.reduce((out,row)=>{
+    out.questions += row.questions||0;
+    out.attempts += row.attempts;
+    out.once += row.once||0;
+    out.twice += row.twice||0;
+    out.three += row.three||0;
+    out.fourPlus += row.fourPlus||0;
+    out.users = Math.max(out.users,row.users||0);
+    return out;
+  },{questions:0,attempts:0,once:0,twice:0,three:0,fourPlus:0,users:0});
+  const isWholeScene = !selectedLevel && state.exerciseType==="all" && !demographicFilterActive;
+  const totals = isWholeScene ? data.sceneSummaries[state.exerciseScene] : reducedTotals;
+  const metadataTypeSelected = isAfterClass && !isWholeScene && visibleRows.length>0 && visibleRows.every(row=>row.metadataOnly);
+  const countryRows = data.countries.filter(row=>!state.countries.length || state.countries.includes(row.country));
+  const displayUsers = totals.users;
+  const ageScope = state.age==="all" ? words("全部年龄","All ages") : state.age==="unknown" ? words("年龄未知","Age unknown") : state.age;
+  const abilityScope = state.ability==="all" ? words("全部能力","All abilities") : state.ability==="unknown" ? words("能力未知","Ability unknown") : (ABILITY_LABEL[state.ability]||state.ability);
+  const currentScope = [sceneLabels[state.exerciseScene], selectedLevel?`L${selectedLevel}`:words("全部 Level","All levels"), ageScope, abilityScope, state.exerciseType==="all"?words("全部题型","All types"):typeLabel(state.exerciseType)].join(" · ");
+  const eventSource = state.exerciseScene==="all"
+    ? "class_answer_submit + play_answer_submit"
+    : state.exerciseScene.endsWith("_after") ? "play_answer_submit" : "class_answer_submit";
+  document.getElementById("window-label").textContent = words(
+    `练习题快照 ${data.start} – ${data.end} UTC · ${currentScope}`,
+    `Exercise snapshot ${data.start} – ${data.end} UTC · ${currentScope}`
+  );
+  document.getElementById("board-how").innerHTML = words(
+    "主口径是“通关所需次数”，不使用 <code>result</code> 正答率。课中读取 <code>class_answer_submit.count</code>；课后只取 <code>scene=words_pk</code>，由 <code>afterclass_practice_start.content_id</code> 对齐 Archery 的课堂，再用 <code>student_after_class_item.target_template_code</code> 识别 Words & Sentences 内的真实题型。课后场景总览按 BigQuery 提交序列重建通关次数；分题型目录与题目实例数来自 Archery。",
+    "The primary metric is attempts-to-pass, not result-based accuracy. In-class uses <code>class_answer_submit.count</code>. After-class is restricted to <code>scene=words_pk</code>; <code>afterclass_practice_start.content_id</code> aligns to the Archery class, and <code>student_after_class_item.target_template_code</code> identifies the real question type inside Words & Sentences. Scene totals reconstruct attempts from BigQuery sequences; the type catalog and item counts come from Archery."
+  );
+
+  const typePills = `<button type="button" class="pill exercise-pill ${state.exerciseType==="all"?"active":""}" data-exercise-type="all">${words("全部题型","All types")}<span class="count">${rowsBase.length}</span></button>` + rowsBase.map(row=>
+    `<button type="button" class="pill exercise-pill ${state.exerciseType===row.type?"active":""}" data-exercise-type="${row.type}">${esc(typeLabel(row.type))}<span class="count">${n(row.questions)}</span></button>`
+  ).join("");
+
+  const typeTableRows = visibleRows.slice().sort((a,b)=>b.attempts-a.attempts).map(row=>{
+    if(row.metadataOnly) return `<tr>
+      <td class="exercise-type-name">${esc(typeLabel(row.type))}<span class="exercise-code">${esc(row.type)}</span></td>
+      <td class="num">${n(row.users)}</td><td class="num">${n(row.questions)}</td>
+      <td class="num muted">—</td><td class="num muted">—</td><td class="num muted">—</td><td class="num muted">—</td><td class="num muted">—</td><td class="num muted">—</td>
+    </tr>`;
+    const p = pBucket(row);
+    return `<tr>
+      <td class="exercise-type-name">${esc(typeLabel(row.type))}<span class="exercise-code">${esc(row.type)}</span></td>
+      <td class="num">${n(row.users)}</td><td class="num">${n(row.questions)}</td>
+      <td class="num"><span class="exercise-rate ${rateClass(row.once,row.questions)}">${pct(row.once,row.questions)}</span></td>
+      <td class="num">${pct(row.twice,row.questions)}</td><td class="num">${pct(row.three,row.questions)}</td><td class="num">${pct(row.fourPlus,row.questions)}</td>
+      <td class="num">${Number(row.avg||row.attempts/row.questions).toFixed(2)}</td><td class="num">${p.p50} / ${p.p90}</td>
+    </tr>`;
+  }).join("") || `<tr><td colspan="9" class="empty-cell">${words("当前窗口没有作答样本","No answer samples in the current window")}</td></tr>`;
+
+  const segmentAbilityLabel = code=>{
+    const zh = {JS:"刚开始学",NE:"英语新手",KL:"会一点",KB:"掌握基础",BL:"基础水平",SC:"简单对话",SU:"能主动开口",RW:"能读写",RT:"能读会话",CC:"能交流",AD:"高阶",MA:"更高阶",NS:"不确定",UNKNOWN:"能力未知"};
+    return isEn() ? (code==="UNKNOWN" ? "Ability unknown" : ABILITY_LABEL[code]||code) : (zh[code]||code);
+  };
+  const segmentRows = (rows,keyFn,order)=>{
+    const grouped = new Map();
+    rows.forEach(row=>{
+      const key = keyFn(row);
+      const current = grouped.get(key) || {key,questions:0,attempts:0,users:0,once:0,twice:0,three:0,fourPlus:0};
+      current.questions += row.questions||0;
+      current.attempts += row.attempts||0;
+      current.once += row.once||0;
+      current.twice += row.twice||0;
+      current.three += row.three||0;
+      current.fourPlus += row.fourPlus||0;
+      current.users = Math.max(current.users,row.users||0);
+      grouped.set(key,current);
+    });
+    return Array.from(grouped.values()).sort((a,b)=>{
+      const ai=order.indexOf(a.key), bi=order.indexOf(b.key);
+      return (ai<0?999:ai)-(bi<0?999:bi);
+    });
+  };
+  const segmentBase = profileReady ? EXERCISE_PROFILE_ROWS.filter(row=>
+    profileSceneMatch(row) && (!selectedLevel || row.level===selectedLevel) && (state.exerciseType==="all" || row.type===state.exerciseType)
+  ) : [];
+  const ageComparisonRows = segmentRows(
+    segmentBase.filter(row=>abilityMatch(row) && (!state.exclude13 || row.age!=="13+")),
+    row=>row.age,
+    ["3–5","6–8","9–12","13+","UNKNOWN"]
+  );
+  const abilityComparisonRows = segmentRows(
+    segmentBase.filter(row=>ageMatch(row)),
+    row=>row.ability,
+    ["JS","NE","KL","KB","BL","SC","SU","RW","RT","CC","AD","MA","NS","UNKNOWN"]
+  );
+  const segmentList = (rows,labelFn)=>rows.length ? `<div class="exercise-segment-list">${rows.map(row=>{
+    const rate = row.questions ? row.once/row.questions*100 : 0;
+    const lowSample = row.questions<50;
+    return `<div class="exercise-segment-row ${lowSample?"low-sample":""}">
+      <div class="exercise-segment-label">${esc(labelFn(row.key))}<small>${n(row.questions)} ${words("题","questions")}${lowSample?` · ${words("低样本","low sample")}`:""}</small></div>
+      <div class="exercise-segment-track"><div class="exercise-segment-fill" style="width:${Math.max(2,Math.min(100,rate)).toFixed(1)}%"></div></div>
+      <div class="exercise-segment-metric">${rate.toFixed(1)}%</div>
+      <div class="exercise-segment-avg">${words("均","avg")} ${row.questions?(row.attempts/row.questions).toFixed(2):"—"}</div>
+    </div>`;
+  }).join("")}</div>` : `<div class="exercise-segment-empty">${words("当前筛选没有可比较样本。","No comparable samples for the current filters.")}</div>`;
+  const segmentSection = !isAfterClass && profileReady
+    ? `<div class="exercise-segment-grid">
+        <article class="exercise-segment-card"><div class="exercise-segment-head"><h3>${words("不同年龄的表现","Performance by age")}</h3><span>${words("一次通过率 · 平均次数","First-pass · average attempts")}</span></div>${segmentList(ageComparisonRows,key=>key==="UNKNOWN"?words("年龄未知","Age unknown"):key)}</article>
+        <article class="exercise-segment-card"><div class="exercise-segment-head"><h3>${words("不同英文能力的表现","Performance by English ability")}</h3><span>${words("一次通过率 · 平均次数","First-pass · average attempts")}</span></div>${segmentList(abilityComparisonRows,segmentAbilityLabel)}</article>
+      </div><p class="tiny">${words("对比视图沿用当前场景、Level 与题型。比较年龄时保持英文能力筛选；比较能力时保持年龄筛选。少于 50 题标记为低样本。用户数在交叉汇总时只作为可见下限，核心比较使用题目实例。","The comparison keeps the current scene, level and question type. Age comparison retains the ability filter; ability comparison retains the age filter. Groups below 50 questions are marked low sample. User counts are only a visible lower bound after aggregation; comparisons use question instances.")}</p>`
+    : `<div class="callout info">${isAfterClass?words("课后 Words & Sentences 目前只有题型目录与场景级通关次数；尚未完成答题事件 × 用户历史 placement 的逐题联表，因此年龄/能力对比暂不展示。","After-class Words & Sentences currently has the type catalog and scene-level attempts only. Age/ability comparison awaits the row-level answer-event × historical-placement join."):words("人群交叉数据正在加载；主表会在加载完成后自动更新。","Audience cross data is loading; the table will update automatically.")}</div>`;
+
+  const matrixSource = inClassProfileAvailable
+    ? EXERCISE_PROFILE_ROWS.filter(row=>profileSceneMatch(row) && ageMatch(row) && abilityMatch(row))
+    : state.exerciseScene==="trial_in"
+      ? data.trialLevels
+      : state.exerciseScene==="formal_in"
+        ? data.formalLevels
+        : state.exerciseScene==="all"
+          ? data.trialLevels.concat(data.formalLevels)
+          : state.exerciseScene==="trial_after"
+            ? data.trialAfterLevels
+            : state.exerciseScene==="formal_after"
+              ? data.formalAfterLevels
+              : [];
+  const matrixLevels = selectedLevel ? [selectedLevel] : state.exerciseScene==="trial_in" ? [1,2,3,4] : [1,2,3,4,5,6];
+  const matrixTypes = Array.from(new Set(matrixSource.map(row=>row.type))).filter(type=>state.exerciseType==="all" || type===state.exerciseType);
+  const matrixMaxItems = Math.max(1,...matrixSource.map(row=>row.questions||0));
+  const metaDensityClass = value=>{
+    const ratio = value/matrixMaxItems;
+    return ratio>=.75 ? "meta-4" : ratio>=.4 ? "meta-3" : ratio>=.15 ? "meta-2" : "meta-1";
+  };
+  const matrixRows = matrixTypes.map(type=>{
+    const cells = matrixLevels.map(level=>{
+      const cellRows = matrixSource.filter(item=>item.level===level && item.type===type);
+      const row = cellRows.length ? mergeRows(cellRows)[0] : null;
+      if(!row) return `<td><span class="heat-cell na">—<small>${words("无样本","No sample")}</small></span></td>`;
+      if(isAfterClass) return `<td><span class="heat-cell ${metaDensityClass(row.questions)}">${n(row.questions)}<small>${n(row.users)} ${words("用户","users")}</small></span></td>`;
+      const klass = rateClass(row.once,row.questions);
+      return `<td><span class="heat-cell ${klass}">${pct(row.once,row.questions)}<small>n=${n(row.questions)} · ${words("均","avg")} ${Number(row.avg).toFixed(2)}</small></span></td>`;
+    }).join("");
+    return `<tr><td class="exercise-type-name">${esc(typeLabel(type))}<span class="exercise-code">${esc(type)}</span></td>${cells}</tr>`;
+  }).join("");
+
+  const countryTable = countryRows.map(row=>`<tr>
+    <td>${esc(isEn()?row.countryEn:row.country)}</td><td class="num">${n(row.users)}</td><td class="num">${n(row.classes)}</td>
+    <td class="num">${n(row.questions)}</td><td class="num"><span class="exercise-rate ${rateClass(row.once,row.questions)}">${pct(row.once,row.questions)}</span></td>
+    <td class="num">${Number(row.avg).toFixed(2)}</td><td class="num">${row.p90}</td>
+  </tr>`).join("");
+  const hardRows = visibleRows.filter(row=>row.questions>0 && !row.metadataOnly).sort((a,b)=>(a.once/a.questions)-(b.once/b.questions));
+  const hardCards = isAfterClass
+    ? `<div class="callout info">${words("Words & Sentences 的场景级通关次数已重算；分题型重试分布需要继续按课堂 ID + 题序把 BigQuery 提交与 Archery 题目逐行联表。本地版先不展示推算值，避免把不同题型的重试率混在一起。","Scene-level attempts for Words & Sentences have been recalculated. Per-type retry distributions still require a row-level BigQuery × Archery join by class ID and sequence; this prototype intentionally leaves them blank rather than mixing retry rates across types.")}</div>`
+    : hardRows.slice(0,3).map((row,index)=>`<article class="exercise-insight">
+    <div class="rank">${words("难度关注","DIFFICULTY WATCH")} · 0${index+1}</div>
+    <h3>${esc(typeLabel(row.type))} · <span class="exercise-rate ${rateClass(row.once,row.questions)}">${pct(row.once,row.questions)}</span></h3>
+    <p>${words(`基于 ${n(row.questions)} 个已通关题目实例，平均需要 ${Number(row.avg||row.attempts/row.questions).toFixed(2)} 次；建议继续下钻到具体题目。`,`Based on ${n(row.questions)} passed question instances, averaging ${Number(row.avg||row.attempts/row.questions).toFixed(2)} attempts; drill into specific items next.`)}</p>
+  </article>`).join("") || `<div class="callout info">${words("当前窗口没有可用的通关次数样本。","No attempts-to-pass samples are available in the current window.")}</div>`;
+
+  let notes = "";
+  if(selectedLevel && totals.questions) notes += `<div class="callout info">${words(`${sceneLabels[state.exerciseScene]} · L${selectedLevel} 共 ${n(totals.questions)} 个已通关题目实例。`,`${sceneLabels[state.exerciseScene]} · L${selectedLevel} has ${n(totals.questions)} passed question instances.`)}</div>`;
+  if(selectedLevel && !totals.questions){
+    const history = data.levelHistory[selectedLevel];
+    const historyText = history
+      ? words(`已纳入 L${selectedLevel} 查询与筛选，但当前 7 天窗口没有 <code>class_answer_submit</code>。历史核对最近有数日期为 ${history.last}。`,`L${selectedLevel} is included in the query and filter, but the current seven-day window has no <code>class_answer_submit</code>. The latest historical date with data is ${history.last}.`)
+      : words(`已纳入 L${selectedLevel} 查询与筛选，但当前窗口无样本。`,`L${selectedLevel} is included in the query and filter, but has no sample in the current window.`);
+    notes += `<div class="callout warn">${historyText}</div>`;
+  }
+  if(state.countries.length) notes += `<div class="callout warn">${words("当前国家筛选只作用于“国家表现”模块；国家 × 题型 × 年龄 × 能力的完整四维联动尚未导出。","The country filter currently affects only the country section; the full country × type × age × ability cube has not yet been exported.")}</div>`;
+  if(!isAfterClass && exerciseProfileStatus==="loading") notes += `<div class="callout info">${words("正在加载 Level × 年龄 × 英文能力交叉数据…","Loading the level × age × English-ability cube…")}</div>`;
+  if(!isAfterClass && (exerciseProfileStatus==="error" || exerciseProfileStatus==="empty")) notes += `<div class="callout warn">${words("人群交叉数据加载失败，当前暂时显示不含年龄/能力切片的备用快照。","The audience cube failed to load; the unsegmented fallback snapshot is shown for now.")}</div>`;
+  if(isAfterClass && demographicFilterActive) notes += `<div class="callout warn">${words("年龄与英文能力筛选目前只对课中题目生效；课后 Words & Sentences 尚未完成逐题用户画像联表，因此本场景不会按该筛选改数。","Age and English-ability filters currently apply to in-class questions only. After-class Words & Sentences has not completed the row-level profile join, so these filters do not change this scene yet.")}</div>`;
+  if(state.exerciseScene==="all" && demographicFilterActive) notes += `<div class="callout info">${words("使用年龄或英文能力筛选时，整体与分题型指标只统计两类课中题目；课后题目因尚无同粒度画像联表而暂不纳入。","When age or ability is filtered, overview and by-type metrics include the two in-class scenes only; after-class questions are excluded until the same-grain profile join is available.")}</div>`;
+  if(isAfterClass) notes += `<div class="callout info">${words("课后口径已收紧为 Words & Sentences（<code>scene=words_pk</code>）。盲盒和 Speaking 不再被当作题型；下方题型来自 Archery 的 <code>target_template_code</code>。","After-class is now restricted to Words & Sentences (<code>scene=words_pk</code>). Blind box and Speaking are no longer treated as question types; the types below come from Archery <code>target_template_code</code>.")}</div>`;
+  if(state.exerciseScene==="all") notes += `<div class="callout info">${words("“全部四类”的整体 KPI 包含课中与课后；分题型表暂展示两类课中的可比通关指标。课后真实题型请切换到“体验课课后 / 正式课课后 · Words & Sentences”查看。","The all-scenes KPIs include in- and after-class data. The by-type table currently shows comparable attempts metrics for the two in-class scenes; switch to an after-class Words & Sentences scene for the real after-class type catalog.")}</div>`;
+
+  const matrixHeading = state.exerciseScene==="trial_in"
+    ? words("题型 × Level：已通关题目一次通过率（体验课课中）","Question type × level: first-pass rate among passed questions (trial in-class)")
+    : state.exerciseScene==="formal_in"
+      ? words("题型 × Level：已通关题目一次通过率（正式课课中）","Question type × level: first-pass rate among passed questions (regular in-class)")
+      : state.exerciseScene.endsWith("_after")
+        ? words("题型 × Level（Words & Sentences）","Question type × level (Words & Sentences)")
+        : words("题型 × Level：已通关题目一次通过率（全部课中）","Question type × level: first-pass rate among passed questions (all in-class)");
+  const matrixSection = matrixSource.length
+    ? `${isAfterClass?"":`<div class="exercise-matrix-legend"><strong>${words("主数字：已通关题目一次通过率","Main value: first-pass rate among passed questions")}</strong><span>${words("n = 已通关题目数；均 = 平均通关次数","n = passed questions; avg = average attempts-to-pass")}</span></div>`}<div class="exercise-matrix-wrap"><table class="exercise-matrix"><thead><tr><th>${words("题型","Question type")}</th>${matrixLevels.map(level=>`<th>L${level}</th>`).join("")}</tr></thead><tbody>${matrixRows}</tbody></table></div><p class="tiny">${isAfterClass?words("课后矩阵来自 Archery 的 Words & Sentences 试卷。颜色越深表示题目实例越多；单元格为题目实例数与去重用户数。L5 / L6 已纳入矩阵，当前窗口无试卷时显示“无样本”。","The after-class matrix comes from Archery Words & Sentences papers. Darker cells mean more item instances; each cell shows item instances and deduplicated users. L5/L6 are included and show No sample when no papers exist in the current window."):words("百分比分母只包含最终通关的题目，不包含中途放弃或一直未通过的题目。L5 / L6 已纳入查询；当前窗口无事件时显示“无样本”。","The percentage denominator includes only questions that were eventually passed; abandoned or never-passed questions are excluded. L5/L6 are included in the query and show No sample when the current window has no events.")}</p>`
+    : `<div class="callout info">${words("当前场景的 Level 交叉明细尚未导出；顶部总量与分题型数据不受影响。","Level cross-detail has not yet been exported for this scene; overview and by-type metrics are unaffected.")}</div>`;
+  const countrySection = state.exerciseScene==="all"
+    ? `<div class="table-wrap"><table class="exercise-table"><thead><tr><th>${words("国家","Country")}</th><th class="num">${words("用户","Users")}</th><th class="num">${words("课堂","Classes")}</th><th class="num">${words("通关题目","Passed questions")}</th><th class="num">${words("一次通过率","First-pass rate")}</th><th class="num">${words("平均次数","Avg attempts")}</th><th class="num">P90</th></tr></thead><tbody>${countryTable||`<tr><td colspan="7">${words("当前筛选没有国家数据","No country data for this filter")}</td></tr>`}</tbody></table></div><p class="tiny">${words("国家快照当前覆盖体验课课中与正式课课中；国家 × 课后场景将在题次事实表接入后补齐。","The country snapshot currently covers trial and regular in-class questions; after-class country detail will follow with the attempt fact table.")}</p>`
+    : `<div class="callout info">${words("当前场景 × 国家交叉明细尚未导出；为避免把课中全量误当成当前场景，这里不展示旧快照。","Scene × country detail has not yet been exported. The old in-class snapshot is hidden here to avoid misrepresenting it as the selected scene.")}</div>`;
+
+  const nav = [
+    ["sec-exercise-overview",words("整体表现","Overview")],
+    ["sec-exercise-types",words("分题型","By type")],
+    ["sec-exercise-level",words("题型 × Level · 一次通过率","Type × level · first-pass")],
+    ["sec-exercise-segments",words("人群表现","Audience")],
+    ["sec-exercise-country",words("国家表现","Countries")],
+    ["sec-exercise-hard",words("多次通过关注","Retry watch")],
+    ["sec-exercise-quality",words("数据质量","Data quality")],
+  ];
+  if(!nav.some(([id])=>id===state.section)) state.section = nav[0][0];
+  const navHtml = `<div class="sec-nav" id="sec-nav"><div class="pills">${nav.map(([id,label])=>`<button type="button" class="pill ${state.section===id?"active":""}" data-section="${id}">${esc(label)}</button>`).join("")}</div></div>`;
+
+  document.getElementById("app").innerHTML = notes + `
+    <div class="exercise-hero single">
+      <div class="exercise-hero-main"><div class="exercise-eyebrow">${words("本地数据原型 · BIGQUERY + ARCHERY","LOCAL DATA PROTOTYPE · BIGQUERY + ARCHERY")}</div><h2>${isAfterClass?words("Words & Sentences 里，实际用了哪些题型？","Which question types are actually used in Words & Sentences?"):words("每道题，学生需要试几次才能通过？","How many attempts does each question take to pass?")}</h2><p>${isAfterClass?words("场景总览看通关所需次数；分题型目录按 Archery 实际下发的 target_template_code 展示。盲盒和 Speaking 已从课后题型中移除。","Scene totals show attempts-to-pass; the type catalog follows the target_template_code actually delivered by Archery. Blind box and Speaking are no longer counted as after-class question types."):words("一次通过率是核心指标；同时观察 2 次、3 次、4+ 次分布，以及平均次数与 P50/P90。口语题与客观题使用同一通关口径。","First-pass rate is the primary metric, supported by 2nd, 3rd and 4+ attempt shares, average attempts and P50/P90. Oral and objective questions now use the same pass-based definition.")}</p></div>
+    </div>
+    ${navHtml}
+    <section class="section" id="sec-exercise-overview"><h2>${words("整体表现","Overview")} · ${esc(currentScope)}</h2>
+      <div class="exercise-kpis">
+        <div class="exercise-kpi"><div class="label">${isWholeScene?words("作答用户","Answering users"):words("覆盖用户（可见下限）","User coverage (visible lower bound)")}</div><div class="value">${n(displayUsers)}</div><div class="sub">${isWholeScene?words("场景内去重用户","Deduplicated within scene"):words("聚合快照按题型取最大值","Max across type aggregates")}</div></div>
+        <div class="exercise-kpi"><div class="label">${metadataTypeSelected?words("题目实例（Archery）","Question instances (Archery)"):words("已通关题目","Passed questions")}</div><div class="value">${n(totals.questions)}</div><div class="sub">${metadataTypeSelected?"student_after_class_item":eventSource}</div></div>
+        <div class="exercise-kpi primary"><div class="label">${words("一次通过率","First-pass rate")}</div><div class="value">${metadataTypeSelected?"—":pct(totals.once,totals.questions)}</div><div class="sub">${metadataTypeSelected?words("待逐题联表","Pending row-level join"):`${n(totals.once)} / ${n(totals.questions)}`}</div></div>
+        <div class="exercise-kpi"><div class="label">${words("平均通关次数","Avg attempts-to-pass")}</div><div class="value">${metadataTypeSelected?"—":totals.questions?(totals.attempts/totals.questions).toFixed(2):"—"}</div><div class="sub">${metadataTypeSelected?words("待逐题联表","Pending row-level join"):`${n(totals.attempts)} ${words("次尝试","attempts")}`}</div></div>
+        <div class="exercise-kpi warn"><div class="label">${words("需要多次通过","Needed retries")}</div><div class="value">${metadataTypeSelected?"—":pct((totals.questions||0)-(totals.once||0),totals.questions)}</div><div class="sub">${metadataTypeSelected?words("待逐题联表","Pending row-level join"):words("2 次及以上","2+ attempts")}</div></div>
+      </div>
+      <p class="tiny">${metadataTypeSelected?words("当前选中的是 Archery 题型元数据：用户与题目实例可直接读取；分题型通关次数待 BigQuery × Archery 逐题联表后补齐。","The selected view is Archery type metadata: users and item instances are directly available; per-type attempts will follow after the row-level BigQuery × Archery join."):words("所有指标均按已通关题目实例统计。一次通过率越高、平均次数越低，表示题目越容易首次完成；本模块不再展示 result 正答率。","All metrics use passed question instances. A higher first-pass rate and lower average indicate easier first completion. Result-based accuracy is no longer shown.")}</p>
+    </section>
+    <section class="section" id="sec-exercise-types"><h2>${words("目前在使用的题型","Active question types")}</h2><div class="exercise-toolrow"><div class="pills">${typePills}</div></div>
+      <div class="table-wrap"><table class="exercise-table"><thead><tr><th>${words("题型","Question type")}</th><th class="num">${words("用户","Users")}</th><th class="num">${isAfterClass?words("题目实例（Archery）","Question instances (Archery)"):words("通关题目","Passed questions")}</th><th class="num">${words("一次通过率","First-pass")}</th><th class="num">${words("第2次","2nd")}</th><th class="num">${words("第3次","3rd")}</th><th class="num">4+</th><th class="num">${words("平均次数","Avg")}</th><th class="num">P50 / P90</th></tr></thead><tbody>${typeTableRows}</tbody></table></div>
+      ${isAfterClass?`<p class="tiny">${words("题型和题目实例数来自 Archery 的 Words & Sentences 试卷；场景级通关次数来自 BigQuery。分题型的通关次数尚未逐题联表，因此显示“—”。","Types and item counts come from Archery Words & Sentences papers; scene-level attempts come from BigQuery. Per-type attempts are blank until the row-level join is complete.")}</p>`:""}
+    </section>
+    <section class="section" id="sec-exercise-level"><h2>${matrixHeading}</h2>${matrixSection}</section>
+    <section class="section" id="sec-exercise-segments"><h2>${words("年龄 × 英文能力表现","Age × English-ability performance")} · ${esc(selectedLevel?`L${selectedLevel}`:words("全部 Level","All levels"))}</h2>${segmentSection}</section>
+    <section class="section" id="sec-exercise-country"><h2>${words("国家表现","Country performance")}</h2>${countrySection}</section>
+    <section class="section" id="sec-exercise-hard"><h2>${words("多次通过关注","Retry watch")}</h2><div class="exercise-insights">${hardCards}</div></section>
+    <section class="section" id="sec-exercise-quality"><h2>${words("口径与数据质量","Definition and data quality")}</h2><div class="exercise-quality"><div><strong>words_pk</strong><span>${words("课后只覆盖 Words & Sentences；blind_box 与 speaking_pk 已排除","After-class only covers Words & Sentences; blind_box and speaking_pk are excluded")}</span></div><div><strong>L1–L6</strong><span>${words("正式课查询覆盖 6 个 Level；当前 7 天课中及课后试卷只观测到 L1–L4","Regular-course queries cover all six levels; the current seven-day in-class events and after-class papers only show L1–L4")}</span></div><div><strong>target</strong><span>${words("课后题型使用实际下发的 target_template_code，不再使用顶层入口名","After-class types use delivered target_template_code, not top-level entry names")}</span></div><div><strong>sequence</strong><span>${words("课后场景级通关次数按课堂与题序重建；分题型指标待逐题联表","After-class scene attempts are reconstructed by class and sequence; per-type metrics await row-level joining")}</span></div></div></section>`;
+  bindSectionNav();
+}
+
 function render(){
   renderControls();
+  if(state.board==="exercise"){
+    renderExerciseView();
+    return;
+  }
   const startMs = parseUtcStamp(joinStamp(state.startDate,state.startTime));
   const endMs = parseUtcStamp(joinStamp(state.endDate,state.endTime));
   const windowValid = startMs!==null && endMs!==null && startMs<=endMs;
@@ -27926,15 +28487,44 @@ document.getElementById("board-tabs").addEventListener("click", e=>{
   const btn = e.target.closest("[data-board]"); if(!btn) return;
   if(state.board===btn.dataset.board) return;
   state.board = btn.dataset.board;
-  state.section = state.board==="course" ? "sec-rate" : state.board==="dino_help" ? "sec-dino-use" : "sec-hw-rate";
+  state.levelTab = "all";
+  state.exerciseType = "all";
+  state.section = state.board==="course" ? "sec-rate" : state.board==="dino_help" ? "sec-dino-use" : state.board==="exercise" ? "sec-exercise-overview" : "sec-hw-rate";
   render();
   window.scrollTo({top:0, behavior:"smooth"});
 });
+document.getElementById("exercise-scene-pills").addEventListener("click", e=>{
+  const btn = e.target.closest("[data-exercise-scene]"); if(!btn) return;
+  state.exerciseScene = btn.dataset.exerciseScene;
+  state.exerciseType = "all";
+  state.levelTab = "all";
+  render();
+});
 document.getElementById("level-pills").addEventListener("click", e=>{
   const btn = e.target.closest("[data-level]"); if(!btn) return;
+  if(state.board==="exercise"){
+    if(state.exerciseScene!=="trial_in" && state.exerciseScene!=="formal_in") state.exerciseScene = "trial_in";
+    state.exerciseType = "all";
+  }
   state.levelTab = btn.dataset.level; render();
 });
 document.getElementById("app").addEventListener("click", e=>{
+  const exerciseType = e.target.closest("[data-exercise-type]");
+  if(exerciseType){
+    state.exerciseType = exerciseType.dataset.exerciseType;
+    render();
+    const el = document.getElementById("sec-exercise-types");
+    if(el) el.scrollIntoView({behavior:"smooth", block:"start"});
+    return;
+  }
+  const exerciseScene = e.target.closest("[data-exercise-scene]");
+  if(exerciseScene && !exerciseScene.disabled){
+    state.exerciseScene = exerciseScene.dataset.exerciseScene;
+    state.exerciseType = "all";
+    state.levelTab = "all";
+    render();
+    return;
+  }
   const sec = e.target.closest("[data-section]");
   if(sec){
     markSection(sec.dataset.section);
@@ -27996,6 +28586,11 @@ document.getElementById("preset-pills").addEventListener("click", e=>{
   applyPreset(btn.dataset.preset); render();
 });
 document.getElementById("preset").addEventListener("change", e=>{ applyPreset(e.target.value); render(); });
+document.getElementById("exercise-level-select").addEventListener("change", e=>{
+  state.levelTab = e.target.value;
+  state.exerciseType = "all";
+  render();
+});
 document.getElementById("country-msel").addEventListener("click", e=> e.stopPropagation());
 document.getElementById("country-msel-btn").addEventListener("click", ()=>{
   state.countryOpen = !state.countryOpen;
@@ -28066,6 +28661,7 @@ function normalizeTime(value){
 });
 applyPreset("last7full");
 render();
+loadExerciseProfileRows();
 </script>
 <footer style="padding:24px;text-align:center"><a href="https://shenludidi-eng.github.io/trial-lesson-completion/archive/" style="color:inherit">历史版本 / History</a></footer>
 </body>
