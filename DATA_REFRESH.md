@@ -10,8 +10,18 @@ python3 refresh_dashboard.py
 
 1. 调用原有的 BigQuery 取数链路，更新体验课完课、引导、课后练习、Dino 助手、学生回合、首次回答、正式课课后练习和设备系统数据。
 2. 更新“全部练习题表现”的课中、课后、国家、Level、年龄和能力日粒度数据。
-3. 检查查询量、CSV 字段、日期范围和 HTML 必需模块；只有全部通过后才覆盖本地看板文件。
-4. 保留 `.refresh-runs/<UTC时间>/manifest.json` 供核对，但不会自动提交、push 或部署。
+3. 从 `student_class.lesson_version` 更新 L1 V3 / V4 对比数据，覆盖看板全部历史日期。
+4. 检查查询量、CSV 字段、日期范围和 HTML 必需模块；只有全部通过后才覆盖本地看板文件。
+5. 保留 `.refresh-runs/<UTC时间>/manifest.json` 供核对，但不会自动提交、push 或部署。
+
+L1 版本与开课通过 `class_id` 关联，覆盖看板从 `2026-08-01 00:00:00 UTC` 起的全部历史日期。原看板的结构版本 V2 在生产环境实际是 V3，
+因此全部改名为 V3；`lesson_version=4` 的课堂从 V3 中拆出为 V4。新课堂如果 ODS
+尚未同步，会暂按原直接导入结构留在 V3；下次运行同一条命令会自动将已同步的 V4 拆出。
+
+技术同学可在 Archery 用 `student_class` 表核查，例如
+`SELECT * FROM student_class WHERE lesson_id = 732 AND lesson_version IN (3, 4)`。
+本地一键刷新读取 BigQuery ODS 中的同名 `student_class` 副本并执行相同字段口径，
+这样不需要人工从 Archery 下载再导入。
 
 ## 常用命令
 
@@ -22,7 +32,7 @@ python3 refresh_dashboard.py
 # 上次原看板刷新中断后继续
 python3 refresh_dashboard.py --resume
 
-# 只快速更新练习分析
+# 只快速更新练习分析和 L1 V3/V4
 python3 refresh_dashboard.py --exercise-only
 
 # 不查库，只检查当前产物

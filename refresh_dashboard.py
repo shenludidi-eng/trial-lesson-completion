@@ -70,6 +70,17 @@ EXERCISE_JOBS = (
     },
 )
 
+L1_VERSION_JOB = {
+    "name": "l1_lesson_versions",
+    "sql": ROOT / "bq_l1_lesson_versions.sql",
+    "output": "l1_lesson_versions.csv",
+    "fields": ("start_date", "class_id", "user_key", "start", "lesson_version"),
+    "date_field": "start_date",
+    "allow_empty": True,
+}
+
+DATA_JOBS = (*EXERCISE_JOBS, L1_VERSION_JOB)
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -78,7 +89,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--resume", action="store_true", help="从上次中断的原看板刷新继续")
     parser.add_argument(
         "--exercise-only", action="store_true",
-        help="只更新练习分析日粒度数据，不跑原看板整套任务",
+        help="只更新练习分析与 L1 V3/V4 数据，不跑原看板整套任务",
     )
     parser.add_argument(
         "--validate-only", action="store_true",
@@ -215,12 +226,12 @@ def reserve_bytes(estimate: int, referenced_table_count: int) -> int:
     )
 
 
-def query_exercise_data(maintenance: Path, end_date: date):
+def query_dashboard_data(maintenance: Path, end_date: date):
     bigquery, client = load_bigquery_client(maintenance)
     total_reserved = 0
     results = {}
     costs = []
-    for job in EXERCISE_JOBS:
+    for job in DATA_JOBS:
         sql = Path(job["sql"]).read_text(encoding="utf-8")
         parameters = query_parameters(bigquery, end_date, sql)
         probe_config = bigquery.QueryJobConfig(
@@ -279,7 +290,12 @@ def write_csv(path: Path, fields: Sequence[str], rows: Iterable[Mapping]) -> Non
             writer.writerow({field: csv_value(row.get(field)) for field in fields})
 
 
-def validate_csv(path: Path, fields: Sequence[str]) -> dict:
+def validate_csv(
+    path: Path,
+    fields: Sequence[str],
+    date_field: str = "answer_date",
+    allow_empty: bool = False,
+) -> dict:
     with path.open(newline="", encoding="utf-8-sig") as handle:
         reader = csv.DictReader(handle)
         if tuple(reader.fieldnames or ()) != tuple(fields):
@@ -290,9 +306,9 @@ def validate_csv(path: Path, fields: Sequence[str]) -> dict:
         dates = []
         for row in reader:
             rows += 1
-            if row.get("answer_date"):
-                dates.append(date.fromisoformat(row["answer_date"]))
-        if rows == 0:
+            if row.get(date_field):
+                dates.append(date.fromisoformat(row[date_field]))
+        if rows == 0 and not allow_empty:
             raise RuntimeError(f"{path.name} 没有数据")
     return {
         "rows": rows,
@@ -308,6 +324,7 @@ def validate_html(html: str, expected_exercise_end: str | None = None) -> dict:
         'id="exercise-scene-wrap"',
         'id="class-csv"',
         'id="formal-class-csv"',
+        'id="l1-lesson-version-csv"',
         "一次通过率",
         "const EXERCISE_DATA_END",
     )
@@ -433,7 +450,7 @@ def copy_before(run_dir: Path, repo: Path) -> None:
     before = run_dir / "before"
     before.mkdir(parents=True)
     shutil.copy2(repo / "index.html", before / "index.html")
-    for job in EXERCISE_JOBS:
+    for job in DATA_JOBS:
         source = repo / "data" / str(job["output"])
         if source.is_file():
             shutil.copy2(source, before / source.name)
@@ -442,9 +459,14 @@ def copy_before(run_dir: Path, repo: Path) -> None:
 def validate_current(repo: Path) -> dict:
     html = (repo / "index.html").read_text(encoding="utf-8")
     report = {"html": validate_html(html), "files": {}}
-    for job in EXERCISE_JOBS:
+    for job in DATA_JOBS:
         path = repo / "data" / str(job["output"])
-        report["files"][path.name] = validate_csv(path, job["fields"])
+        report["files"][path.name] = validate_csv(
+            path,
+            job["fields"],
+            str(job.get("date_field", "answer_date")),
+            bool(job.get("allow_empty", False)),
+        )
     return report
 
 
@@ -475,18 +497,23 @@ def main() -> None:
     else:
         print("\n[1/4] 跳过原看板数据（--exercise-only）", flush=True)
 
-    print("\n[2/4] 更新练习分析日粒度数据", flush=True)
-    results, costs = query_exercise_data(maintenance, args.query_end)
+    print("\n[2/4] 更新练习分析与 L1 V3 / V4 数据", flush=True)
+    results, costs = query_dashboard_data(maintenance, args.query_end)
     with tempfile.TemporaryDirectory(prefix="dashboard-refresh-", dir=ROOT) as temp_name:
         temp = Path(temp_name)
         csv_reports = {}
         max_dates = []
-        for job in EXERCISE_JOBS:
+        for job in DATA_JOBS:
             output = temp / str(job["output"])
             write_csv(output, job["fields"], results[job["name"]])
-            report = validate_csv(output, job["fields"])
+            report = validate_csv(
+                output,
+                job["fields"],
+                str(job.get("date_field", "answer_date")),
+                bool(job.get("allow_empty", False)),
+            )
             csv_reports[output.name] = report
-            if report["max_date"]:
+            if job in EXERCISE_JOBS and report["max_date"]:
                 max_dates.append(report["max_date"])
             previous = previous_report["files"].get(output.name, {})
             if previous.get("max_date") and report.get("max_date") < previous["max_date"]:
@@ -498,13 +525,20 @@ def main() -> None:
             raise RuntimeError("练习分析没有返回任何日期")
         exercise_end = max(max_dates)
         merged_html = replace_constant(merged_html, "EXERCISE_DATA_END", exercise_end)
+        l1_csv = (temp / str(L1_VERSION_JOB["output"])).read_text(encoding="utf-8")
+        merged_html = replace_one(
+            r'(<script\s+type="text/plain"\s+id="l1-lesson-version-csv">).*?(</script>)',
+            lambda match: match.group(1) + l1_csv.rstrip("\n") + match.group(2),
+            merged_html,
+            "l1-lesson-version-csv",
+        )
         html_report = validate_html(merged_html, exercise_end)
         candidate = temp / "index.html"
         candidate.write_text(merged_html, encoding="utf-8")
 
         print("\n[3/4] 校验并原子替换本地文件", flush=True)
         try:
-            for job in EXERCISE_JOBS:
+            for job in DATA_JOBS:
                 destination = repo / "data" / str(job["output"])
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 os.replace(temp / str(job["output"]), destination)
@@ -513,7 +547,7 @@ def main() -> None:
         except BaseException:
             before = run_dir / "before"
             shutil.copy2(before / "index.html", repo / "index.html")
-            for job in EXERCISE_JOBS:
+            for job in DATA_JOBS:
                 backup = before / str(job["output"])
                 if backup.is_file():
                     shutil.copy2(backup, repo / "data" / str(job["output"]))
