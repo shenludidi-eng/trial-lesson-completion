@@ -4008,11 +4008,43 @@ answer_date,scene,level,country,users,questions,attempts,once,twice,three,four_p
 2026-11-01,trial_in,4,Türkiye,2,9,11,8,0,1,0
 2026-11-01,trial_in,4,United Arab Emirates,3,18,24,13,4,1,0
 2026-11-01,trial_in,4,Vietnam,12,84,132,55,12,15,2
-2026-11-02,formal_in,1,Vietnam,1,9,18,4,1,4,0
-2026-11-02,formal_in,4,Malaysia,1,16,17,15,1,0,0
-2026-11-02,trial_in,1,Japan,2,6,9,4,1,1,0
-2026-11-02,trial_in,1,Malaysia,1,2,2,2,0,0,0
-2026-11-02,trial_in,1,Saudi Arabia,1,6,7,5,1,0,0
-2026-11-02,trial_in,2,Malaysia,2,10,12,9,0,1,0
-2026-11-02,trial_in,3,Saudi Arabia,2,24,30,20,3,0,1
-2026-11-02,trial_in,3,South Korea,1,8,19,2,1,5,0
+2026-11-02,formal_in,1,Japan,2,15,25,9,3,2,1
+2026-11-02,formal_in,1,Malaysia,3,27,36,19,7,1,0
+2026-11-02,formal_in,1,Saudi Arabia,2,18,31,10,5,1,2
+2026-11-02,formal_in,1,South Korea,1,6,10,3,2,1,0
+2026-11-02,formal_in,1,Vietnam,5,45,71,28,8,9,0
+2026-11-02,formal_in,2,Malaysia,3,73,89,61,8,4,0
+2026-11-02,formal_in,2,South Korea,2,14,14,14,0,0,0
+2026-11-02,formal_in,2,Thailand,1,6,9,4,1,1,0
+2026-11-02,formal_in,2,Vietnam,1,9,12,7,1,1,0
+2026-11-02,formal_in,3,Malaysia,3,99,118,85,10,3,1
+2026-11-02,formal_in,3,Thailand,1,9,12,7,1,1,0
+2026-11-02,formal_in,3,Vietnam,5,62,94,44,6,11,1
+2026-11-02,formal_in,4,Malaysia,2,32,35,29,3,0,0
+2026-11-02,formal_in,4,Vietnam,1,5,13,0,2,3,0
+2026-11-02,trial_in,1,China,1,1,1,1,0,0,0
+2026-11-02,trial_in,1,Japan,7,46,67,32,7,7,0
+2026-11-02,trial_in,1,Malaysia,19,107,143,85,9,12,1
+2026-11-02,trial_in,1,Saudi Arabia,13,80,111,61,10,6,3
+2026-11-02,trial_in,1,South Korea,6,37,52,28,3,6,0
+2026-11-02,trial_in,1,United Arab Emirates,2,14,18,10,4,0,0
+2026-11-02,trial_in,1,United States,1,2,4,1,0,1,0
+2026-11-02,trial_in,1,Vietnam,14,88,122,68,6,14,0
+2026-11-02,trial_in,2,Japan,3,35,51,26,4,3,2
+2026-11-02,trial_in,2,Malaysia,13,136,171,113,12,10,1
+2026-11-02,trial_in,2,Saudi Arabia,7,71,107,46,16,7,2
+2026-11-02,trial_in,2,South Korea,2,30,38,24,4,2,0
+2026-11-02,trial_in,2,Thailand,2,30,33,27,3,0,0
+2026-11-02,trial_in,2,United Arab Emirates,1,6,9,4,1,1,0
+2026-11-02,trial_in,2,Vietnam,4,20,25,17,1,2,0
+2026-11-02,trial_in,3,Japan,2,15,16,14,1,0,0
+2026-11-02,trial_in,3,Malaysia,7,56,74,43,8,5,0
+2026-11-02,trial_in,3,Saudi Arabia,4,37,54,27,5,3,2
+2026-11-02,trial_in,3,South Korea,8,53,78,38,5,10,0
+2026-11-02,trial_in,3,United Kingdom,1,8,11,6,1,1,0
+2026-11-02,trial_in,3,United States,1,8,8,8,0,0,0
+2026-11-02,trial_in,3,Vietnam,10,83,118,62,8,12,1
+2026-11-02,trial_in,4,Malaysia,8,50,71,36,7,7,0
+2026-11-02,trial_in,4,Saudi Arabia,4,20,45,8,5,4,3
+2026-11-02,trial_in,4,South Korea,1,7,14,2,3,2,0
+2026-11-02,trial_in,4,Vietnam,5,24,46,14,2,6,2

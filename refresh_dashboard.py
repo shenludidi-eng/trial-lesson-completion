@@ -327,6 +327,10 @@ def validate_html(html: str, expected_exercise_end: str | None = None) -> dict:
         'id="l1-lesson-version-csv"',
         "一次通过率",
         "const EXERCISE_DATA_END",
+        '{name:"港澳", short:"港澳"',
+        '{name:"泰国", short:"泰国"',
+        '"Hong Kong":"港澳"',
+        'Macau:"港澳"',
     )
     missing = [token for token in required if token not in html]
     if missing:
