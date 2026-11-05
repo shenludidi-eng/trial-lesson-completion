@@ -34,6 +34,10 @@ GIB = 1024**3
 MIB = 1024**2
 PER_QUERY_LIMIT = 20 * GIB
 TOTAL_QUERY_LIMIT = 64 * GIB
+# The legacy pipeline now needs slightly more than 64 GiB as the event tables
+# grow. Keep the normal guard unchanged, but allow its cache-aware resume pass
+# a small, fixed extension so a healthy full refresh can finish.
+LEGACY_RESUME_QUERY_LIMIT = 72 * GIB
 EXERCISE_START = date(2026, 8, 1)
 PLACEMENT_START = date(2026, 1, 1)
 AFTERCLASS_SCAN_START = date(2026, 9, 14)
@@ -396,6 +400,7 @@ def resume_legacy_with_cached_queries(maintenance: Path) -> None:
             raise RuntimeError("无法加载原看板查询保护器")
         runner = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(runner)
+        runner.TOTAL_LIMIT = LEGACY_RESUME_QUERY_LIMIT
         stage = Path(json.loads(pipeline.POINTER.read_text(encoding="utf-8"))["stage"])
         ledger = json.loads((stage / "query-costs.json").read_text(encoding="utf-8"))
         completed = {}
