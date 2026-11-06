@@ -1,0 +1,10 @@
+{
+  "created_at_utc": "20261106T091857096997Z",
+  "previous_commit": "fd916c192518674e52c6341a1c66b102ea8cad97",
+  "previous": "20261106T091857096997Z-before-63460f338979.html",
+  "previous_sha256": "63460f338979009e34f3b0a377dff984783a41e69cc5b5e9cb516989a57f4d57",
+  "release": "20261106T091857096997Z-release-cbc874239cc4.html",
+  "release_sha256": "cbc874239cc4f64c82deec58b17fb22ed859db06a9cece9b45315b444f429830",
+  "data_end_utc": "2026-11-06 08:14:50",
+  "formal_data_end_utc": "2026-11-06 09:12:23"
+}

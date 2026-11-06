@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import html
 import json
+import re
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
@@ -20,6 +21,46 @@ def write_new(path, data):
         handle.write(data)
 
 
+def html_constant(source, name):
+    match = re.search(rf'const\s+{re.escape(name)}\s*=\s*"([^"]+)";', source)
+    if not match:
+        raise SystemExit(f'Missing HTML constant: {name}')
+    return match.group(1)
+
+
+def validate_release_source(source, data_end, formal_data_end):
+    actual_data_end = html_constant(source, 'DATA_END')
+    actual_formal_end = html_constant(source, 'FORMAL_DATA_END')
+    if actual_data_end != data_end:
+        raise SystemExit(
+            f'DATA_END mismatch: HTML={actual_data_end}, argument={data_end}'
+        )
+    if actual_formal_end != formal_data_end:
+        raise SystemExit(
+            f'FORMAL_DATA_END mismatch: HTML={actual_formal_end}, '
+            f'argument={formal_data_end}'
+        )
+    required = (
+        'function buildPresetOptions(dataStart,dataEnd)',
+        'function assertPresetOptions(options,dataEnd)',
+        'assertPresetOptions(options,dataEnd);',
+        'const PRESETS = buildPresetOptions(DATA_START,DATA_END);',
+        'function activePresetOptions()',
+        'activePresetOptions().find(x=>x.value===value)',
+        'if(state.preset!=="custom") applyPreset(state.preset);',
+    )
+    missing = [token for token in required if token not in source]
+    if missing:
+        raise SystemExit(f'Dynamic preset contract missing: {missing}')
+    if re.search(r'const\s+PRESETS\s*=\s*\[', source):
+        raise SystemExit('Hard-coded PRESETS array is forbidden')
+    for value in ('last7full', 'prevWeek'):
+        if re.search(
+            rf'\{{value:"{value}"[^\n]+start:"\d{{4}}-\d{{2}}-\d{{2}}', source
+        ):
+            raise SystemExit(f'Hard-coded date found in preset: {value}')
+
+
 def prepare(source, data_end, formal_data_end, before_ref=None):
     current = ROOT / 'index.html'
     archive = ROOT / 'archive'
@@ -30,6 +71,7 @@ def prepare(source, data_end, formal_data_end, before_ref=None):
         if before_ref else current.read_bytes()
     )
     incoming = source.read_text(encoding='utf-8')
+    validate_release_source(incoming, data_end, formal_data_end)
     if '__CLASS_CSV__' in incoming or 'id="class-csv"' not in incoming or 'id="formal-class-csv"' not in incoming:
         raise SystemExit('Source is not a rendered completion dashboard')
     history_url = 'https://shenludidi-eng.github.io/trial-lesson-completion/archive/'

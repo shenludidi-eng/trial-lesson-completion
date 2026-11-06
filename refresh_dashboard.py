@@ -162,13 +162,6 @@ def merge_legacy_refresh(current_html: str, fresh_html: str) -> str:
         )
     for name in ("DATA_END", "FORMAL_DATA_END"):
         merged = replace_constant(merged, name, constant_value(fresh_html, name))
-
-    fresh_presets = re.search(r'const\s+PRESETS\s*=\s*\[.*?\n\];', fresh_html, re.S)
-    if not fresh_presets:
-        raise RuntimeError("新产物中缺少 PRESETS")
-    merged = replace_one(
-        r'const\s+PRESETS\s*=\s*\[.*?\n\];', fresh_presets.group(), merged, "PRESETS"
-    )
     return merged
 
 
@@ -322,6 +315,29 @@ def validate_csv(
     }
 
 
+def validate_preset_contract(html: str) -> dict:
+    required = (
+        "function buildPresetOptions(dataStart,dataEnd)",
+        "function assertPresetOptions(options,dataEnd)",
+        "assertPresetOptions(options,dataEnd);",
+        "const PRESETS = buildPresetOptions(DATA_START,DATA_END);",
+        "function activePresetOptions()",
+        "activePresetOptions().find(x=>x.value===value)",
+        'if(state.preset!=="custom") applyPreset(state.preset);',
+    )
+    missing = [token for token in required if token not in html]
+    if missing:
+        raise RuntimeError(f"快捷时间窗口未使用动态计算: {missing}")
+    if re.search(r'const\s+PRESETS\s*=\s*\[', html):
+        raise RuntimeError("快捷时间窗口退回了硬编码数组，已停止刷新")
+    for value in ("last7full", "prevWeek"):
+        if re.search(
+            rf'\{{value:"{value}"[^\n]+start:"\d{{4}}-\d{{2}}-\d{{2}}', html
+        ):
+            raise RuntimeError(f"快捷时间窗口 {value} 含硬编码日期，已停止刷新")
+    return {"mode": "derived-from-data-end", "guarded": True}
+
+
 def validate_html(html: str, expected_exercise_end: str | None = None) -> dict:
     required = (
         'data-board="exercise"',
@@ -347,6 +363,7 @@ def validate_html(html: str, expected_exercise_end: str | None = None) -> dict:
         "data_end": constant_value(html, "DATA_END"),
         "formal_data_end": constant_value(html, "FORMAL_DATA_END"),
         "exercise_data_end": constant_value(html, "EXERCISE_DATA_END"),
+        "preset_contract": validate_preset_contract(html),
     }
 
 
