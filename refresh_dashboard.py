@@ -37,7 +37,7 @@ TOTAL_QUERY_LIMIT = 64 * GIB
 # The legacy pipeline now needs slightly more than 64 GiB as the event tables
 # grow. Keep the normal guard unchanged, but allow its cache-aware resume pass
 # a small, fixed extension so a healthy full refresh can finish.
-LEGACY_RESUME_QUERY_LIMIT = 72 * GIB
+LEGACY_RESUME_QUERY_LIMIT = 80 * GIB
 EXERCISE_START = date(2026, 8, 1)
 PLACEMENT_START = date(2026, 1, 1)
 AFTERCLASS_SCAN_START = date(2026, 9, 14)
