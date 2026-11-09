@@ -74,16 +74,18 @@ EXERCISE_JOBS = (
     },
 )
 
-L1_VERSION_JOB = {
-    "name": "l1_lesson_versions",
-    "sql": ROOT / "bq_l1_lesson_versions.sql",
+LESSON_VERSION_JOB = {
+    "name": "trial_lesson_versions",
+    "sql": ROOT / "bq_trial_lesson_versions.sql",
     "output": "l1_lesson_versions.csv",
-    "fields": ("start_date", "class_id", "user_key", "start", "lesson_version"),
+    "fields": (
+        "start_date", "level", "class_id", "user_key", "start", "lesson_version"
+    ),
     "date_field": "start_date",
     "allow_empty": True,
 }
 
-DATA_JOBS = (*EXERCISE_JOBS, L1_VERSION_JOB)
+DATA_JOBS = (*EXERCISE_JOBS, LESSON_VERSION_JOB)
 
 
 def parse_args() -> argparse.Namespace:
@@ -93,7 +95,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--resume", action="store_true", help="从上次中断的原看板刷新继续")
     parser.add_argument(
         "--exercise-only", action="store_true",
-        help="只更新练习分析与 L1 V3/V4 数据，不跑原看板整套任务",
+        help="只更新练习分析与 L1-L4 课程版本数据，不跑原看板整套任务",
     )
     parser.add_argument(
         "--validate-only", action="store_true",
@@ -315,6 +317,22 @@ def validate_csv(
     }
 
 
+def validate_l2_experiment_versions(path: Path) -> dict:
+    counts = {"1": 0, "2": 0, "3": 0, "4": 0, "unversioned": 0}
+    with path.open(newline="", encoding="utf-8-sig") as handle:
+        for row in csv.DictReader(handle):
+            if row.get("level") != "2":
+                continue
+            version = row.get("lesson_version") or "unversioned"
+            counts[version] = counts.get(version, 0) + 1
+    missing = [version for version in ("3", "4") if counts.get(version, 0) == 0]
+    if missing:
+        raise RuntimeError(
+            f"L2 Talker 实验版本缺失: {missing}; 已停止覆盖本地看板"
+        )
+    return counts
+
+
 def validate_preset_contract(html: str) -> dict:
     required = (
         "function buildPresetOptions(dataStart,dataEnd)",
@@ -487,12 +505,25 @@ def validate_current(repo: Path) -> dict:
     report = {"html": validate_html(html), "files": {}}
     for job in DATA_JOBS:
         path = repo / "data" / str(job["output"])
+        fields = job["fields"]
+        if job is LESSON_VERSION_JOB:
+            with path.open(newline="", encoding="utf-8-sig") as handle:
+                current_header = tuple(next(csv.reader(handle), ()))
+            legacy_header = (
+                "start_date", "class_id", "user_key", "start", "lesson_version"
+            )
+            if current_header == legacy_header:
+                fields = legacy_header
         report["files"][path.name] = validate_csv(
             path,
-            job["fields"],
+            fields,
             str(job.get("date_field", "answer_date")),
             bool(job.get("allow_empty", False)),
         )
+        if job is LESSON_VERSION_JOB and fields == job["fields"]:
+            report["files"][path.name]["l2_version_counts"] = (
+                validate_l2_experiment_versions(path)
+            )
     return report
 
 
@@ -523,7 +554,7 @@ def main() -> None:
     else:
         print("\n[1/4] 跳过原看板数据（--exercise-only）", flush=True)
 
-    print("\n[2/4] 更新练习分析与 L1 V3 / V4 数据", flush=True)
+    print("\n[2/4] 更新练习分析与 L1-L4 课程版本数据", flush=True)
     results, costs = query_dashboard_data(maintenance, args.query_end)
     with tempfile.TemporaryDirectory(prefix="dashboard-refresh-", dir=ROOT) as temp_name:
         temp = Path(temp_name)
@@ -539,6 +570,8 @@ def main() -> None:
                 bool(job.get("allow_empty", False)),
             )
             csv_reports[output.name] = report
+            if job is LESSON_VERSION_JOB:
+                report["l2_version_counts"] = validate_l2_experiment_versions(output)
             if job in EXERCISE_JOBS and report["max_date"]:
                 max_dates.append(report["max_date"])
             previous = previous_report["files"].get(output.name, {})
@@ -551,10 +584,14 @@ def main() -> None:
             raise RuntimeError("练习分析没有返回任何日期")
         exercise_end = max(max_dates)
         merged_html = replace_constant(merged_html, "EXERCISE_DATA_END", exercise_end)
-        l1_csv = (temp / str(L1_VERSION_JOB["output"])).read_text(encoding="utf-8")
+        lesson_version_csv = (
+            temp / str(LESSON_VERSION_JOB["output"])
+        ).read_text(encoding="utf-8")
         merged_html = replace_one(
             r'(<script\s+type="text/plain"\s+id="l1-lesson-version-csv">).*?(</script>)',
-            lambda match: match.group(1) + l1_csv.rstrip("\n") + match.group(2),
+            lambda match: (
+                match.group(1) + lesson_version_csv.rstrip("\n") + match.group(2)
+            ),
             merged_html,
             "l1-lesson-version-csv",
         )

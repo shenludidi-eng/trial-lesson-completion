@@ -93,3 +93,5 @@ answer_date,scene,users,questions,attempts,once,twice,three,four_plus,avg_attemp
 2026-11-06,trial_after,44,116,141,92,23,1,0,1.2155,1,2
 2026-11-07,formal_after,19,62,95,53,2,2,5,1.5323,1,3
 2026-11-07,trial_after,52,155,177,136,16,3,0,1.1419,1,2
+2026-11-09,formal_after,1,2,4,0,2,0,0,2.0,2,2
+2026-11-09,trial_after,3,7,8,6,1,0,0,1.1429,1,2

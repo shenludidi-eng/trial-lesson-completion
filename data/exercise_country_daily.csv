@@ -4416,13 +4416,28 @@ answer_date,scene,level,country,users,questions,attempts,once,twice,three,four_p
 2026-11-08,trial_in,4,Taiwan,1,2,3,1,1,0,0
 2026-11-08,trial_in,4,Thailand,2,14,23,9,1,4,0
 2026-11-08,trial_in,4,Vietnam,25,140,257,74,25,34,7
-2026-11-09,formal_in,1,Malaysia,1,9,13,6,2,1,0
-2026-11-09,formal_in,2,Malaysia,1,12,17,9,1,2,0
+2026-11-09,formal_in,1,Malaysia,4,29,49,14,10,5,0
+2026-11-09,formal_in,1,Vietnam,2,14,28,5,4,5,0
+2026-11-09,formal_in,2,Malaysia,2,40,57,29,5,6,0
+2026-11-09,formal_in,2,Vietnam,1,16,31,8,2,5,1
+2026-11-09,formal_in,3,Malaysia,2,19,26,15,1,3,0
+2026-11-09,formal_in,3,Vietnam,2,69,104,49,6,13,1
+2026-11-09,formal_in,4,Malaysia,2,17,21,14,2,1,0
 2026-11-09,trial_in,1,Hong Kong,1,4,4,4,0,0,0
-2026-11-09,trial_in,1,Malaysia,2,16,20,14,0,2,0
-2026-11-09,trial_in,1,Saudi Arabia,1,8,8,8,0,0,0
-2026-11-09,trial_in,1,Vietnam,2,5,7,4,0,1,0
-2026-11-09,trial_in,2,Saudi Arabia,4,41,63,28,6,5,2
-2026-11-09,trial_in,2,Vietnam,1,15,23,10,2,3,0
-2026-11-09,trial_in,3,Malaysia,1,8,11,6,1,1,0
+2026-11-09,trial_in,1,Japan,2,16,18,14,2,0,0
+2026-11-09,trial_in,1,Malaysia,6,38,52,30,3,4,1
+2026-11-09,trial_in,1,Saudi Arabia,3,13,16,12,0,0,1
+2026-11-09,trial_in,1,South Korea,4,22,24,20,2,0,0
+2026-11-09,trial_in,1,Vietnam,3,11,16,8,1,2,0
+2026-11-09,trial_in,2,Hong Kong,2,9,9,9,0,0,0
+2026-11-09,trial_in,2,Malaysia,4,42,51,37,2,2,1
+2026-11-09,trial_in,2,Saudi Arabia,4,47,71,33,6,6,2
+2026-11-09,trial_in,2,Vietnam,4,51,73,38,4,9,0
+2026-11-09,trial_in,3,Malaysia,5,38,54,28,5,4,1
+2026-11-09,trial_in,3,Saudi Arabia,2,12,15,9,3,0,0
+2026-11-09,trial_in,3,South Korea,1,8,12,6,0,2,0
+2026-11-09,trial_in,3,Vietnam,1,8,9,7,1,0,0
+2026-11-09,trial_in,4,Malaysia,5,33,61,16,6,11,0
+2026-11-09,trial_in,4,Saudi Arabia,1,1,5,0,0,0,1
 2026-11-09,trial_in,4,South Korea,1,7,13,3,2,2,0
+2026-11-09,trial_in,4,Vietnam,1,1,1,1,0,0,0
