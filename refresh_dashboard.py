@@ -32,11 +32,15 @@ DEFAULT_MAINTENANCE = Path(
 PROJECT = "dino-english-497507"
 GIB = 1024**3
 MIB = 1024**2
-PER_QUERY_LIMIT = 20 * GIB
+# The exercise aggregate crossed the old 20 GiB boundary as the event table
+# grew (20.020 GiB on 2026-11-12). Keep a narrow headroom rather than disabling
+# the per-query guard.
+PER_QUERY_LIMIT = 21 * GIB
 TOTAL_QUERY_LIMIT = 64 * GIB
 # The legacy pipeline now needs slightly more than 64 GiB as the event tables
 # grow. Keep the normal guard unchanged, but allow its cache-aware resume pass
 # a small, fixed extension so a healthy full refresh can finish.
+LEGACY_RESUME_PER_QUERY_LIMIT = 24 * GIB
 LEGACY_RESUME_QUERY_LIMIT = 80 * GIB
 EXERCISE_START = date(2026, 8, 1)
 PLACEMENT_START = date(2026, 1, 1)
@@ -435,6 +439,7 @@ def resume_legacy_with_cached_queries(maintenance: Path) -> None:
             raise RuntimeError("无法加载原看板查询保护器")
         runner = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(runner)
+        runner.PER_QUERY_LIMIT = LEGACY_RESUME_PER_QUERY_LIMIT
         runner.TOTAL_LIMIT = LEGACY_RESUME_QUERY_LIMIT
         stage = Path(json.loads(pipeline.POINTER.read_text(encoding="utf-8"))["stage"])
         ledger = json.loads((stage / "query-costs.json").read_text(encoding="utf-8"))
@@ -444,6 +449,7 @@ def resume_legacy_with_cached_queries(maintenance: Path) -> None:
                 completed.setdefault(entry["sql_sha256"], []).append(entry)
 
         original = bigquery.Client.query
+        runtime_completed = {}
 
         def query_signature(value) -> str:
             if isinstance(value, bigquery.QueryJobConfig):
@@ -460,6 +466,15 @@ def resume_legacy_with_cached_queries(maintenance: Path) -> None:
         def reuse_or_guard(client, query, job_config=None, **kwargs):
             digest = hashlib.sha256(query.encode()).hexdigest()
             requested = query_signature(job_config or bigquery.QueryJobConfig())
+            cache_key = (digest, requested)
+            if cache_key in runtime_completed:
+                previous_job = runtime_completed[cache_key]
+                print(
+                    f"REUSE QUERY: job={previous_job.job_id} "
+                    "(completed earlier in this resume pass; no rescan)",
+                    flush=True,
+                )
+                return previous_job
             for entry in reversed(completed.get(digest, [])):
                 previous_job = client.get_job(entry["job_id"], location=entry.get("location"))
                 if (
@@ -472,10 +487,13 @@ def resume_legacy_with_cached_queries(maintenance: Path) -> None:
                         f'billed={entry.get("billed_bytes", 0)/GIB:.3f} GiB (no rescan)',
                         flush=True,
                     )
+                    runtime_completed[cache_key] = previous_job
                     return previous_job
-            return runner.guarded_query(
+            job = runner.guarded_query(
                 original, pipeline, client, query, job_config=job_config, **kwargs
             )
+            runtime_completed[cache_key] = job
+            return job
 
         previous_argv = sys.argv[:]
         try:
