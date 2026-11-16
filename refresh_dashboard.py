@@ -32,16 +32,20 @@ DEFAULT_MAINTENANCE = Path(
 PROJECT = "dino-english-497507"
 GIB = 1024**3
 MIB = 1024**2
-# The exercise aggregate crossed the old 20 GiB boundary as the event table
-# grew (20.020 GiB on 2026-11-12). Keep a narrow headroom rather than disabling
-# the per-query guard.
-PER_QUERY_LIMIT = 21 * GIB
+# The after-class exercise aggregate must cover both delayed GA4 daily shards
+# and the retained recent intraday shards (24.155 GiB on 2026-11-16). Keep a
+# narrow headroom rather than disabling the per-query guard.
+PER_QUERY_LIMIT = 25 * GIB
 TOTAL_QUERY_LIMIT = 64 * GIB
 # The legacy pipeline now needs slightly more than 64 GiB as the event tables
 # grow. Keep the normal guard unchanged, but allow its cache-aware resume pass
 # a small, fixed extension so a healthy full refresh can finish.
 LEGACY_RESUME_PER_QUERY_LIMIT = 24 * GIB
-LEGACY_RESUME_QUERY_LIMIT = 80 * GIB
+# The legacy first-reply export scans the conversation table once per 10,000
+# opening classes. With more than 30,000 classes, a complete refresh now needs
+# about 100 GiB across many individually bounded queries. Keep the per-query
+# ceiling at 24 GiB and cap the full cache-aware resume pass at 120 GiB.
+LEGACY_RESUME_QUERY_LIMIT = 120 * GIB
 EXERCISE_START = date(2026, 8, 1)
 PLACEMENT_START = date(2026, 1, 1)
 AFTERCLASS_SCAN_START = date(2026, 9, 14)

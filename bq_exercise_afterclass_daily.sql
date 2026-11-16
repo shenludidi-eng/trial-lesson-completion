@@ -29,7 +29,12 @@ WITH base AS (
     (SELECT value.string_value FROM UNNEST(event_params) WHERE key='type') AS course_type,
     (SELECT value.string_value FROM UNNEST(event_params) WHERE key='result') AS result
   FROM `dino-english-497507.analytics_538991439.events_intraday_*`
-  WHERE _TABLE_SUFFIX = FORMAT_DATE('%Y%m%d', @end_date)
+  -- GA4 can retain several recent intraday shards while the corresponding
+  -- daily tables are still delayed. Read the full requested intraday range;
+  -- downstream attribution already collapses duplicate answer identities, so
+  -- overlap with a newly materialized daily shard cannot double count.
+  WHERE _TABLE_SUFFIX BETWEEN FORMAT_DATE('%Y%m%d', @scan_start_date)
+    AND FORMAT_DATE('%Y%m%d', @end_date)
 ), starts AS (
   SELECT * FROM base
   WHERE event_id='afterclass_practice_start' AND uid IS NOT NULL
