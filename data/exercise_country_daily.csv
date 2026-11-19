@@ -4912,12 +4912,247 @@ answer_date,scene,level,country,users,questions,attempts,once,twice,three,four_p
 2026-11-15,trial_in,4,South Korea,7,38,69,20,12,3,3
 2026-11-15,trial_in,4,Thailand,1,7,29,3,2,0,2
 2026-11-15,trial_in,4,Vietnam,21,122,222,72,28,11,11
+2026-11-16,formal_in,1,China,1,9,19,5,0,2,2
+2026-11-16,formal_in,1,Hong Kong,1,9,11,8,0,1,0
 2026-11-16,formal_in,1,Iraq,1,9,14,6,1,2,0
-2026-11-16,formal_in,3,Malaysia,1,13,15,12,0,1,0
-2026-11-16,trial_in,1,Malaysia,2,16,18,14,2,0,0
-2026-11-16,trial_in,1,Thailand,1,7,10,5,1,1,0
-2026-11-16,trial_in,1,Vietnam,1,4,9,1,2,0,1
-2026-11-16,trial_in,2,Malaysia,4,22,26,19,2,1,0
-2026-11-16,trial_in,3,Japan,2,5,12,2,1,1,1
-2026-11-16,trial_in,3,Saudi Arabia,1,8,11,6,1,1,0
-2026-11-16,trial_in,3,South Korea,1,2,2,2,0,0,0
+2026-11-16,formal_in,1,Japan,2,18,24,14,2,2,0
+2026-11-16,formal_in,1,Malaysia,10,97,130,74,13,10,0
+2026-11-16,formal_in,1,Pakistan,1,8,14,4,2,2,0
+2026-11-16,formal_in,1,Saudi Arabia,4,36,55,24,5,7,0
+2026-11-16,formal_in,1,South Korea,6,75,119,48,14,10,3
+2026-11-16,formal_in,1,Thailand,1,9,11,7,2,0,0
+2026-11-16,formal_in,1,Vietnam,55,537,751,399,78,51,9
+2026-11-16,formal_in,2,Hong Kong,2,34,43,27,5,2,0
+2026-11-16,formal_in,2,Japan,1,9,11,7,2,0,0
+2026-11-16,formal_in,2,Malaysia,3,27,44,16,5,6,0
+2026-11-16,formal_in,2,Saudi Arabia,1,9,10,8,1,0,0
+2026-11-16,formal_in,2,South Korea,3,47,80,30,5,9,3
+2026-11-16,formal_in,2,Thailand,5,73,105,50,14,9,0
+2026-11-16,formal_in,2,Vietnam,25,252,399,160,50,35,7
+2026-11-16,formal_in,3,Malaysia,12,171,269,120,23,17,11
+2026-11-16,formal_in,3,South Korea,3,36,63,22,8,1,5
+2026-11-16,formal_in,3,Thailand,2,45,90,28,7,6,4
+2026-11-16,formal_in,3,Vietnam,21,330,447,254,46,24,6
+2026-11-16,formal_in,4,Hong Kong,2,10,13,8,1,1,0
+2026-11-16,formal_in,4,Malaysia,4,70,141,35,13,14,8
+2026-11-16,formal_in,4,South Korea,2,38,54,27,8,2,1
+2026-11-16,formal_in,4,Vietnam,5,38,57,27,5,5,1
+2026-11-16,trial_in,1,China,1,7,9,5,2,0,0
+2026-11-16,trial_in,1,Hong Kong,4,33,40,28,3,2,0
+2026-11-16,trial_in,1,Iraq,3,17,28,8,7,2,0
+2026-11-16,trial_in,1,Japan,9,54,66,43,10,1,0
+2026-11-16,trial_in,1,Malaysia,24,172,227,135,25,6,6
+2026-11-16,trial_in,1,Saudi Arabia,12,74,118,46,18,7,3
+2026-11-16,trial_in,1,South Korea,10,62,94,41,14,3,4
+2026-11-16,trial_in,1,Thailand,8,52,80,32,15,4,1
+2026-11-16,trial_in,1,Türkiye,2,16,19,13,3,0,0
+2026-11-16,trial_in,1,Vietnam,58,373,542,257,74,32,10
+2026-11-16,trial_in,2,China,1,9,9,9,0,0,0
+2026-11-16,trial_in,2,Egypt,1,9,12,7,1,1,0
+2026-11-16,trial_in,2,Hong Kong,9,129,160,105,17,7,0
+2026-11-16,trial_in,2,Japan,8,80,109,61,9,10,0
+2026-11-16,trial_in,2,Macao,1,2,2,2,0,0,0
+2026-11-16,trial_in,2,Malaysia,21,254,337,197,35,21,1
+2026-11-16,trial_in,2,Saudi Arabia,11,106,167,67,23,12,4
+2026-11-16,trial_in,2,Singapore,1,3,4,2,1,0,0
+2026-11-16,trial_in,2,South Korea,16,175,218,141,25,9,0
+2026-11-16,trial_in,2,Thailand,8,90,111,75,9,6,0
+2026-11-16,trial_in,2,Türkiye,1,15,17,14,0,1,0
+2026-11-16,trial_in,2,United Arab Emirates,2,6,7,5,1,0,0
+2026-11-16,trial_in,2,Vietnam,40,461,593,378,44,34,5
+2026-11-16,trial_in,3,Hong Kong,13,95,113,85,5,3,2
+2026-11-16,trial_in,3,Japan,9,54,75,41,8,3,2
+2026-11-16,trial_in,3,Lebanon,1,8,15,5,0,2,1
+2026-11-16,trial_in,3,Malaysia,14,95,119,79,11,2,3
+2026-11-16,trial_in,3,Saudi Arabia,23,151,232,101,28,17,5
+2026-11-16,trial_in,3,Singapore,1,8,10,6,2,0,0
+2026-11-16,trial_in,3,South Korea,7,35,46,29,2,3,1
+2026-11-16,trial_in,3,Thailand,5,32,58,19,7,3,3
+2026-11-16,trial_in,3,Türkiye,2,9,16,4,3,2,0
+2026-11-16,trial_in,3,United Arab Emirates,3,17,20,14,3,0,0
+2026-11-16,trial_in,3,United States,1,5,5,5,0,0,0
+2026-11-16,trial_in,3,Vietnam,32,226,315,173,30,13,10
+2026-11-16,trial_in,4,Hong Kong,6,27,50,13,8,4,2
+2026-11-16,trial_in,4,Indonesia,1,3,4,2,1,0,0
+2026-11-16,trial_in,4,Iraq,1,2,3,1,1,0,0
+2026-11-16,trial_in,4,Japan,2,9,15,4,4,1,0
+2026-11-16,trial_in,4,Jordan,1,2,4,1,0,1,0
+2026-11-16,trial_in,4,Malaysia,9,50,78,36,6,4,4
+2026-11-16,trial_in,4,Nepal,1,3,3,3,0,0,0
+2026-11-16,trial_in,4,Saudi Arabia,8,34,52,19,12,3,0
+2026-11-16,trial_in,4,South Korea,4,18,26,11,6,1,0
+2026-11-16,trial_in,4,Thailand,2,8,19,2,3,1,2
+2026-11-16,trial_in,4,United Arab Emirates,1,1,1,1,0,0,0
+2026-11-16,trial_in,4,Vietnam,20,108,169,71,25,5,7
+2026-11-16,trial_in,5,Saudi Arabia,2,8,8,8,0,0,0
+2026-11-17,formal_in,1,Hong Kong,4,36,49,27,5,4,0
+2026-11-17,formal_in,1,Indonesia,1,9,15,6,0,3,0
+2026-11-17,formal_in,1,Iraq,1,9,10,8,1,0,0
+2026-11-17,formal_in,1,Japan,4,36,51,26,6,3,1
+2026-11-17,formal_in,1,Macao,1,9,10,8,1,0,0
+2026-11-17,formal_in,1,Malaysia,8,60,98,35,13,11,1
+2026-11-17,formal_in,1,Saudi Arabia,6,42,71,24,8,9,1
+2026-11-17,formal_in,1,South Korea,6,56,70,46,6,4,0
+2026-11-17,formal_in,1,Thailand,1,9,15,6,0,3,0
+2026-11-17,formal_in,1,United Arab Emirates,1,4,5,3,1,0,0
+2026-11-17,formal_in,1,United States,1,8,11,6,1,1,0
+2026-11-17,formal_in,1,Vietnam,41,311,476,213,44,46,8
+2026-11-17,formal_in,2,Hong Kong,1,8,16,3,3,1,1
+2026-11-17,formal_in,2,Malaysia,9,117,176,75,28,12,2
+2026-11-17,formal_in,2,Saudi Arabia,3,41,55,32,6,2,1
+2026-11-17,formal_in,2,South Korea,3,24,32,18,5,0,1
+2026-11-17,formal_in,2,Thailand,2,35,61,20,4,11,0
+2026-11-17,formal_in,2,Vietnam,16,142,244,90,19,24,9
+2026-11-17,formal_in,3,Hong Kong,2,14,22,12,1,0,1
+2026-11-17,formal_in,3,Malaysia,6,59,114,30,13,13,3
+2026-11-17,formal_in,3,South Korea,1,15,17,14,0,1,0
+2026-11-17,formal_in,3,Thailand,2,17,21,15,1,0,1
+2026-11-17,formal_in,3,Vietnam,25,317,485,224,46,33,14
+2026-11-17,formal_in,4,China,1,4,4,4,0,0,0
+2026-11-17,formal_in,4,Hong Kong,2,60,112,39,10,4,7
+2026-11-17,formal_in,4,Malaysia,4,27,34,21,5,1,0
+2026-11-17,formal_in,4,South Korea,2,21,23,19,2,0,0
+2026-11-17,formal_in,4,Vietnam,8,90,144,61,15,8,6
+2026-11-17,trial_in,1,Hong Kong,7,44,55,37,4,2,1
+2026-11-17,trial_in,1,Japan,20,118,176,80,21,14,3
+2026-11-17,trial_in,1,Macao,1,8,12,5,2,1,0
+2026-11-17,trial_in,1,Malaysia,30,180,256,130,34,12,4
+2026-11-17,trial_in,1,Saudi Arabia,17,91,141,60,16,12,3
+2026-11-17,trial_in,1,South Korea,17,106,144,83,16,4,3
+2026-11-17,trial_in,1,Thailand,12,82,117,53,24,4,1
+2026-11-17,trial_in,1,Türkiye,8,47,70,27,18,1,1
+2026-11-17,trial_in,1,United Arab Emirates,2,14,20,10,3,0,1
+2026-11-17,trial_in,1,Vietnam,60,341,491,231,77,28,5
+2026-11-17,trial_in,2,Hong Kong,12,117,127,108,8,1,0
+2026-11-17,trial_in,2,Indonesia,2,24,33,17,5,2,0
+2026-11-17,trial_in,2,Japan,10,98,130,76,14,6,2
+2026-11-17,trial_in,2,Malaysia,24,262,328,216,29,14,3
+2026-11-17,trial_in,2,Mexico,1,3,4,2,1,0,0
+2026-11-17,trial_in,2,Saudi Arabia,19,187,279,126,36,20,5
+2026-11-17,trial_in,2,South Korea,16,142,174,118,19,2,3
+2026-11-17,trial_in,2,Thailand,3,45,62,31,11,3,0
+2026-11-17,trial_in,2,Türkiye,3,23,27,21,0,2,0
+2026-11-17,trial_in,2,Vietnam,47,591,770,469,79,33,10
+2026-11-17,trial_in,3,Hong Kong,11,78,102,65,8,1,4
+2026-11-17,trial_in,3,Iraq,1,4,10,2,0,1,1
+2026-11-17,trial_in,3,Japan,9,54,103,27,12,9,6
+2026-11-17,trial_in,3,Malaysia,12,72,100,55,12,2,3
+2026-11-17,trial_in,3,Saudi Arabia,14,86,114,68,11,5,2
+2026-11-17,trial_in,3,South Korea,9,72,89,60,7,5,0
+2026-11-17,trial_in,3,Thailand,4,26,32,21,4,1,0
+2026-11-17,trial_in,3,United Arab Emirates,1,8,10,7,0,1,0
+2026-11-17,trial_in,3,Vietnam,14,98,149,72,14,5,7
+2026-11-17,trial_in,4,Hong Kong,15,91,147,54,23,10,4
+2026-11-17,trial_in,4,Japan,3,10,21,3,5,0,2
+2026-11-17,trial_in,4,Malaysia,4,15,23,11,3,0,1
+2026-11-17,trial_in,4,Saudi Arabia,8,38,84,16,9,5,8
+2026-11-17,trial_in,4,Singapore,1,5,5,5,0,0,0
+2026-11-17,trial_in,4,South Korea,6,29,46,15,12,1,1
+2026-11-17,trial_in,4,Vietnam,6,30,51,15,9,6,0
+2026-11-17,trial_in,5,Malaysia,4,27,35,21,4,2,0
+2026-11-17,trial_in,5,Saudi Arabia,3,16,24,11,2,3,0
+2026-11-17,trial_in,5,South Korea,2,16,21,12,3,1,0
+2026-11-17,trial_in,5,Vietnam,2,16,25,12,0,3,1
+2026-11-17,trial_in,6,Malaysia,1,4,5,3,1,0,0
+2026-11-17,trial_in,6,Vietnam,1,2,2,2,0,0,0
+2026-11-18,formal_in,1,China,2,6,12,2,3,0,1
+2026-11-18,formal_in,1,Hong Kong,6,55,82,37,9,9,0
+2026-11-18,formal_in,1,Indonesia,1,9,9,9,0,0,0
+2026-11-18,formal_in,1,Malaysia,7,65,88,52,7,4,2
+2026-11-18,formal_in,1,Saudi Arabia,4,35,66,19,5,7,4
+2026-11-18,formal_in,1,South Korea,4,31,46,22,4,4,1
+2026-11-18,formal_in,1,Thailand,1,2,3,1,1,0,0
+2026-11-18,formal_in,1,United Arab Emirates,1,2,3,1,1,0,0
+2026-11-18,formal_in,1,Vietnam,37,365,567,240,63,48,14
+2026-11-18,formal_in,2,Hong Kong,2,16,21,12,3,1,0
+2026-11-18,formal_in,2,Japan,1,16,25,12,1,1,2
+2026-11-18,formal_in,2,Malaysia,5,42,61,32,5,3,2
+2026-11-18,formal_in,2,Saudi Arabia,1,10,12,9,0,1,0
+2026-11-18,formal_in,2,South Korea,2,48,65,38,4,5,1
+2026-11-18,formal_in,2,Thailand,4,27,42,16,7,4,0
+2026-11-18,formal_in,2,Vietnam,24,256,380,182,47,16,11
+2026-11-18,formal_in,3,Hong Kong,1,13,21,10,1,0,2
+2026-11-18,formal_in,3,Malaysia,6,79,112,61,8,6,4
+2026-11-18,formal_in,3,South Korea,1,17,23,12,4,1,0
+2026-11-18,formal_in,3,Thailand,2,8,14,6,0,0,2
+2026-11-18,formal_in,3,Vietnam,23,423,677,284,70,44,25
+2026-11-18,formal_in,4,Malaysia,4,32,43,26,3,2,1
+2026-11-18,formal_in,4,Vietnam,6,55,86,37,8,8,2
+2026-11-18,trial_in,1,China,1,4,7,2,1,1,0
+2026-11-18,trial_in,1,Hong Kong,9,55,65,46,8,1,0
+2026-11-18,trial_in,1,India,1,8,11,6,1,1,0
+2026-11-18,trial_in,1,Indonesia,1,8,11,6,1,1,0
+2026-11-18,trial_in,1,Japan,15,74,111,53,16,1,4
+2026-11-18,trial_in,1,Macao,1,7,8,6,1,0,0
+2026-11-18,trial_in,1,Malaysia,25,164,226,119,32,9,4
+2026-11-18,trial_in,1,Saudi Arabia,25,114,165,76,27,9,2
+2026-11-18,trial_in,1,South Korea,14,88,118,66,16,4,2
+2026-11-18,trial_in,1,Thailand,4,32,44,23,6,3,0
+2026-11-18,trial_in,1,Türkiye,3,12,15,9,3,0,0
+2026-11-18,trial_in,1,United Arab Emirates,2,9,13,5,4,0,0
+2026-11-18,trial_in,1,Vietnam,46,291,415,201,62,24,4
+2026-11-18,trial_in,2,Egypt,1,5,5,5,0,0,0
+2026-11-18,trial_in,2,Hong Kong,11,116,167,84,18,12,2
+2026-11-18,trial_in,2,Iraq,1,6,12,3,0,3,0
+2026-11-18,trial_in,2,Japan,9,85,144,51,20,11,3
+2026-11-18,trial_in,2,Macao,1,15,21,11,2,2,0
+2026-11-18,trial_in,2,Malaysia,18,213,283,162,33,17,1
+2026-11-18,trial_in,2,Saudi Arabia,19,165,248,108,34,20,3
+2026-11-18,trial_in,2,South Korea,19,170,221,132,28,8,2
+2026-11-18,trial_in,2,Thailand,5,74,105,53,13,7,1
+2026-11-18,trial_in,2,United Arab Emirates,1,15,19,11,4,0,0
+2026-11-18,trial_in,2,Vietnam,29,300,372,249,32,17,2
+2026-11-18,trial_in,3,Bahrain,1,8,9,7,1,0,0
+2026-11-18,trial_in,3,Hong Kong,7,39,53,29,7,2,1
+2026-11-18,trial_in,3,Japan,5,34,45,27,4,2,1
+2026-11-18,trial_in,3,Malaysia,12,81,120,55,17,6,3
+2026-11-18,trial_in,3,Saudi Arabia,24,145,225,101,25,10,9
+2026-11-18,trial_in,3,South Korea,10,75,105,57,11,6,1
+2026-11-18,trial_in,3,Thailand,1,4,5,3,1,0,0
+2026-11-18,trial_in,3,Vietnam,23,146,184,116,24,4,2
+2026-11-18,trial_in,4,China,1,7,10,4,3,0,0
+2026-11-18,trial_in,4,Hong Kong,9,49,65,37,8,4,0
+2026-11-18,trial_in,4,Japan,2,5,9,3,1,0,1
+2026-11-18,trial_in,4,Macao,2,14,23,8,3,3,0
+2026-11-18,trial_in,4,Malaysia,7,38,64,21,11,4,2
+2026-11-18,trial_in,4,Saudi Arabia,7,33,74,15,8,3,7
+2026-11-18,trial_in,4,Singapore,1,1,1,1,0,0,0
+2026-11-18,trial_in,4,South Korea,11,41,62,29,6,3,3
+2026-11-18,trial_in,4,Vietnam,10,62,92,43,11,5,3
+2026-11-18,trial_in,5,Saudi Arabia,2,10,22,6,2,1,1
+2026-11-18,trial_in,5,South Korea,4,26,33,22,1,3,0
+2026-11-18,trial_in,6,Philippines,1,1,1,1,0,0,0
+2026-11-18,trial_in,6,South Korea,1,4,4,4,0,0,0
+2026-11-18,trial_in,6,Vietnam,1,1,1,1,0,0,0
+2026-11-19,formal_in,1,Malaysia,3,27,47,18,2,3,4
+2026-11-19,formal_in,1,South Korea,1,2,2,2,0,0,0
+2026-11-19,formal_in,1,Vietnam,1,6,9,4,1,1,0
+2026-11-19,formal_in,2,Malaysia,1,9,9,9,0,0,0
+2026-11-19,formal_in,2,South Korea,2,16,17,15,1,0,0
+2026-11-19,formal_in,2,Thailand,1,10,13,8,1,1,0
+2026-11-19,formal_in,3,Vietnam,1,17,33,9,2,4,2
+2026-11-19,trial_in,1,Indonesia,1,8,9,7,1,0,0
+2026-11-19,trial_in,1,Japan,1,1,2,0,1,0,0
+2026-11-19,trial_in,1,Malaysia,11,58,82,39,15,3,1
+2026-11-19,trial_in,1,Saudi Arabia,1,6,8,4,2,0,0
+2026-11-19,trial_in,1,South Korea,4,20,26,16,3,0,1
+2026-11-19,trial_in,1,Vietnam,3,10,10,10,0,0,0
+2026-11-19,trial_in,2,China,1,1,1,1,0,0,0
+2026-11-19,trial_in,2,Hong Kong,1,3,3,3,0,0,0
+2026-11-19,trial_in,2,Japan,1,15,15,15,0,0,0
+2026-11-19,trial_in,2,Malaysia,5,47,68,32,9,6,0
+2026-11-19,trial_in,2,Saudi Arabia,1,15,26,7,5,3,0
+2026-11-19,trial_in,2,South Korea,4,27,37,20,5,1,1
+2026-11-19,trial_in,2,United Arab Emirates,1,3,4,2,1,0,0
+2026-11-19,trial_in,3,Canada,1,6,6,6,0,0,0
+2026-11-19,trial_in,3,Hong Kong,1,6,10,5,0,0,1
+2026-11-19,trial_in,3,Japan,1,6,8,4,2,0,0
+2026-11-19,trial_in,3,Malaysia,3,24,27,21,3,0,0
+2026-11-19,trial_in,3,Saudi Arabia,2,9,13,6,2,1,0
+2026-11-19,trial_in,3,South Korea,1,6,7,5,1,0,0
+2026-11-19,trial_in,3,Thailand,1,2,3,1,1,0,0
+2026-11-19,trial_in,3,Vietnam,2,10,16,7,1,1,1
+2026-11-19,trial_in,4,Hong Kong,3,11,17,8,0,3,0
+2026-11-19,trial_in,4,Japan,1,3,7,1,1,0,1
+2026-11-19,trial_in,4,Malaysia,1,2,2,2,0,0,0
+2026-11-19,trial_in,4,South Korea,1,7,9,5,2,0,0

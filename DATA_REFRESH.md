@@ -10,7 +10,7 @@ python3 refresh_dashboard.py
 
 1. 调用原有的 BigQuery 取数链路，更新体验课完课、引导、课后练习、Dino 助手、学生回合、首次回答、正式课课后练习和设备系统数据。
 2. 更新“全部练习题表现”的课中、课后、国家、Level、年龄和能力日粒度数据。
-3. 从 `student_class.lesson_version` 更新 L1–L4 生产版本，覆盖看板全部历史日期。L2 固定展示 V1 / V2 / V3 / V4，其中 V3 是 V2 流程 + Talker，V4 是 V1 流程 + Talker。
+3. 从 `student_class.lesson_version` 更新 L1–L6 生产版本；同时按独立生产 SQL 更新 L5（lesson_id 1613）与 L6（lesson_id 1614）的完课和 V1/V2 漏斗。L5/L6 从 `2026-11-16 00:00 UTC` 起计，排除历史联调流量与测试账号。若新课堂的 `lesson_version` 尚未同步，则按首个 Template 兜底：warm-up 归 V1，L5 direct lead-in / L6 free-talk 归 V2。
 4. 将香港与澳门的不同原始写法统一合并为「港澳」，并与泰国一起更新到筛选、核心国家对比、画像、分时/分日和练习题国家分析；同样覆盖全部历史日期。
 5. 检查查询量、CSV 字段、日期范围和 HTML 必需模块；只有全部通过后才覆盖本地看板文件。
 6. 保留 `.refresh-runs/<UTC时间>/manifest.json` 供核对，但不会自动提交、push 或部署。
@@ -33,8 +33,11 @@ python3 refresh_dashboard.py
 # 上次原看板刷新中断后继续
 python3 refresh_dashboard.py --resume
 
-# 只快速更新练习分析和 L1–L4 生产版本
+# 只快速更新练习分析、L1–L4 生产版本和 L5/L6
 python3 refresh_dashboard.py --exercise-only
+
+# 只更新 L5/L6（上线前本地快速验收）
+python3 refresh_dashboard.py --l56-only
 
 # 不查库，只检查当前产物
 python3 refresh_dashboard.py --validate-only
@@ -43,6 +46,7 @@ python3 refresh_dashboard.py --validate-only
 ## 数据口径
 
 - 截止日默认是脚本运行时的 UTC 当日；看板最终显示查询结果中真实的最大日期，不会把脚本运行时间冒充为数据时间。
+- L5 对应 `TRIAL-LV5-UN1-LS0` / lesson_id `1613`，L6 对应 `TRIAL-LV6-UN1-LS0` / lesson_id `1614`。两级均展示 V1 / V2；L5 V2 直接从课程导入开始，L6 V2 从自由对话开始，模板链来自生产课堂事件并保持独立漏斗。
 - 快捷时间窗口只允许由页面内的 `DATA_END` / `FORMAL_DATA_END` / `EXERCISE_DATA_END` 动态计算，禁止写死日期。刷新流程不会从旧维护产物复制快捷窗口；校验和发布脚本会拒绝硬编码窗口或与发布参数不一致的截止时间。`node tools/check_preset_windows.mjs` 覆盖周一重合、普通工作日和跨年边界。
 - 国家口径在每次刷新后自动归一：香港和澳门（含 `Hong Kong` / `HK` / `Macau` / `Macao` 等常见写法）合并为「港澳」；泰国纳入核心国家。该规则同时作用于所有历史课堂和练习题国家数据。
 - 客观题使用“通关所需作答次数”，核心指标是一次通过率、第 2/3/4+ 次通过分布、平均次数及 P50/P90，不使用 `result` 事件正答率。

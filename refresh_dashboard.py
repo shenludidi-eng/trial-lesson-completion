@@ -35,7 +35,9 @@ MIB = 1024**2
 # The after-class exercise aggregate must cover both delayed GA4 daily shards
 # and the retained recent intraday shards (24.155 GiB on 2026-11-16). Keep a
 # narrow headroom rather than disabling the per-query guard.
-PER_QUERY_LIMIT = 25 * GIB
+# The after-class daily aggregation currently estimates at ~27.9 GiB for a
+# full refresh. Keep a tight guardrail while allowing that known query to run.
+PER_QUERY_LIMIT = 29 * GIB
 TOTAL_QUERY_LIMIT = 64 * GIB
 # The legacy pipeline now needs slightly more than 64 GiB as the event tables
 # grow. Keep the normal guard unchanged, but allow its cache-aware resume pass
@@ -50,6 +52,7 @@ EXERCISE_START = date(2026, 8, 1)
 PLACEMENT_START = date(2026, 1, 1)
 AFTERCLASS_SCAN_START = date(2026, 9, 14)
 AFTERCLASS_START = date(2026, 9, 21)
+L56_START = date(2026, 11, 16)
 
 EXERCISE_JOBS = (
     {
@@ -93,7 +96,21 @@ LESSON_VERSION_JOB = {
     "allow_empty": True,
 }
 
-DATA_JOBS = (*EXERCISE_JOBS, LESSON_VERSION_JOB)
+L56_CLASS_JOB = {
+    "name": "trial_l56_classes",
+    "sql": ROOT / "bq_trial_l56_classes.sql",
+    "output": "trial_l56_classes.csv",
+    "fields": (
+        "start_date", "level", "start", "complete", "country", "age",
+        "ability", "version", "starts", "wrapup", "tier", "user_key",
+        "templates", "age_year", "template_starts", "os",
+    ),
+    "date_field": "start_date",
+    "allow_empty": True,
+    "allow_missing": True,
+}
+
+DATA_JOBS = (*EXERCISE_JOBS, LESSON_VERSION_JOB, L56_CLASS_JOB)
 
 
 def parse_args() -> argparse.Namespace:
@@ -103,7 +120,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--resume", action="store_true", help="从上次中断的原看板刷新继续")
     parser.add_argument(
         "--exercise-only", action="store_true",
-        help="只更新练习分析与 L1-L4 课程版本数据，不跑原看板整套任务",
+        help="只更新练习分析、L1-L4 课程版本与 L5-L6 数据，不跑原看板整套任务",
+    )
+    parser.add_argument(
+        "--l56-only", action="store_true",
+        help="只更新 L5-L6 体验课数据与漏斗（本地快速验收）",
     )
     parser.add_argument(
         "--validate-only", action="store_true",
@@ -215,6 +236,7 @@ def query_parameters(bigquery, end_date: date, sql: str):
         "placement_start_date": PLACEMENT_START,
         "scan_start_date": AFTERCLASS_SCAN_START,
         "afterclass_start_date": AFTERCLASS_START,
+        "l56_start_date": L56_START,
     }
     required = set(re.findall(r"@([A-Za-z_][A-Za-z0-9_]*)", sql))
     unknown = required - values.keys()
@@ -233,12 +255,12 @@ def reserve_bytes(estimate: int, referenced_table_count: int) -> int:
     )
 
 
-def query_dashboard_data(maintenance: Path, end_date: date):
+def query_dashboard_data(maintenance: Path, end_date: date, jobs=DATA_JOBS):
     bigquery, client = load_bigquery_client(maintenance)
     total_reserved = 0
     results = {}
     costs = []
-    for job in DATA_JOBS:
+    for job in jobs:
         sql = Path(job["sql"]).read_text(encoding="utf-8")
         parameters = query_parameters(bigquery, end_date, sql)
         probe_config = bigquery.QueryJobConfig(
@@ -295,6 +317,38 @@ def write_csv(path: Path, fields: Sequence[str], rows: Iterable[Mapping]) -> Non
         writer.writeheader()
         for row in rows:
             writer.writerow({field: csv_value(row.get(field)) for field in fields})
+
+
+def merge_l56_rows(html: str, rows: Iterable[Mapping]) -> str:
+    """Replace only L5/L6 rows inside the embedded class dataset."""
+    current = script_block(html, "class-csv")
+    kept = [
+        line for line in current.splitlines()
+        if line and line.split(",", 1)[0] not in {"5", "6"}
+    ]
+    appended = []
+    for row in rows:
+        values = [
+            row.get("level"), row.get("start"), row.get("complete"),
+            row.get("country"), row.get("age"), row.get("ability"),
+            row.get("version"), row.get("starts"), row.get("wrapup"),
+            row.get("tier"), row.get("user_key"), row.get("templates"),
+            row.get("age_year"), row.get("template_starts"), row.get("os"),
+            "0", "0", "0", "", "", "", "", "0", "", "",
+        ]
+        fields = [csv_value(value) for value in values]
+        if any("," in value or "\n" in value or "\r" in value for value in fields):
+            raise RuntimeError("L5-L6 嵌入字段含逗号或换行，无法安全写入 class-csv")
+        appended.append(",".join(fields))
+    content = "\n".join([*kept, *appended])
+    if content:
+        content += "\n"
+    return replace_one(
+        r'(<script\s+type="text/plain"\s+id="class-csv">).*?(</script>)',
+        lambda match: match.group(1) + content + match.group(2),
+        html,
+        "class-csv L5-L6",
+    )
 
 
 def validate_csv(
@@ -377,6 +431,9 @@ def validate_html(html: str, expected_exercise_end: str | None = None) -> dict:
         '{name:"泰国", short:"泰国"',
         '"Hong Kong":"港澳"',
         'Macau:"港澳"',
+        '{level:5,label:"L5",lesson:"1613"',
+        '{level:6,label:"L6",lesson:"1614"',
+        '"wu56"',
     )
     missing = [token for token in required if token not in html]
     if missing:
@@ -527,6 +584,9 @@ def validate_current(repo: Path) -> dict:
     report = {"html": validate_html(html), "files": {}}
     for job in DATA_JOBS:
         path = repo / "data" / str(job["output"])
+        if not path.is_file() and job.get("allow_missing"):
+            report["files"][path.name] = {"status": "not-created-yet"}
+            continue
         fields = job["fields"]
         if job is LESSON_VERSION_JOB:
             with path.open(newline="", encoding="utf-8-sig") as handle:
@@ -561,6 +621,7 @@ def main() -> None:
     ensure_bigquery_runtime(maintenance)
 
     previous_report = validate_current(repo)
+    active_jobs = (L56_CLASS_JOB,) if args.l56_only else DATA_JOBS
     run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
     run_dir = ROOT / ".refresh-runs" / run_id
     run_dir.mkdir(parents=True, exist_ok=False)
@@ -568,21 +629,22 @@ def main() -> None:
     merged_html = (repo / "index.html").read_text(encoding="utf-8")
 
     legacy_source = None
-    if not args.exercise_only:
+    if not args.exercise_only and not args.l56_only:
         legacy_source = run_legacy_refresh(maintenance, args.resume)
         merged_html = merge_legacy_refresh(
             merged_html, legacy_source.read_text(encoding="utf-8")
         )
     else:
-        print("\n[1/4] 跳过原看板数据（--exercise-only）", flush=True)
+        mode = "--l56-only" if args.l56_only else "--exercise-only"
+        print(f"\n[1/4] 跳过原看板数据（{mode}）", flush=True)
 
-    print("\n[2/4] 更新练习分析与 L1-L4 课程版本数据", flush=True)
-    results, costs = query_dashboard_data(maintenance, args.query_end)
+    print("\n[2/4] 更新选定的数据模块", flush=True)
+    results, costs = query_dashboard_data(maintenance, args.query_end, active_jobs)
     with tempfile.TemporaryDirectory(prefix="dashboard-refresh-", dir=ROOT) as temp_name:
         temp = Path(temp_name)
         csv_reports = {}
         max_dates = []
-        for job in DATA_JOBS:
+        for job in active_jobs:
             output = temp / str(job["output"])
             write_csv(output, job["fields"], results[job["name"]])
             report = validate_csv(
@@ -597,33 +659,43 @@ def main() -> None:
             if job in EXERCISE_JOBS and report["max_date"]:
                 max_dates.append(report["max_date"])
             previous = previous_report["files"].get(output.name, {})
-            if previous.get("max_date") and report.get("max_date") < previous["max_date"]:
+            if previous.get("max_date") and (
+                not report.get("max_date") or report["max_date"] < previous["max_date"]
+            ):
                 raise RuntimeError(
                     f'{output.name} 最大日期从 {previous["max_date"]} '
                     f'回退到 {report["max_date"]}，已停止覆盖'
                 )
-        if not max_dates:
+        if any(job in EXERCISE_JOBS for job in active_jobs) and not max_dates:
             raise RuntimeError("练习分析没有返回任何日期")
-        exercise_end = max(max_dates)
-        merged_html = replace_constant(merged_html, "EXERCISE_DATA_END", exercise_end)
-        lesson_version_csv = (
-            temp / str(LESSON_VERSION_JOB["output"])
-        ).read_text(encoding="utf-8")
-        merged_html = replace_one(
-            r'(<script\s+type="text/plain"\s+id="l1-lesson-version-csv">).*?(</script>)',
-            lambda match: (
-                match.group(1) + lesson_version_csv.rstrip("\n") + match.group(2)
-            ),
-            merged_html,
-            "l1-lesson-version-csv",
-        )
+        if max_dates:
+            exercise_end = max(max_dates)
+            merged_html = replace_constant(merged_html, "EXERCISE_DATA_END", exercise_end)
+        else:
+            exercise_end = constant_value(merged_html, "EXERCISE_DATA_END")
+        if LESSON_VERSION_JOB in active_jobs:
+            lesson_version_csv = (
+                temp / str(LESSON_VERSION_JOB["output"])
+            ).read_text(encoding="utf-8")
+            merged_html = replace_one(
+                r'(<script\s+type="text/plain"\s+id="l1-lesson-version-csv">).*?(</script>)',
+                lambda match: (
+                    match.group(1) + lesson_version_csv.rstrip("\n") + match.group(2)
+                ),
+                merged_html,
+                "l1-lesson-version-csv",
+            )
+        if L56_CLASS_JOB in active_jobs:
+            merged_html = merge_l56_rows(
+                merged_html, results[L56_CLASS_JOB["name"]]
+            )
         html_report = validate_html(merged_html, exercise_end)
         candidate = temp / "index.html"
         candidate.write_text(merged_html, encoding="utf-8")
 
         print("\n[3/4] 校验并原子替换本地文件", flush=True)
         try:
-            for job in DATA_JOBS:
+            for job in active_jobs:
                 destination = repo / "data" / str(job["output"])
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 os.replace(temp / str(job["output"]), destination)
@@ -632,7 +704,7 @@ def main() -> None:
         except BaseException:
             before = run_dir / "before"
             shutil.copy2(before / "index.html", repo / "index.html")
-            for job in DATA_JOBS:
+            for job in active_jobs:
                 backup = before / str(job["output"])
                 if backup.is_file():
                     shutil.copy2(backup, repo / "data" / str(job["output"]))
@@ -643,6 +715,7 @@ def main() -> None:
         "repo": str(repo),
         "legacy_source": str(legacy_source) if legacy_source else None,
         "query_end": args.query_end.isoformat(),
+        "mode": "l56-only" if args.l56_only else "exercise-only" if args.exercise_only else "full",
         "html": html_report,
         "csv": csv_reports,
         "query_costs": costs,
