@@ -35,19 +35,21 @@ MIB = 1024**2
 # The after-class exercise aggregate must cover both delayed GA4 daily shards
 # and the retained recent intraday shards (24.155 GiB on 2026-11-16). Keep a
 # narrow headroom rather than disabling the per-query guard.
-# The after-class daily aggregation currently estimates at ~27.9 GiB for a
-# full refresh. Keep a tight guardrail while allowing that known query to run.
-PER_QUERY_LIMIT = 29 * GIB
+# The after-class daily aggregation estimated at 36.838 GiB on 2026-11-23.
+# Keep narrow headroom while allowing that known query to run.
+PER_QUERY_LIMIT = 40 * GIB
 TOTAL_QUERY_LIMIT = 64 * GIB
 # The legacy pipeline now needs slightly more than 64 GiB as the event tables
 # grow. Keep the normal guard unchanged, but allow its cache-aware resume pass
-# a small, fixed extension so a healthy full refresh can finish.
-LEGACY_RESUME_PER_QUERY_LIMIT = 24 * GIB
+# a fixed extension so the known after-class aggregate can finish. The query
+# estimated at 34.706 GiB on 2026-11-23, so retain narrow headroom at 40 GiB.
+LEGACY_RESUME_PER_QUERY_LIMIT = 40 * GIB
 # The legacy first-reply export scans the conversation table once per 10,000
 # opening classes. With more than 30,000 classes, a complete refresh now needs
-# about 100 GiB across many individually bounded queries. Keep the per-query
-# ceiling at 24 GiB and cap the full cache-aware resume pass at 120 GiB.
-LEGACY_RESUME_QUERY_LIMIT = 120 * GIB
+# about 100 GiB across many individually bounded queries. Cap the full
+# cache-aware resume pass at 130 GiB. The full run reached 124.694 GiB on
+# 2026-11-23 after the final device lookup was estimated.
+LEGACY_RESUME_QUERY_LIMIT = 130 * GIB
 EXERCISE_START = date(2026, 8, 1)
 PLACEMENT_START = date(2026, 1, 1)
 AFTERCLASS_SCAN_START = date(2026, 9, 14)
