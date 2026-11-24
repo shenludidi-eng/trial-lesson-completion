@@ -10,7 +10,7 @@ python3 refresh_dashboard.py
 
 1. 调用原有的 BigQuery 取数链路，更新体验课完课、引导、课后练习、Dino 助手、学生回合、首次回答、正式课课后练习和设备系统数据。
 2. 更新“全部练习题表现”的课中、课后、国家、Level、年龄和能力日粒度数据。
-3. 从 `student_class.lesson_version` 更新 L1–L6 生产版本；同时按独立生产 SQL 更新 L5（lesson_id 1613）与 L6（lesson_id 1614）的完课和 V1/V2 漏斗。L5/L6 从 `2026-11-16 00:00 UTC` 起计，排除历史联调流量与测试账号。若新课堂的 `lesson_version` 尚未同步，则按首个 Template 兜底：warm-up 归 V1，L5 direct lead-in / L6 free-talk 归 V2。
+3. 从 `student_class.lesson_version` 更新 L1–L6 生产版本；同时按独立生产 SQL 更新 L5（lesson_id 1613）与 L6（lesson_id 1614）的完课、V1/V2 漏斗、精确年龄、英文能力、设备档位、学生开口轮次与 Dino 助手使用。L5/L6 从 `2026-11-16 00:00 UTC` 起计，排除历史联调流量与测试账号。年龄兼容新版 `child_exact_age` 和历史精确年龄事件，英文能力兼容新版 `placement_*`；设备档位继续复用 `device_user_classification.xlsx` 的 `device_model → level` 口径。若新课堂的 `lesson_version` 尚未同步，则按首个 Template 兜底：warm-up 归 V1，L5 direct lead-in / L6 free-talk 归 V2。
 4. 将香港与澳门的不同原始写法统一合并为「港澳」，并与泰国一起更新到筛选、核心国家对比、画像、分时/分日和练习题国家分析；同样覆盖全部历史日期。
 5. 检查查询量、CSV 字段、日期范围和 HTML 必需模块；只有全部通过后才覆盖本地看板文件。
 6. 保留 `.refresh-runs/<UTC时间>/manifest.json` 供核对，但不会自动提交、push 或部署。

@@ -105,7 +105,8 @@ L56_CLASS_JOB = {
     "fields": (
         "start_date", "level", "start", "complete", "country", "age",
         "ability", "version", "starts", "wrapup", "tier", "user_key",
-        "templates", "age_year", "template_starts", "os",
+        "templates", "age_year", "template_starts", "os", "student_turns",
+        "help_events",
     ),
     "date_field": "start_date",
     "allow_empty": True,
@@ -321,6 +322,46 @@ def write_csv(path: Path, fields: Sequence[str], rows: Iterable[Mapping]) -> Non
             writer.writerow({field: csv_value(row.get(field)) for field in fields})
 
 
+def enrich_l56_device_tiers(rows: list[dict], maintenance: Path) -> None:
+    """Apply the same device_model -> tier catalog used by the legacy board."""
+    try:
+        import openpyxl
+    except ImportError as error:
+        raise RuntimeError("缺少 openpyxl，无法按现有口径补齐 L5-L6 设备档位") from error
+
+    catalog = maintenance / "Data" / "device_user_classification.xlsx"
+    if not catalog.is_file():
+        raise RuntimeError(f"找不到设备分档表: {catalog}")
+    workbook = openpyxl.load_workbook(catalog, read_only=True, data_only=True)
+    try:
+        sheet = workbook["设备用户明细"]
+        source = sheet.iter_rows(values_only=True)
+        header = [str(value or "").strip() for value in next(source)]
+        model_index = header.index("device_model")
+        tier_index = header.index("level")
+        votes: dict[str, dict[str, int]] = {}
+        for raw in source:
+            model = re.sub(r"\s+", "", str(raw[model_index] or "").strip()).lower()
+            tier = str(raw[tier_index] or "").strip()
+            if not model or tier not in {"高端", "中端", "低端", "未知"}:
+                continue
+            bucket = votes.setdefault(model, {})
+            bucket[tier] = bucket.get(tier, 0) + 1
+    finally:
+        workbook.close()
+
+    tiers = {}
+    for model, counts in votes.items():
+        core = {tier: counts.get(tier, 0) for tier in ("高端", "中端", "低端")}
+        top = max(core.values())
+        winners = [tier for tier, count in core.items() if count == top and count]
+        tiers[model] = winners[0] if len(winners) == 1 else "未知" if counts.get("未知") else "未分档"
+
+    for row in rows:
+        model = re.sub(r"\s+", "", str(row.get("device_model") or "").strip()).lower()
+        row["tier"] = tiers.get(model, "未分档" if model else "未知")
+
+
 def merge_l56_rows(html: str, rows: Iterable[Mapping]) -> str:
     """Replace only L5/L6 rows inside the embedded class dataset."""
     current = script_block(html, "class-csv")
@@ -336,7 +377,8 @@ def merge_l56_rows(html: str, rows: Iterable[Mapping]) -> str:
             row.get("version"), row.get("starts"), row.get("wrapup"),
             row.get("tier"), row.get("user_key"), row.get("templates"),
             row.get("age_year"), row.get("template_starts"), row.get("os"),
-            "0", "0", "0", "", "", "", "", "0", "", "",
+            "0", "0", "0", "", "", "", "", row.get("student_turns"), "",
+            row.get("help_events"),
         ]
         fields = [csv_value(value) for value in values]
         if any("," in value or "\n" in value or "\r" in value for value in fields):
@@ -598,6 +640,12 @@ def validate_current(repo: Path) -> dict:
             )
             if current_header == legacy_header:
                 fields = legacy_header
+        if job is L56_CLASS_JOB:
+            with path.open(newline="", encoding="utf-8-sig") as handle:
+                current_header = tuple(next(csv.reader(handle), ()))
+            legacy_header = tuple(job["fields"][:-2])
+            if current_header == legacy_header:
+                fields = legacy_header
         report["files"][path.name] = validate_csv(
             path,
             fields,
@@ -642,6 +690,8 @@ def main() -> None:
 
     print("\n[2/4] 更新选定的数据模块", flush=True)
     results, costs = query_dashboard_data(maintenance, args.query_end, active_jobs)
+    if L56_CLASS_JOB in active_jobs:
+        enrich_l56_device_tiers(results[L56_CLASS_JOB["name"]], maintenance)
     with tempfile.TemporaryDirectory(prefix="dashboard-refresh-", dir=ROOT) as temp_name:
         temp = Path(temp_name)
         csv_reports = {}
